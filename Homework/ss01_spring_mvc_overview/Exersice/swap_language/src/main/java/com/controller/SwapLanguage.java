@@ -6,6 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -18,8 +19,7 @@ public class SwapLanguage {
     @Autowired
     private ISwapService iSwapService;
     @PostMapping("swap")
-    public String swap(HttpServletRequest request, Model model){
-        String english = request.getParameter("english");
+    public String swap(@RequestParam String english, Model model){
         model.addAttribute("result",iSwapService.swap(english));
         return "showSwap";
     }

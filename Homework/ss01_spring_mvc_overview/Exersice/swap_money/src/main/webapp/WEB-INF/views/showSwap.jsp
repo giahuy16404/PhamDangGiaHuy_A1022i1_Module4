@@ -15,7 +15,7 @@
             </tr>
             <tr>
                 <td>Thành tiền VND</td>
-                <td>${result}</td>
+                <td>${result} VND</td>
             </tr>
             <tr>
                 <td><input type="submit" value="Swap"></td>

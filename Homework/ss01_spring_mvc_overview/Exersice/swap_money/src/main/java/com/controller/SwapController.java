@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import com.service.ISwapMoney;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -19,8 +20,7 @@ public class SwapController {
     @Autowired
     private ISwapMoney iSwapMoney;
     @PostMapping("/swap")
-    public String swap(HttpServletRequest request, Model model){
-        double usd = Double.parseDouble(request.getParameter("usd"));
+    public String swap(@RequestParam double usd, Model model){
         model.addAttribute("result",iSwapMoney.swap(usd));
         return "showSwap";
     }
