@@ -11,11 +11,11 @@
         <table>
             <tr>
                 <td>Nhập USD</td>
-                <td><input type="number" name="usd"></td>
+                <td><input type="number" name="usd" required></td>
             </tr>
             <tr>
                 <td>Thành tiền VND</td>
-                <td>${result} VND</td>
+                <td>${result}</td>
             </tr>
             <tr>
                 <td><input type="submit" value="Swap"></td>

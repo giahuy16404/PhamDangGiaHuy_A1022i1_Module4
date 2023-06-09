@@ -21,7 +21,7 @@ public class SwapController {
     private ISwapMoney iSwapMoney;
     @PostMapping("/swap")
     public String swap(@RequestParam double usd, Model model){
-        model.addAttribute("result",iSwapMoney.swap(usd));
+        model.addAttribute("result",iSwapMoney.swap(usd) + " VND");
         return "showSwap";
     }
 

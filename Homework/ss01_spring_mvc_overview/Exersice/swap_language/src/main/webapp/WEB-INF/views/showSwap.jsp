@@ -11,10 +11,10 @@
         <table>
             <tr>
                 <td>Nhập English</td>
-                <td><input type="text" name="english"></td>
+                <td><input type="text" name="english" required></td>
             </tr>
             <tr>
-                <td>Result Viet Nam</td>
+                <td>Result Viet Nam:</td>
                 <td>${result}</td>
             </tr>
             <tr>
