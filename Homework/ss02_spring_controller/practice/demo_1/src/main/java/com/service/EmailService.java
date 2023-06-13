@@ -1,2 +1,4 @@
-package com.service;public class EmailService {
+package com.service;
+
+public class EmailService {
 }

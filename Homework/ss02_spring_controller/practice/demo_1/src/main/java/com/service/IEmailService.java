@@ -1,2 +1,7 @@
-package com.service;public interface IEmailService {
+package com.service;
+
+import org.springframework.stereotype.Service;
+
+@Service
+public interface IEmailService {
 }

@@ -7,10 +7,14 @@
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-  <head>
-    <title>$Title$</title>
-  </head>
-  <body>
-  $END$
-  </body>
+<head>
+    <title>Title</title>
+</head>
+<body>
+<h1>Nhap Email</h1>
+<form action="/checkEmail" method="post">
+    <input type="text" name="email">
+    <button>check</button>
+</form>
+</body>
 </html>

@@ -1,2 +1,4 @@
-package com.repository;public interface IEmailRepository {
+package com.repository;
+
+public interface IEmailRepository {
 }

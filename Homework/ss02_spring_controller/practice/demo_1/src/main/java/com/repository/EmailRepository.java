@@ -1,2 +1,7 @@
-package com.repository;public class EmailRepository {
+package com.repository;
+
+import org.springframework.stereotype.Repository;
+
+@Repository
+public class EmailRepository {
 }

@@ -5,9 +5,13 @@
     <title>JSP - Hello World</title>
 </head>
 <body>
-<h1><%= "Hello World!" %>
-</h1>
-<br/>
-<a href="hello-servlet">Hello Servlet</a>
+<h3 style="color: #000000">${showTime}</h3>
+<form id="locale" method="post" action="/time-now-world">
+    <select name="world" onchange="document.getElementById('locale').submit()">
+        <option value="vn">Viet Nam</option>
+        <option value="usa"> Myx</option>
+        <option value="trung"> Trung</option>
+    </select>
+</form>
 </body>
 </html>
