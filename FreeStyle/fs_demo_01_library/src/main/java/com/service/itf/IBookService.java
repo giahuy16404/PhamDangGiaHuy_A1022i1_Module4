@@ -1,10 +1,9 @@
-package com.repository.itf;
+package com.service.itf;
 
 import com.model.Book;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface IBookRepository {
+public interface IBookService {
     List<Book> findAll();
 }

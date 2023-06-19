@@ -1,7 +1,11 @@
-package com.repository.itf;
+package com.service.itf;
 
 import com.model.Borrowing;
 
-public interface IBorrowingRepository {
+import java.util.List;
+
+public interface IBorrowingService {
     boolean add(Borrowing borrowing);
+    List<Borrowing> findAll();
+
 }

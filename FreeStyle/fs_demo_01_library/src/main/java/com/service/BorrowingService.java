@@ -1,41 +1,33 @@
-package com.repository;
+package com.service;
 
 import com.model.Borrowing;
+import com.repository.ConnectDB;
+import com.repository.QueryDB;
 import com.repository.itf.IBorrowingRepository;
+import com.service.itf.IBorrowingService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.List;
 
 @Repository
-public class BorrowingRepository implements IBorrowingRepository {
-
+public class BorrowingService implements IBorrowingService {
+    @Autowired
+    IBorrowingRepository iBorrowingRepository;
     @Override
     public boolean add(Borrowing borrowing) {
-        Connection connection = ConnectDB.getConnection();
-        PreparedStatement statement = null;
-        if (connection != null){
-            try {
-                statement = connection.prepareStatement(QueryDB.INSERT_INTO_BORROWING);
-                statement.setInt(1,borrowing.getBook().getIdBook());
-                statement.setInt(2,borrowing.getStudent().getIdStudent());
-                statement.setString(3,borrowing.getStatusBorrowing());
-                statement.setString(4,borrowing.getStarBorrowing());
-                statement.setString(5,borrowing.getEndBorrowing());
-                statement.executeUpdate();
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }finally {
-                try {
-                    statement.close();
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                }
-                ConnectDB.close();
-            }
+        if (iBorrowingRepository.add(borrowing)){
             return true;
         }
         return false;
+    }
+
+    @Override
+    public List<Borrowing> findAll() {
+        return iBorrowingRepository.findAll();
     }
 }

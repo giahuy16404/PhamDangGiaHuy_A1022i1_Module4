@@ -1,9 +1,9 @@
-package com.repository.itf;
+package com.service.itf;
 
 import com.model.Student;
 
 import java.util.List;
 
-public interface IStudentRepository {
+public interface IStudentService {
     List<Student> findAll ();
 }

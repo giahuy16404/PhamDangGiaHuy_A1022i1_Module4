@@ -18,8 +18,8 @@ public class EmailController {
     }
 
     @ModelAttribute("size")
-    public String[] size() {
-        return new String[]{"5", "10", "15", "25", "50", "100"};
+    public int[] size() {
+        return new int[]{5, 10, 15, 25, 50, 100};
     }
 
     @GetMapping("")

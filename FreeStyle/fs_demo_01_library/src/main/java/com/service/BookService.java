@@ -1,8 +1,13 @@
-package com.repository;
+package com.service;
 
 import com.model.Book;
+import com.repository.ConnectDB;
+import com.repository.QueryDB;
 import com.repository.itf.IBookRepository;
+import com.service.itf.IBookService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import org.springframework.stereotype.Service;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,30 +16,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
-@Repository
-public class BookRepository implements IBookRepository {
+@Service
+public class BookService implements IBookService {
+    @Autowired
+    IBookRepository iBookRepository;
+
     @Override
     public List<Book> findAll() {
-        Connection connection = ConnectDB.getConnection();
-        List<Book> list = new ArrayList<>();
-        Statement statement = null;
-        ResultSet resultSet = null;
-        if (connection != null) {
-            try {
-                statement = connection.createStatement();
-                resultSet = statement.executeQuery(QueryDB.SELECT_BOOK);
-                while (resultSet.next()) {
-                    int id = resultSet.getInt("id_Book");
-                    String name = resultSet.getString("name_book");
-                    String author = resultSet.getString("author_book");
-                    String describe = resultSet.getString("describe_book");
-                    int quantity = resultSet.getInt("quanlity");
-                    list.add(new Book(id, name, author, describe, quantity));
-                }
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
-            }
-        }
+        List<Book> list = iBookRepository.findAll();
         return list;
     }
 }

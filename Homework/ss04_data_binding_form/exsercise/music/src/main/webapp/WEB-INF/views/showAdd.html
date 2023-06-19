@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form th:object="${music}" method="post" enctype="multipart/form-data">
+    <table>
+        <tr>
+            <td>id</td>
+            <td><input type="text" th:field="*{id}"/></td>
+        </tr>
+        <tr>
+            <td>Ten bài hát</td>
+            <td><input type="text" th:field="*{nameMusic}"/></td>
+        </tr>
+        <tr>
+            <td>Nghệ sĩ</td>
+            <td><input type="text" th:field="*{author}"/></td>
+        </tr>
+        <tr>
+            <td>Music Genres</td>
+            <td>
+                <select th:field="*{musicGenres}">
+                    <option th:each="a : ${musicGenres}" th:value="${a}" th:text="${a}"></option>
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                Upload File
+            </td>
+            <td><input type="file" th:field="*{fileMusic}"/></td>
+        </tr>
+        <tr>
+            <td th:if="${errorFile}" th:text="${errorFile}">
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button>Save</button>
+            </td>
+        </tr>
+    </table>
+</form>
+</body>
+</html>

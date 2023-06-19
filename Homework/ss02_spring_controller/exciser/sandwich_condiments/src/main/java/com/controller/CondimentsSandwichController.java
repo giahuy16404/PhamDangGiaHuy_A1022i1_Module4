@@ -12,17 +12,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 @RequestMapping("/sandwich")
 public class CondimentsSandwichController {
+    @Autowired
+    private ICondimentsService iCondimentsService;
 
     @GetMapping("")
-    public String showCondiments(){
+    public String showCondiments() {
         return "/showCondiments";
     }
 
-    @Autowired
-    ICondimentsService iCondimentsService;
+
     @PostMapping("/condiments")
-    public String result(@RequestParam String[] condiments, Model model){
-        model.addAttribute("showList",iCondimentsService.showCondiments(condiments));
+    public String result(@RequestParam String[] condiments, Model model) {
+        model.addAttribute("showList", iCondimentsService.showCondiments(condiments));
         return "/showCondimentsSandWich";
     }
 }

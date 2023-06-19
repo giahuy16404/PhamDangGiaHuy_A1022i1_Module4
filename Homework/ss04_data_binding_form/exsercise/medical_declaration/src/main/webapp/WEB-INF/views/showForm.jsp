@@ -11,6 +11,15 @@
 <html>
 <head>
     <title>Title</title>
+    <style>
+        .text-color-red {
+            color: red;
+        }
+
+        form input {
+            width: 100%;
+        }
+    </style>
 </head>
 <body>
 <h2>TỜ KHAI Y TẾ</h2>
@@ -180,7 +189,7 @@
                 Sốt <span class="text-color-red">(*)</span>
             </td>
             <td><form:hidden path="symptom.yes"/>
-                <input type="checkbox" name="symptom.yes"  value="Sốt"/>
+                <input type="checkbox" name="symptom.yes" value="Sốt"/>
             </td>
             <td><input type="checkbox"/></td>
 
@@ -239,7 +248,7 @@
             <td><input type="checkbox"/></td>
 
             <td>
-               nổi ban ngoài da <span class="text-color-red">(*)</span>
+                nổi ban ngoài da <span class="text-color-red">(*)</span>
             </td>
             <td>
                 <input type="checkbox" name="symptom.yes" value="nổi ban ngoài da"/>
@@ -248,7 +257,8 @@
         </tr>
 
         <tr>
-            <td colspan="4">Lịch sử phơi nhiễm: Trong vonng 14 ngày qua, Anh/Chị có <span class="text-color-red">(*)</span></td>
+            <td colspan="4">Lịch sử phơi nhiễm: Trong vonng 14 ngày qua, Anh/Chị có <span
+                    class="text-color-red">(*)</span></td>
         </tr>
         <tr>
             <td></td>
@@ -257,25 +267,30 @@
         </tr>
         <tr>
             <form:hidden path="exposureHistory"/>
-            <td>Đến trang traại chăn nuôi/ chợ buôn bán động vật sống / cơ sở giết mổ động vật / tiếp xúc động vật  <span class="text-color-red">(*)</span></td>
+            <td>Đến trang traại chăn nuôi/ chợ buôn bán động vật sống / cơ sở giết mổ động vật / tiếp xúc động vật <span
+                    class="text-color-red">(*)</span></td>
             <td>
                 <input type="checkbox" name="exposureHistory" value="Có tiếp xúc"/>
             </td>
             <td><input type="checkbox"/></td>
         </tr>
         <tr>
-            <td>Tiếp xúc gần (<2m) với người mắc bệnh viêm đường hô hấp do nCoV<span class="text-color-red">(*)</span></td>
+            <td>Tiếp xúc gần (<2m) với người mắc bệnh viêm đường hô hấp do nCoV<span class="text-color-red">(*)</span>
+            </td>
             <td>
                 <input type="checkbox" name="exposureHistory" value="Có tiếp xúc"/>
             </td>
             <td><input type="checkbox"/></td>
         </tr>
         <tr>
-            <p class="text-color-red">Dữ liệu bạn cung cấp hoàn toàn bảo mật và chỉ phục vụ cho việc chống dịch, thuộc quản lý của ban chỉ đạo quốc gia về phòng chóng dịch
-            Covid-19. Khi bạn nhấn nút "Gửi" là bạn đã hiểu và đồng ý</p>
+            <p class="text-color-red">Dữ liệu bạn cung cấp hoàn toàn bảo mật và chỉ phục vụ cho việc chống dịch, thuộc
+                quản lý của ban chỉ đạo quốc gia về phòng chóng dịch
+                Covid-19. Khi bạn nhấn nút "Gửi" là bạn đã hiểu và đồng ý</p>
         </tr>
         <tr>
-            <td colspan="4"><button>GỬI TỜ KHAI</button></td>
+            <td colspan="4">
+                <button>GỬI TỜ KHAI</button>
+            </td>
         </tr>
     </table>
 </form:form>
