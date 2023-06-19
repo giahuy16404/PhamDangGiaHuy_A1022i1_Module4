@@ -76,10 +76,10 @@
 </head>
 <body>
 <h3>Customer</h3>
-<a th:href="@{/customer/create}">
-    Add new customer
+<a th:href="@{/product/create}">
+    Add new product
 </a>
-<form th:action="@{/customer/remove}" method="post" id="form-remove">
+<form th:action="@{/product/remove}" method="post" id="form-remove">
     <button class="borrow-button" style="float: right" form="form-remove">Remove</button>
     <table>
         <tr>
@@ -92,19 +92,19 @@
             <th>View</th>
         </tr>
         <tr th:each="row,rowStar: ${showList}">
-            <form th:action="@{/customer/edit}" method="post" id="form-edit" th:object="${customer}">
+            <form th:action="@{/product/edit}" method="post" id="form-edit" th:object="${product}">
                 <div th:if="${row.getId() == idCheck}">
                     <td th:text="${rowStar.count}"></td>
                     <td><input type="text" th:name="name" th:id="name" id="name" th:value="${row.name}"></td>
-                    <td><input type="text" th:name="email" th:id="email" id="email" th:value="${row.email}"></td>
-                    <td><input type="text" th:name="address" th:id="address" id="address" th:value="${row.address}">
+                    <td><input type="text" th:name="email" th:id="email" id="email" th:value="${row.price}"></td>
+                    <td><input type="text" th:name="address" th:id="address" id="address" th:value="${row.quantity}">
                     </td>
                 </div>
                 <div th:unless="${row.getId() == idCheck}">
                     <td th:text="${rowStar.count}"></td>
                     <td th:text="${row.getName()}"></td>
-                    <td th:text="${row.getEmail() }"></td>
-                    <td th:text="${row.getAddress()}"></td>
+                    <td th:text="${row.getPrice() }"></td>
+                    <td th:text="${row.getQuantity()}"></td>
                 </div>
                 <td>
                     <input type="checkbox" th:value="${row.id}" name="remove">
@@ -115,7 +115,7 @@
                         <button class="borrow-button" style="float: right" form="form-edit">Do Edit</button>
                     </div>
                     <div th:unless="${row.getId() == idCheck}">
-                        <a th:href="@{/customer/edit/{customerId}(customerId = ${row.getId()})}">
+                        <a th:href="@{/product/edit/{productId}(productId = ${row.getId()})}">
                             <button type="button" class="borrow-button">Edit</button>
                         </a>
                     </div>
