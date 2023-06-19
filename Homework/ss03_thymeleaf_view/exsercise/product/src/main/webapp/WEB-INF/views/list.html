@@ -79,54 +79,57 @@
 <a th:href="@{/product/create}">
     Add new product
 </a>
-<form th:action="@{/product/remove}" method="post" id="form-remove">
-    <button class="borrow-button" style="float: right" form="form-remove">Remove</button>
-    <table>
-        <tr>
-            <th>STT</th>
-            <th>Name Customer</th>
-            <th>Email</th>
-            <th>Address</th>
-            <th>Remove</th>
-            <th>Edit</th>
-            <th>View</th>
-        </tr>
-        <tr th:each="row,rowStar: ${showList}">
-            <form th:action="@{/product/edit}" method="post" id="form-edit" th:object="${product}">
-                <div th:if="${row.getId() == idCheck}">
-                    <td th:text="${rowStar.count}"></td>
-                    <td><input type="text" th:name="name" th:id="name" id="name" th:value="${row.name}"></td>
-                    <td><input type="text" th:name="email" th:id="email" id="email" th:value="${row.price}"></td>
-                    <td><input type="text" th:name="address" th:id="address" id="address" th:value="${row.quantity}">
-                    </td>
-                </div>
-                <div th:unless="${row.getId() == idCheck}">
-                    <td th:text="${rowStar.count}"></td>
-                    <td th:text="${row.getName()}"></td>
-                    <td th:text="${row.getPrice() }"></td>
-                    <td th:text="${row.getQuantity()}"></td>
-                </div>
-                <td>
-                    <input type="checkbox" th:value="${row.id}" name="remove">
-                    <label>tick remove</label>
-                </td>
-                <td>
-                    <div th:if="${row.getId() == idCheck}">
-                        <button class="borrow-button" style="float: right" form="form-edit">Do Edit</button>
-                    </div>
-                    <div th:unless="${row.getId() == idCheck}">
-                        <a th:href="@{/product/edit/{productId}(productId = ${row.getId()})}">
-                            <button type="button" class="borrow-button">Edit</button>
-                        </a>
-                    </div>
-                </td>
-                <td>
-                    <button class="borrow-button">View</button>
-                </td>
-            </form>
-        </tr>
+<label for="do-remove" class="borrow-button">Remove</label>
 
-    </table>
-</form>
+<table>
+    <tr>
+        <th>STT</th>
+        <th>Name Customer</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th>Remove</th>
+        <th>Edit</th>
+        <th>View</th>
+    </tr>
+    <tr th:each="row,rowStar: ${showList}">
+        <div th:if="${row.getId() == idCheck}">
+            <form th:action="@{/product/edit}" method="post" th:object="${product}">
+                <td th:text="${rowStar.count}"></td>
+                <input type="text" th:name="id" th:id="id" id="id" th:value="${row.id}" style="display: none">
+                <td><input type="text" th:name="name" th:id="name" id="name" th:value="${row.name}"></td>
+                <td><input type="text" th:name="price" th:id="price" id="price" th:value="${row.price}"></td>
+                <td><input type="text" th:name="quantity" th:id="quantity" id="quantity" th:value="${row.quantity}"></td>
+                <button type="submit" id="do-edit" class="borrow-button" style="display: none">Do Edit</button>
+            </form>
+        </div>
+        <form th:action="@{/product/remove}" method="post" id="form-remove">
+            <div th:unless="${row.getId() == idCheck}">
+                <td th:text="${rowStar.count}"></td>
+                <td th:text="${row.getName()}"></td>
+                <td th:text="${row.getPrice() }"></td>
+                <td th:text="${row.getQuantity()}"></td>
+            </div>
+            <td>
+                <input type="checkbox" th:value="${row.id}" name="remove">
+                <label>tick remove</label>
+            </td>
+            <button type="submit" id="do-remove" class="borrow-button" style="display: none">Remove</button>
+        </form>
+        <td>
+            <div th:if="${row.getId() == idCheck}">
+                <label for="do-edit" class="borrow-button">Do Edit</label>
+            </div>
+            <div th:unless="${row.getId() == idCheck}">
+                <a th:href="@{/product/edit/{productId}(productId = ${row.getId()})}">
+                    <button type="button" class="borrow-button">Edit</button>
+                </a>
+            </div>
+        </td>
+        <td>
+            <button class="borrow-button">View</button>
+        </td>
+    </tr>
+</table>
 </body>
+
 </html>

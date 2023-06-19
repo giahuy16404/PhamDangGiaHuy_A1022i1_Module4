@@ -30,4 +30,12 @@ IProductRepository iProductRepository;
         }
         return false;
     }
+
+    @Override
+    public boolean edit(Product product) {
+        if (iProductRepository.edit(product)){
+            return true;
+        }
+        return false;
+    }
 }

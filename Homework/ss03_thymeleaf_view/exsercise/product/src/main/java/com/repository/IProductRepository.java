@@ -8,4 +8,6 @@ public interface IProductRepository {
     List<Product> showList();
     boolean add(Product product);
     boolean remove(int remove);
+    boolean edit(Product product);
+
 }

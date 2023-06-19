@@ -89,4 +89,31 @@ public class ProductRepository implements IProductRepository {
         }
         return false;
     }
+
+    @Override
+    public boolean edit(Product product) {
+        Connection connection = ConnectDB.getConnection();
+        PreparedStatement statement = null;
+        if ( connection != null){
+            try {
+                statement = connection.prepareStatement(QueryDB.UPDATE_PRODUCT);
+                statement.setString(1,product.getName());
+                statement.setString(2,product.getPrice());
+                statement.setString(3,product.getQuantity());
+                statement.setInt(4,product.getId());
+                statement.executeUpdate();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }finally {
+                try {
+                    statement.close();
+                } catch (SQLException e) {
+                    throw new RuntimeException(e);
+                }
+                ConnectDB.close();
+            }
+            return true;
+        }
+        return false;
+    }
 }
