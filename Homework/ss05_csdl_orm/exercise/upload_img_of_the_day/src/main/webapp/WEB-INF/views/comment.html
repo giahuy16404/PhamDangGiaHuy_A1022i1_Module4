@@ -6,6 +6,18 @@
 </head>
 <body>
 <img id="img-of-the-day" width="200" height="200">
+<form th:object="${ImageOfTheDay}" method="post">
+
+    <select th:field="*{scoringScale.idSco}" }>
+        <option th:each="scor : ${listScor}" th:value="${scor.idSco}" th:text="${scor.name}"></option>
+    </select>
+    <p>Author:</p>
+    <input type="text" th:field="*{author}">
+    <p>Feedback:</p>
+    <textarea th:field="*{feedback}">
+    </textarea><br>
+    <button>Comment</button>
+</form>
 <p th:if="${message}">
     <span th:text="${message}"></span>
 </p>
@@ -17,8 +29,6 @@
 </a>
     <hr>
 </div>
-
-</body>
 <script>
     let query = 'https://api.nasa.gov/planetary/apod?api_key=iDvDpTOcwFDNEtM8x0N8fZLV94XKeR8SvwopuCKd\n';
     let request = new XMLHttpRequest();
@@ -31,4 +41,5 @@
     };
     request.send();
 </script>
+</body>
 </html>

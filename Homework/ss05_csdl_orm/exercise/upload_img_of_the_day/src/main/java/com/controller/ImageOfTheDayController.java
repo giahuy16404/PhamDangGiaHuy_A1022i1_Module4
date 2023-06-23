@@ -20,21 +20,15 @@ public class ImageOfTheDayController {
 
     @GetMapping("")
     public ModelAndView showList() {
-        ModelAndView modelAndView = new ModelAndView("showComment");
+        ModelAndView modelAndView = new ModelAndView("comment");
+        modelAndView.addObject("ImageOfTheDay", new ImageOfTheDay());
+        List<ScoringScale> list = iImageOfTheDayService.finAllScoringScale();
+        modelAndView.addObject("listScor", list);
         modelAndView.addObject("list", iImageOfTheDayService.findAll());
         return modelAndView;
     }
 
-    @GetMapping("/comment")
-    public ModelAndView showCreateComment() {
-        ModelAndView modelAndView = new ModelAndView("createComment");
-        modelAndView.addObject("ImageOfTheDay", new ImageOfTheDay());
-        List<ScoringScale> list = iImageOfTheDayService.finAllScoringScale();
-        modelAndView.addObject("listScor", list);
-        return modelAndView;
-    }
-
-    @PostMapping("/comment")
+    @PostMapping("")
     public String createComment(ImageOfTheDay imageOfTheDay, RedirectAttributes redirectAttributes) {
         LocalDate date = LocalDate.now();
         imageOfTheDay.setStartDate(date);
