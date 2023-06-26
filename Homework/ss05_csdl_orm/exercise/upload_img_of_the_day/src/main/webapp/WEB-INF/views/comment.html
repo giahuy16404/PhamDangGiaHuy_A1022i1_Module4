@@ -22,7 +22,7 @@
     <span th:text="${message}"></span>
 </p>
 <hr>
-<div th:each="l:${list}">
+<div th:each="l,s:${list}">
     +<span th:text="${l.scoringScale.getName()}" style="padding-right:20px"></span><span th:text="${l.feedback}"></span><br>
     <span th:text="${l.likeComment}"></span> Like <a th:href="@{/image-of-the-day/likeComment/__${l.getId()}__}">
     <button>Like</button>

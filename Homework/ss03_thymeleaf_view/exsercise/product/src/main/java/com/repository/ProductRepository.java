@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
 @Repository
 public class ProductRepository implements IProductRepository {
     @Override
@@ -14,20 +15,20 @@ public class ProductRepository implements IProductRepository {
         Statement statement = null;
         ResultSet resultSet = null;
         List<Product> list = new ArrayList<>();
-        if (connection != null){
+        if (connection != null) {
             try {
                 statement = connection.createStatement();
                 resultSet = statement.executeQuery(QueryDB.SHOW_LIST_PRODUCT);
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     int id = resultSet.getInt("id");
                     String name = resultSet.getString("name");
-                    String email = resultSet.getString("price");
+                    double email = resultSet.getDouble("price");
                     String address = resultSet.getString("quantity");
-                    list.add(new Product(id,name,email,address));
+                    list.add(new Product(id, name, email, address));
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }finally {
+            } finally {
                 try {
                     resultSet.close();
                     statement.close();
@@ -44,16 +45,16 @@ public class ProductRepository implements IProductRepository {
     public boolean add(Product product) {
         Connection connection = ConnectDB.getConnection();
         PreparedStatement statement = null;
-        if ( connection != null){
+        if (connection != null) {
             try {
                 statement = connection.prepareStatement(QueryDB.ADD_PRODUCT);
                 statement.setString(1, product.getName());
-                statement.setString(2, product.getPrice());
+                statement.setDouble(2, product.getPrice());
                 statement.setString(3, product.getQuantity());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }finally {
+            } finally {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -70,14 +71,14 @@ public class ProductRepository implements IProductRepository {
     public boolean remove(int remove) {
         Connection connection = ConnectDB.getConnection();
         PreparedStatement statement = null;
-        if (connection != null){
+        if (connection != null) {
             try {
                 statement = connection.prepareStatement(QueryDB.REMOVE_PRODUCT);
-                statement.setInt(1,remove);
+                statement.setInt(1, remove);
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }finally {
+            } finally {
                 try {
                     statement.close();
                 } catch (SQLException e) {
@@ -94,17 +95,17 @@ public class ProductRepository implements IProductRepository {
     public boolean edit(Product product) {
         Connection connection = ConnectDB.getConnection();
         PreparedStatement statement = null;
-        if ( connection != null){
+        if (connection != null) {
             try {
                 statement = connection.prepareStatement(QueryDB.UPDATE_PRODUCT);
-                statement.setString(1,product.getName());
-                statement.setString(2,product.getPrice());
-                statement.setString(3,product.getQuantity());
-                statement.setInt(4,product.getId());
+                statement.setString(1, product.getName());
+                statement.setDouble(2, product.getPrice());
+                statement.setString(3, product.getQuantity());
+                statement.setInt(4, product.getId());
                 statement.executeUpdate();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
-            }finally {
+            } finally {
                 try {
                     statement.close();
                 } catch (SQLException e) {

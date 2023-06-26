@@ -23,38 +23,38 @@ public class ProductController {
     }
 
     @GetMapping("/create")
-    public ModelAndView showCreate(Model model){
+    public ModelAndView showCreate(Model model) {
         ModelAndView modelAndView = new ModelAndView("/create");
-        modelAndView.addObject("productOb",new Product());
+        modelAndView.addObject("productOb", new Product());
         return modelAndView;
     }
 
     @PostMapping("/save")
-    public String save(Product product){
+    public String save(Product product) {
         iProductService.add(product);
 //        redirectAttributes.addFlashAttribute("final","Thêm thành công!");
         return "redirect: /product";
     }
 
     @PostMapping("remove")
-    public String remove(@RequestParam int[] remove){
-        for (int s:remove) {
+    public String remove(@RequestParam int[] remove) {
+        for (int s : remove) {
             iProductService.remove(s);
         }
         return "redirect:/product";
     }
 
     @GetMapping("/edit/{id}")
-    public String edit(Model model, @PathVariable int id){
-        model.addAttribute("idCheck",id);
-        model.addAttribute("product",new Product());
+    public String edit(Model model, @PathVariable("id") int id) {
+        model.addAttribute("idCheck", id);
+        model.addAttribute("product", new Product());
         model.addAttribute("showList", iProductService.showList());
         return "/list";
 
     }
 
     @PostMapping("/edit")
-    public ModelAndView doEdit(Product product){
+    public ModelAndView doEdit(Product product) {
         iProductService.edit(product);
         ModelAndView modelAndView;
         modelAndView = showList();

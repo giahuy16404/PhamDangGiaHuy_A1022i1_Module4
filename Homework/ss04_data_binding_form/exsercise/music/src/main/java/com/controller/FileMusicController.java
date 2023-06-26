@@ -39,7 +39,7 @@ public class FileMusicController {
 
     @PostMapping("")
     public ModelAndView uploadFile(@ModelAttribute FileMusic fileMusic) throws IOException {
-        String fileUpload = "D:\\CODEGYM\\Module4\\Homework\\ss04_data_binding_form\\exsercise\\music\\src\\main\\resources\\fileUpload";
+        String fileUpload = "D:\\CODEGYM\\Module4\\Homework\\ss04_data_binding_form\\exsercise\\music\\src\\main\\webapp\\fileUpload";
 
         MultipartFile multipartFile = fileMusic.getFileMusic();
         ModelAndView modelAndView = new ModelAndView("/show");

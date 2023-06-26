@@ -10,7 +10,7 @@ public class ImageOfTheDay {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private String author;
+    private String author   ;
     @ManyToOne()
     @JoinColumn(name = "idSco", nullable = false, referencedColumnName = "idSco")
     private ScoringScale scoringScale;
