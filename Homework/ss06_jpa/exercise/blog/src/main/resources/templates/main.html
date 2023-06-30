@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+<!--    <style>-->
+<!--        #header {-->
+<!--            width: 100%;-->
+<!--            height: 10%;-->
+<!--            background-color: #0082f5;-->
+<!--        }-->
+
+<!--        #header-one {-->
+<!--            text-align: center;-->
+<!--            height: 50%;-->
+<!--        }-->
+
+<!--        #header-two {-->
+<!--            height: 50%;-->
+<!--        }-->
+
+<!--        .nav-link {-->
+<!--            position: relative;-->
+<!--            bottom: 10px;-->
+<!--            margin-left: 30px;-->
+<!--            font-size: 23px;-->
+<!--            color: black;-->
+<!--        }-->
+
+<!--        .nav-link:hover {-->
+<!--            background-color: aqua;-->
+<!--            border-radius: 15px;-->
+<!--        }-->
+
+<!--        #main {-->
+<!--            position: absolute;-->
+<!--            height: 88.5%;-->
+<!--            bottom: 0px;-->
+<!--            width: 100%;-->
+<!--        }-->
+
+<!--        #main, #main-right, #main-left {-->
+<!--            border: solid 1px;-->
+
+<!--        }-->
+
+<!--        #main-left {-->
+<!--            display: inline;-->
+<!--            float: left;-->
+<!--            width: 20%;-->
+<!--            height: 100%;-->
+<!--            overflow: auto;-->
+<!--        }-->
+
+<!--        #main-right {-->
+<!--            float: right;-->
+<!--            width: 80%;-->
+<!--            height: 100%;-->
+<!--        }-->
+
+<!--        .box-blog {-->
+<!--            width: 100%;-->
+<!--            height: 150px;-->
+<!--            border-bottom: solid 1px;-->
+<!--            font-size: 15px;-->
+<!--        }-->
+
+<!--        .box-blog a {-->
+<!--            text-decoration: none;-->
+<!--            color: black;-->
+<!--        }-->
+
+<!--        #icon-box-blog {-->
+<!--            height: auto;-->
+<!--        }-->
+
+<!--        #description {-->
+<!--            height: 100px;-->
+<!--            text-indent: 5px;-->
+<!--        }-->
+
+<!--        #content-boxOnDay-blog {-->
+<!--            margin: 5px;-->
+<!--        }-->
+
+<!--        .title-main-content {-->
+<!--            text-align: center;-->
+<!--        }-->
+
+<!--        #main-content p {-->
+<!--            text-indent: 20px;-->
+<!--        }-->
+
+<!--        #main-content {-->
+<!--            width: 98%;-->
+<!--            margin-left: 20px;-->
+<!--        }-->
+
+<!--        #icon-main-content {-->
+<!--            display: flex;-->
+<!--            align-items: center;-->
+<!--        }-->
+
+<!--        #icon-comment-main-content {-->
+<!--            margin-left: 10px;-->
+<!--        }-->
+
+<!--        #icon-view-main-content {-->
+<!--            margin-left: 10px;-->
+
+<!--        }-->
+
+<!--        #main-content a {-->
+<!--            text-decoration: none;-->
+<!--            color: black;-->
+<!--        }-->
+
+<!--        #main-content a:hover {-->
+<!--            text-decoration: none;-->
+<!--            color: #0082f5;-->
+<!--        }-->
+
+<!--    </style>-->
+    <link rel="stylesheet" href="/cssMain.css">
+</head>
+<body>
+<div th:fragment="header_main">
+    <div id="header">
+        <div id="header-one">
+            <h3>Blog Hy</h3>
+        </div>
+        <div id="header-two">
+            <nav class="nav">
+                <a class="nav-link " th:href="@{/blog}">Trang chủ</a>
+                <a class="nav-link" th:href="@{/blog/list}">Danh sách</a>
+                <a class="nav-link" th:href="@{/blog/create}">Viết Blog</a>
+                <a class="nav-link " href="#">#</a>
+            </nav>
+        </div>
+    </div>
+</div>
+<main>
+    <div id="main">
+        <div id="main-left">
+            <div class="box-blog" th:each="listOnDay:${blogOnDay}">
+                <div id="content-boxOnDay-blog">
+                    <a th:href="@{/blog/addView/__${listOnDay.getStatusBlog().getIdStatusBlog()}__/__${listOnDay.getIdBlog()}__}">
+                        <div id="title">
+                            <strong>Title : </strong> <strong th:text="${listOnDay.title}"></strong><br>
+                        </div>
+                        <div id="description">
+                            <span th:text="${listOnDay.description}"></span>
+                        </div>
+                        <div id="icon-box-blog">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                            </svg>
+                            <span th:text="${listOnDay.getStatusBlog().getLikeBlog()}"></span>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                            <span th:text="${listOnDay.getStatusBlog().getViewBlog()}"></span>
+                        </div>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+        <div id="main-right">
+            <div th:each="list : ${blogById}">
+                <div id="main-content">
+                    <strong><h2 th:text="${list.title}" class="title-main-content"></h2></strong>
+                    <strong>Tác giả : <span th:text="${list.author.name}"></span></strong>
+                    <br>
+                    <br>
+                    <p th:text="${list.content}"></p>
+                    <div id="icon-main-content">
+                        <div id="icon-like-main-content">
+                            <a th:href="@{/blog/addLike/__${list.getStatusBlog().getIdStatusBlog()}__/__${list.getIdBlog()}__}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                     class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                                    <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                                </svg>
+                            </a>
+                            <span th:text="${list.getStatusBlog().getLikeBlog()}"></span>
+                        </div>
+                        <div id="icon-comment-main-content">
+                            <a th:href="@{/blog/addComment/__${list.getStatusBlog().getIdStatusBlog()}__}">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                     class="bi bi-chat-left-text-fill" viewBox="0 0 16 16">
+                                    <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H4.414a1 1 0 0 0-.707.293L.854 15.146A.5.5 0 0 1 0 14.793V2zm3.5 1a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h9a.5.5 0 0 0 0-1h-9zm0 2.5a.5.5 0 0 0 0 1h5a.5.5 0 0 0 0-1h-5z"/>
+                                </svg>
+                            </a>
+                        </div>
+                        <div id="icon-view-main-content">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor"
+                                 class="bi bi-eye" viewBox="0 0 16 16">
+                                <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                                <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                            </svg>
+                            <span th:text="${list.getStatusBlog().getViewBlog()}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</main>
+</body>
+</html>

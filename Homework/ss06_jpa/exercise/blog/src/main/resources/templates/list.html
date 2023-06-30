@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+    <style>
+        /*#header {*/
+        /*    width: 100%;*/
+        /*    height: 10%;*/
+        /*    background-color: #0082f5;*/
+        /*}*/
+
+        /*#header-one {*/
+        /*    text-align: center;*/
+        /*    height: 50%;*/
+        /*}*/
+
+        /*#header-two {*/
+        /*    height: 50%;*/
+        /*}*/
+
+        /*.nav-link {*/
+        /*    position: relative;*/
+        /*    bottom: 10px;*/
+        /*    margin-left: 30px;*/
+        /*    font-size: 23px;*/
+        /*    color: black;*/
+        /*}*/
+
+        /*.nav-link:hover {*/
+        /*    background-color: aqua;*/
+        /*    border-radius: 15px;*/
+        /*}*/
+
+        /*#main {*/
+        /*    width: 100%;*/
+        /*    position: absolute;*/
+        /*    bottom: 0px;*/
+        /*    height: 87%;*/
+        /*}*/
+
+        /*#main {*/
+        /*    text-decoration: none;*/
+        /*    color: black;*/
+        /*}*/
+
+        /*#main-ads-left {*/
+        /*    display: inline;*/
+        /*    float: left;*/
+        /*    width: 15%;*/
+        /*    height: 100%;*/
+        /*    !*background-color: darkgray;*!*/
+        /*}*/
+
+        /*#main-ads-right {*/
+        /*    display: inline;*/
+        /*    float: right;*/
+        /*    width: 15%;*/
+        /*    height: 100%;*/
+        /*    !*background-color: darkgray;*!*/
+        /*}*/
+
+        /*#main-list {*/
+        /*    position: absolute;*/
+        /*    left: 15%;*/
+        /*    right: 15%;*/
+        /*    height: 100%;*/
+        /*}*/
+
+        /*#list-content {*/
+        /*    width: 100%;*/
+        /*    height: 100px;*/
+        /*    border: solid 1px;*/
+        /*    margin-bottom: 5px;*/
+        /*}*/
+
+        /*#content-box {*/
+        /*    width: 100%;*/
+        /*    height: 75px;*/
+        /*}*/
+
+        /*#icon-box-blog svg {*/
+        /*    margin: auto;*/
+        /*}*/
+
+        /*#icon-box-blog {*/
+        /*    height: auto;*/
+        /*    width: auto;*/
+        /*}*/
+
+        /*#dropdownMenuButton{*/
+        /*    color: black;*/
+        /*    background-color: white;*/
+        /*    border: none;*/
+        /*}*/
+        /*#dropdownMenuButton :hover{*/
+        /*    color: #0082f5;*/
+        /*    background-color: #ffffff;*/
+        /*    border: none;*/
+        /*}*/
+        /*!*.dropdown{*!*/
+        /*!*    display: inline;*!*/
+        /*!*    position: relative;*!*/
+        /*!*    bottom: 95px;*!*/
+        /*!*    left: 1040px;*!*/
+        /*!*}*!*/
+        /*.dropdown-container {*/
+        /*    position: relative;*/
+        /*}*/
+
+        /*.dropdown-container .dropdown {*/
+        /*    position: absolute;*/
+        /*    top: -95px;*/
+        /*    right: 0;*/
+        /*}*/
+    </style>
+    <link rel="stylesheet" href="/cssList.css">
+</head>
+<body>
+<div th:insert="~{main :: header_main}">
+</div>
+<div id="main">
+    <div id="main-ads-left"></div>
+    <div id="main-list">
+        <div id="list-content" th:each="list:${blogPage}">
+            <div id="content-boxOnDay-blog">
+                <!--                <a th:href="@{/blog/addView/__${list.getStatusBlog().getIdStatusBlog()}__/__${list.getIdBlog()}__}">-->
+                <div id="content-box">
+                    <a th:href="@{/blog/addView/__${list.getIdBlog()}__/__${list.getStatusBlog().getIdStatusBlog()}__}">
+                    <div id="title">
+                        <strong>Title : </strong> <strong th:text="${list.title}"></strong><br>
+                    </div>
+                    </a>
+                    <div id="description">
+                        <span th:text="${list.description}"></span>
+                    </div>
+                </div>
+
+                <div id="icon-box-blog">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-hand-thumbs-up-fill" viewBox="0 0 16 16">
+                        <path d="M6.956 1.745C7.021.81 7.908.087 8.864.325l.261.066c.463.116.874.456 1.012.965.22.816.533 2.511.062 4.51a9.84 9.84 0 0 1 .443-.051c.713-.065 1.669-.072 2.516.21.518.173.994.681 1.2 1.273.184.532.16 1.162-.234 1.733.058.119.103.242.138.363.077.27.113.567.113.856 0 .289-.036.586-.113.856-.039.135-.09.273-.16.404.169.387.107.819-.003 1.148a3.163 3.163 0 0 1-.488.901c.054.152.076.312.076.465 0 .305-.089.625-.253.912C13.1 15.522 12.437 16 11.5 16H8c-.605 0-1.07-.081-1.466-.218a4.82 4.82 0 0 1-.97-.484l-.048-.03c-.504-.307-.999-.609-2.068-.722C2.682 14.464 2 13.846 2 13V9c0-.85.685-1.432 1.357-1.615.849-.232 1.574-.787 2.132-1.41.56-.627.914-1.28 1.039-1.639.199-.575.356-1.539.428-2.59z"/>
+                    </svg>
+                    <span th:text="${list.getStatusBlog().getLikeBlog()}"></span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                         class="bi bi-eye" viewBox="0 0 16 16">
+                        <path d="M16 8s-3-5.5-8-5.5S0 8 0 8s3 5.5 8 5.5S16 8 16 8zM1.173 8a13.133 13.133 0 0 1 1.66-2.043C4.12 4.668 5.88 3.5 8 3.5c2.12 0 3.879 1.168 5.168 2.457A13.133 13.133 0 0 1 14.828 8c-.058.087-.122.183-.195.288-.335.48-.83 1.12-1.465 1.755C11.879 11.332 10.119 12.5 8 12.5c-2.12 0-3.879-1.168-5.168-2.457A13.134 13.134 0 0 1 1.172 8z"/>
+                        <path d="M8 5.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5zM4.5 8a3.5 3.5 0 1 1 7 0 3.5 3.5 0 0 1-7 0z"/>
+                    </svg>
+                    <span th:text="${list.getStatusBlog().getViewBlog()}"></span>
+                </div>
+                <div class="dropdown-container">
+                    <div class="dropdown">
+                        <button id="dropdownMenuButton"
+                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                                 class="bi bi-gear" viewBox="0 0 16 16">
+                                <path d="M8 4.754a3.246 3.246 0 1 0 0 6.492 3.246 3.246 0 0 0 0-6.492zM5.754 8a2.246 2.246 0 1 1 4.492 0 2.246 2.246 0 0 1-4.492 0z"/>
+                                <path d="M9.796 1.343c-.527-1.79-3.065-1.79-3.592 0l-.094.319a.873.873 0 0 1-1.255.52l-.292-.16c-1.64-.892-3.433.902-2.54 2.541l.159.292a.873.873 0 0 1-.52 1.255l-.319.094c-1.79.527-1.79 3.065 0 3.592l.319.094a.873.873 0 0 1 .52 1.255l-.16.292c-.892 1.64.901 3.434 2.541 2.54l.292-.159a.873.873 0 0 1 1.255.52l.094.319c.527 1.79 3.065 1.79 3.592 0l.094-.319a.873.873 0 0 1 1.255-.52l.292.16c1.64.893 3.434-.902 2.54-2.541l-.159-.292a.873.873 0 0 1 .52-1.255l.319-.094c1.79-.527
+                            1.79-3.065 0-3.592l-.319-.094a.873.873 0 0 1-.52-1.255l.16-.292c.893-1.64-.902-3.433-2.541-2.54l-.292.159a.873.873 0 0 1-1.255-.52l-.094-.319zm-2.633.283c.246-.835 1.428-.835 1.674 0l.094.319a1.873 1.873
+                             0 0 0 2.693 1.115l.291-.16c.764-.415 1.6.42 1.184 1.185l-.159.292a1.873 1.873 0 0 0 1.116 2.692l.318.094c.835.246.835 1.428 0 1.674l-.319.094a1.873 1.873 0 0 0-1.115 2.693l.16.291c.415.764-.42 1.6-1.185 1.184l-.291-.159a1.873 1.873 0 0 0-2.693 1.116l-.094.318c-.246.835-1.428.835-1.674 0l-.094-.319a1.873 1.873 0 0 0-2.692-1.115l-.292.16c-.764.415-1.6-.42-1.184-1.185l.159-.291A1.873 1.873 0 0 0 1.945 8.93l-.319-.094c-.835-.246-.835-1.428 0-1.674l.319-.094A1.873 1.873 0 0 0 3.06 4.377l-.16-.292c-.415-.764.42-1.6 1.185-1.184l.292.159a1.873 1.873 0 0 0 2.692-1.115l.094-.319z"/>
+                            </svg>
+                        </button>
+                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            <a class="dropdown-item" th:href="@{/blog/update/__${list.getIdBlog()}__}">Edit</a>
+                            <a class="dropdown-item" href="#">#</a>
+                            <a class="dropdown-item" href="#">#</a>
+                        </div>
+                    </div>
+                </div>
+                <!--                </a>-->
+            </div>
+        </div>
+        <a th:if="${blogPage.hasPrevious()}" th:href="@{/blog/list(page=${blogPage.number -1})}">Previous</a>
+            <span th:text="${blogPage.number +1}"></span>
+            <span th:text="${blogPage.totalPages}"></span>
+        <a th:if="${blogPage.hasNext()}" th:href="@{/blog/list(page=${blogPage.number +1})}">Next</a>
+    </div>
+    <div id="main-ads-right"></div>
+</div>
+
+</body>
+</html>
