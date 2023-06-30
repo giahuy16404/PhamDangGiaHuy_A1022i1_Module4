@@ -25,6 +25,8 @@
             <strong><h2 th:text="${list.title}" class="title-main-content"></h2></strong>
             <strong>Tác giả : <span th:text="${list.author.name}"></span></strong>
             <br>
+            <strong>Thể loại : <span th:text="${list.category.name}"></span></strong>
+            <br>
             <br>
             <p th:text="${list.content}" id="text-content-blog"></p>
             <div id="icon-main-content">

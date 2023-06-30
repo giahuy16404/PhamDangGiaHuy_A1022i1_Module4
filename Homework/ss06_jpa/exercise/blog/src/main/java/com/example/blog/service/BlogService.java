@@ -1,6 +1,7 @@
 package com.example.blog.service;
 
 import com.example.blog.model.Blog;
+import com.example.blog.model.Category;
 import com.example.blog.model.StatusBlog;
 import com.example.blog.repository.itf.IBlogRepository;
 import com.example.blog.service.itf.IBlogService;
@@ -38,6 +39,8 @@ public class BlogService implements IBlogService {
     public List<Blog> findBlogOnDay() {
         return iBlogRepository.findBlogOnDay();
     }
+
+
 
     @Override
     public List<Blog> findBlogTopView() {

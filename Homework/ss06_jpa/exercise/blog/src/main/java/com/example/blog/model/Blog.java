@@ -18,16 +18,21 @@ public class Blog {
     @JoinColumn(name = "idStatusBlog",nullable = false,referencedColumnName = "idStatusBlog")
     private StatusBlog statusBlog;
 
+    @ManyToOne
+    @JoinColumn(name = "idCategory",nullable = false,referencedColumnName = "idCategory")
+    private Category category;
+
     public Blog() {
     }
 
-    public Blog(int idBlog, Author author, String title, String description, String content, StatusBlog statusBlog) {
+    public Blog(int idBlog, Author author, String title, String description, String content, StatusBlog statusBlog, Category category) {
         this.idBlog = idBlog;
         this.author = author;
         this.title = title;
         this.description = description;
         this.content = content;
         this.statusBlog = statusBlog;
+        this.category = category;
     }
 
     public int getIdBlog() {
@@ -78,15 +83,11 @@ public class Blog {
         this.statusBlog = statusBlog;
     }
 
-    @Override
-    public String toString() {
-        return "Blog{" +
-                "idBlog=" + idBlog +
-                ", author=" + author +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                ", content='" + content + '\'' +
-                ", statusBlog=" + statusBlog +
-                '}';
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
     }
 }

@@ -140,6 +140,7 @@
                     <a th:href="@{/blog/addView/__${list.getIdBlog()}__/__${list.getStatusBlog().getIdStatusBlog()}__}">
                     <div id="title">
                         <strong>Title : </strong> <strong th:text="${list.title}"></strong><br>
+                        <strong>Thể loại : </strong> <strong th:text="${list.category.name}"></strong><br>
                     </div>
                     </a>
                     <div id="description">

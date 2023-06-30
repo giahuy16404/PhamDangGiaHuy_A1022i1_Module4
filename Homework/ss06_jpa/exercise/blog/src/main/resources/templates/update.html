@@ -28,8 +28,6 @@
                 <input type="text" id="nameAuthor" th:value="${list.author.name}" name="author.name"/>
                 <input type="text" style="display: none" id="idAuthor" th:value="${list.author.idAuthor}" name="author.idAuthor"/><br>
 
-
-
                 <input type="text" style="display: none" id="getViewBlog" th:value="${list.statusBlog.viewBlog}" name="statusBlog.viewBlog"/>
                 <input type="text" style="display: none" id="getLikeBlog" th:value="${list.statusBlog.likeBlog}" name="statusBlog.likeBlog"/>
                 <input type="text" style="display: none" id="getIdStatus" th:value="${list.statusBlog.idStatusBlog}" name="statusBlog.idStatusBlog"/>
@@ -43,6 +41,10 @@
                 <label for="description">Description Blog:</label>
                 <input type="text" th:name="description" th:id="description" id="description"
                        th:value="${list.description}"><br>
+
+                <select th:field="*{category}" id="category">
+                    <option th:each="cgrList:${categoryList}" th:value="${cgrList.idCategory}" th:text="${list.category.name}"></option>
+                </select><br>
 
                 <label for="content">Content</label><br>
                 <textarea rows="4" cols="40" th:name="content" th:id="content" id="content"

@@ -35,6 +35,11 @@
     <label for="description">Description Blog:</label>
     <input type="text" th:field="*{description}" id="description"><br>
 
+    <label for="category">Category:</label>
+    <select th:field="*{category}" id="category">
+        <option th:each="cgrList:${categoryList}" th:value="${cgrList.idCategory}" th:text="${cgrList.name}"></option>
+    </select><br>
+
     <label for="content">Content</label><br>
     <textarea rows="4" cols="40" th:field="*{content}" id="content"></textarea>
 

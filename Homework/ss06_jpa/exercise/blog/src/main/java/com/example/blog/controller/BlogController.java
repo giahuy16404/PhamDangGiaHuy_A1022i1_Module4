@@ -1,11 +1,14 @@
 package com.example.blog.controller;
 
 //import com.example.blog.config.LocalDateFormatString;
+
 import com.example.blog.model.Author;
 import com.example.blog.model.Blog;
+import com.example.blog.model.Category;
 import com.example.blog.model.StatusBlog;
 import com.example.blog.service.itf.IAuthorService;
 import com.example.blog.service.itf.IBlogService;
+import com.example.blog.service.itf.ICategoryService;
 import com.example.blog.service.itf.IStatusBlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -27,17 +30,22 @@ public class BlogController {
     private IBlogService iBlogService;
     @Autowired
     private IStatusBlogService iStatusBlogService;
+    @Autowired
+    private ICategoryService iCategoryService;
 
     @GetMapping("/create")
-    public ModelAndView showCreateBlog(){
+    public ModelAndView showCreateBlog() {
         ModelAndView modelAndView = new ModelAndView("createBlog");
-        modelAndView.addObject("obBlog",new Blog());
+        modelAndView.addObject("obBlog", new Blog());
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
+
     @PostMapping("/create")
-    public String createBlog(Blog blog){
+    public String createBlog(Blog blog) {
         Author author = new Author();
         StatusBlog statusBlog = new StatusBlog();
+        Category category = new Category();
 
         //CREATE TABLE AUTHOR
         author.setName(blog.getAuthor().getName());
@@ -55,78 +63,84 @@ public class BlogController {
         int maxIdStatusBlog = iStatusBlogService.showMaxId();
         statusBlog.setIdStatusBlog(maxIdStatusBlog);
 
+        //Category
+        category.setIdCategory(blog.getCategory().getIdCategory());
+
+
         //CREATE TABLE BLOG
-        Blog newBlog = new Blog(0,author,blog.getTitle(),blog.getDescription(),blog.getContent(),statusBlog);
+        Blog newBlog = new Blog(0, author, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
         iBlogService.create(newBlog);
         return "redirect:/blog";
     }
+
     @GetMapping("")
-    public ModelAndView showMain(){
+    public ModelAndView showMain() {
         ModelAndView modelAndView = new ModelAndView("main");
-        modelAndView.addObject("blogTopView",iBlogService.findBlogTopView());
-        modelAndView.addObject("blogOnDay",iBlogService.findBlogOnDay());
+        modelAndView.addObject("blogTopView", iBlogService.findBlogTopView());
+        modelAndView.addObject("blogOnDay", iBlogService.findBlogOnDay());
         return modelAndView;
     }
-
 
 
     @GetMapping("/showBlog/{idBlog}")
-    public ModelAndView showBlog(RedirectAttributes redirectAttributes,@PathVariable int idBlog){
+    public ModelAndView showBlog(RedirectAttributes redirectAttributes, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog");
-        redirectAttributes.addFlashAttribute("blogById",iBlogService.findById(idBlog));
+        redirectAttributes.addFlashAttribute("blogById", iBlogService.findById(idBlog));
         return modelAndView;
     }
 
 
-
     @GetMapping("/list")
-    public ModelAndView showList(@RequestParam(defaultValue = "0") int page){
+    public ModelAndView showList(@RequestParam(defaultValue = "0") int page) {
         ModelAndView modelAndView = new ModelAndView("list");
-        Pageable pageable = PageRequest.of(page,8);
+        Pageable pageable = PageRequest.of(page, 8);
         Page<Blog> blogPage = iBlogService.findAll(pageable);
-        modelAndView.addObject("blogPage",blogPage);
+        modelAndView.addObject("blogPage", blogPage);
 //        modelAndView.addObject("showList",iBlogService.findAll());
         return modelAndView;
     }
 
     @GetMapping("/view/{idBlog}")
-    public ModelAndView viewBlog(@PathVariable int idBlog){
+    public ModelAndView viewBlog(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/viewBlog");
 
-        modelAndView.addObject("viewBlog",iBlogService.findById(idBlog));
+        modelAndView.addObject("viewBlog", iBlogService.findById(idBlog));
         return modelAndView;
     }
 
     @GetMapping("/addView/{idStatusBlog}/{idBlog}")
-    public ModelAndView addView(@PathVariable int idStatusBlog, @PathVariable int idBlog, RedirectAttributes redirectAttributes){
+    public ModelAndView addView(@PathVariable int idStatusBlog, @PathVariable int idBlog, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog/view/{idBlog}");
-        redirectAttributes.addFlashAttribute("idBlog",idBlog);
+        redirectAttributes.addFlashAttribute("idBlog", idBlog);
         iStatusBlogService.addView(idStatusBlog);
         return modelAndView;
     }
 
     @GetMapping("/addLike/{idStatusBlog}/{idBlog}")
-    public ModelAndView addLike( @PathVariable int idStatusBlog,@PathVariable int idBlog,RedirectAttributes redirectAttributes){
+    public ModelAndView addLike(@PathVariable int idStatusBlog, @PathVariable int idBlog, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog/view/{idBlog}");
-        redirectAttributes.addFlashAttribute("idBlog",idBlog);
+        redirectAttributes.addFlashAttribute("idBlog", idBlog);
         iStatusBlogService.addLike(idStatusBlog);
         return modelAndView;
     }
 
     @GetMapping("/update/{idBlog}")
-    public ModelAndView update(@PathVariable int idBlog){
+    public ModelAndView update(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/update");
-        modelAndView.addObject("objBlog",iBlogService.findById(idBlog));
-        modelAndView.addObject("updateObjBlog",new Blog());
+        modelAndView.addObject("objBlog", iBlogService.findById(idBlog));
+        modelAndView.addObject(
+                "updateObjBlog", new Blog());
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
 
     @PostMapping("/update/{idBlog}")
-    public ModelAndView update( Blog blog,@PathVariable int idBlog,RedirectAttributes redirectAttributes){
+    public ModelAndView update(Blog blog, @PathVariable int idBlog, RedirectAttributes redirectAttributes) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog/view/{idBlog}");
-        redirectAttributes.addFlashAttribute("idBlog",idBlog);
+        redirectAttributes.addFlashAttribute("idBlog", idBlog);
         StatusBlog statusBlog = new StatusBlog();
         Author author = new Author();
+        Category category = new Category();
 
         //CREATE TABLE AUTHOR
         author.setName(blog.getAuthor().getName());
@@ -145,8 +159,12 @@ public class BlogController {
         iStatusBlogService.update(statusBlog);
 
 
+        //Category
+        category.setIdCategory(blog.getCategory().getIdCategory());
+
+
         //CREATE TABLE BLOG
-        Blog newBlog = new Blog(idBlog,author,blog.getTitle(),blog.getDescription(),blog.getContent(),statusBlog);
+        Blog newBlog = new Blog(idBlog, author, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
         iBlogService.update(newBlog);
 
         return modelAndView;
