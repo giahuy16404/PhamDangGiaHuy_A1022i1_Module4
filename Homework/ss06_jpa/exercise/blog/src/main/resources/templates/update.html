@@ -48,7 +48,7 @@
 
                 <label for="content">Content</label><br>
                 <textarea rows="4" cols="40" th:name="content" th:id="content" id="content"
-                          th:value="${list.content}"></textarea>
+                          th:value="${list.content}" th:text="${list.content}"></textarea>
                 <button>Update</button>
             </form>
 

@@ -9,4 +9,6 @@ public interface IStatusBlogService {
     boolean addView(int id);
 
     boolean addLike(int id);
+    boolean delete(int id);
+
 }

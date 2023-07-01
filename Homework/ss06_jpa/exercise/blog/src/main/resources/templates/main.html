@@ -3,141 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="/cssMain.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
           integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-
-<!--    <style>-->
-<!--        #header {-->
-<!--            width: 100%;-->
-<!--            height: 10%;-->
-<!--            background-color: #0082f5;-->
-<!--        }-->
-
-<!--        #header-one {-->
-<!--            text-align: center;-->
-<!--            height: 50%;-->
-<!--        }-->
-
-<!--        #header-two {-->
-<!--            height: 50%;-->
-<!--        }-->
-
-<!--        .nav-link {-->
-<!--            position: relative;-->
-<!--            bottom: 10px;-->
-<!--            margin-left: 30px;-->
-<!--            font-size: 23px;-->
-<!--            color: black;-->
-<!--        }-->
-
-<!--        .nav-link:hover {-->
-<!--            background-color: aqua;-->
-<!--            border-radius: 15px;-->
-<!--        }-->
-
-<!--        #main {-->
-<!--            position: absolute;-->
-<!--            height: 88.5%;-->
-<!--            bottom: 0px;-->
-<!--            width: 100%;-->
-<!--        }-->
-
-<!--        #main, #main-right, #main-left {-->
-<!--            border: solid 1px;-->
-
-<!--        }-->
-
-<!--        #main-left {-->
-<!--            display: inline;-->
-<!--            float: left;-->
-<!--            width: 20%;-->
-<!--            height: 100%;-->
-<!--            overflow: auto;-->
-<!--        }-->
-
-<!--        #main-right {-->
-<!--            float: right;-->
-<!--            width: 80%;-->
-<!--            height: 100%;-->
-<!--        }-->
-
-<!--        .box-blog {-->
-<!--            width: 100%;-->
-<!--            height: 150px;-->
-<!--            border-bottom: solid 1px;-->
-<!--            font-size: 15px;-->
-<!--        }-->
-
-<!--        .box-blog a {-->
-<!--            text-decoration: none;-->
-<!--            color: black;-->
-<!--        }-->
-
-<!--        #icon-box-blog {-->
-<!--            height: auto;-->
-<!--        }-->
-
-<!--        #description {-->
-<!--            height: 100px;-->
-<!--            text-indent: 5px;-->
-<!--        }-->
-
-<!--        #content-boxOnDay-blog {-->
-<!--            margin: 5px;-->
-<!--        }-->
-
-<!--        .title-main-content {-->
-<!--            text-align: center;-->
-<!--        }-->
-
-<!--        #main-content p {-->
-<!--            text-indent: 20px;-->
-<!--        }-->
-
-<!--        #main-content {-->
-<!--            width: 98%;-->
-<!--            margin-left: 20px;-->
-<!--        }-->
-
-<!--        #icon-main-content {-->
-<!--            display: flex;-->
-<!--            align-items: center;-->
-<!--        }-->
-
-<!--        #icon-comment-main-content {-->
-<!--            margin-left: 10px;-->
-<!--        }-->
-
-<!--        #icon-view-main-content {-->
-<!--            margin-left: 10px;-->
-
-<!--        }-->
-
-<!--        #main-content a {-->
-<!--            text-decoration: none;-->
-<!--            color: black;-->
-<!--        }-->
-
-<!--        #main-content a:hover {-->
-<!--            text-decoration: none;-->
-<!--            color: #0082f5;-->
-<!--        }-->
-
-<!--    </style>-->
-    <link rel="stylesheet" href="/cssMain.css">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
 </head>
 <body>
 <div th:fragment="header_main">
     <div id="header">
         <div id="header-one">
-            <h3>Blog Hy</h3>
+            <h4>Blog Hy</h4>
         </div>
         <div id="header-two">
-            <nav class="nav">
-                <a class="nav-link " th:href="@{/blog}">Trang chủ</a>
-                <a class="nav-link" th:href="@{/blog/list}">Danh sách</a>
-                <a class="nav-link" th:href="@{/blog/create}">Viết Blog</a>
-                <a class="nav-link " href="#">#</a>
+            <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/blog}">Trang chủ <span class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/blog/list}">Danh sách <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/blog/create}">Viết blog <span class="sr-only">(current)</span></a>
+                        </li>
+
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Dropdown
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" th:href="@{/blog/showBlogByCategory/__${ctgr.idCategory}__}" th:each="ctgr:${categoryList}" th:text="${ctgr.name}"></a>
+                            </div>
+                        </li>
+
+                    </ul>
+                    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/blog/search}">
+                        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="valueSearch">
+                        <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                    </form>
+                </div>
             </nav>
         </div>
     </div>

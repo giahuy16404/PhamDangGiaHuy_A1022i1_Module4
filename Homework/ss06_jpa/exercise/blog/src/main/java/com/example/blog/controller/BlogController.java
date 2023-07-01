@@ -78,6 +78,7 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView("main");
         modelAndView.addObject("blogTopView", iBlogService.findBlogTopView());
         modelAndView.addObject("blogOnDay", iBlogService.findBlogOnDay());
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
 
@@ -86,6 +87,7 @@ public class BlogController {
     public ModelAndView showBlog(RedirectAttributes redirectAttributes, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog");
         redirectAttributes.addFlashAttribute("blogById", iBlogService.findById(idBlog));
+
         return modelAndView;
     }
 
@@ -96,14 +98,14 @@ public class BlogController {
         Pageable pageable = PageRequest.of(page, 8);
         Page<Blog> blogPage = iBlogService.findAll(pageable);
         modelAndView.addObject("blogPage", blogPage);
-//        modelAndView.addObject("showList",iBlogService.findAll());
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
 
     @GetMapping("/view/{idBlog}")
     public ModelAndView viewBlog(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/viewBlog");
-
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
         modelAndView.addObject("viewBlog", iBlogService.findById(idBlog));
         return modelAndView;
     }
@@ -128,8 +130,7 @@ public class BlogController {
     public ModelAndView update(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("/update");
         modelAndView.addObject("objBlog", iBlogService.findById(idBlog));
-        modelAndView.addObject(
-                "updateObjBlog", new Blog());
+        modelAndView.addObject("updateObjBlog", new Blog());
         modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
@@ -147,21 +148,16 @@ public class BlogController {
         author.setIdAuthor(idBlog);
         iAuthorService.update(author);
 
-
         //CREATE TABLE STATUS_BLOG
         statusBlog.setTimeCreateBlog(blog.getStatusBlog().getTimeCreateBlog());
         statusBlog.setTimeViewBlog(blog.getStatusBlog().getTimeViewBlog());
-
-
         statusBlog.setLikeBlog(blog.getStatusBlog().getLikeBlog());
         statusBlog.setViewBlog(blog.getStatusBlog().getViewBlog());
         statusBlog.setIdStatusBlog(idBlog);
         iStatusBlogService.update(statusBlog);
 
-
         //Category
         category.setIdCategory(blog.getCategory().getIdCategory());
-
 
         //CREATE TABLE BLOG
         Blog newBlog = new Blog(idBlog, author, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
@@ -169,4 +165,37 @@ public class BlogController {
 
         return modelAndView;
     }
+
+    @GetMapping("/delete/{idBlog}")
+    public ModelAndView delete(@PathVariable int idBlog) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/blog/list");
+        iBlogService.delete(idBlog);
+        iAuthorService.delete(idBlog);
+        iStatusBlogService.delete(idBlog);
+        return modelAndView;
+    }
+
+    @GetMapping("/showBlogByCategory/{idCategory}")
+    public ModelAndView showBlogByCategory(@PathVariable String idCategory,
+                                           @RequestParam(defaultValue = "0") int page
+                                           ) {
+        ModelAndView modelAndView = new ModelAndView("/list");
+        Pageable pageable = PageRequest.of(page, 8);
+        Page<Blog> blogPage = iBlogService.findBlogByCategory(idCategory,pageable);
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
+        modelAndView.addObject("blogPage",blogPage);
+        return modelAndView;
+    }
+
+    @PostMapping("/search")
+    public ModelAndView search(@RequestParam String valueSearch, @RequestParam(defaultValue = "0") int page){
+        ModelAndView modelAndView = new ModelAndView("/list");
+        Pageable pageable = PageRequest.of(page,8);
+        Page<Blog> blogPage = iBlogService.findBlogByAll(valueSearch,valueSearch,valueSearch,pageable);
+        modelAndView.addObject("categoryList", iCategoryService.findCategory());
+        modelAndView.addObject("blogPage",blogPage);
+        return modelAndView;
+
+    }
+
 }

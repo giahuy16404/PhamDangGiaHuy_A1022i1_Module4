@@ -1,6 +1,7 @@
 package com.example.blog.service;
 
 import com.example.blog.model.Author;
+import com.example.blog.model.Blog;
 import com.example.blog.model.StatusBlog;
 import com.example.blog.repository.itf.IAuthorRepository;
 import com.example.blog.service.itf.IAuthorService;
@@ -45,5 +46,17 @@ public class AuthorService implements IAuthorService {
     @Override
     public boolean remove(int id) {
         return false;
+    }
+
+    @Override
+    @Transactional
+    public boolean delete(int id) {
+        try{
+            iAuthorRepository.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
     }
 }

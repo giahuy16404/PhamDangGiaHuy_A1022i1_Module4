@@ -1,6 +1,7 @@
 package com.example.blog.service.itf;
 
 import com.example.blog.model.Author;
+import com.example.blog.model.Blog;
 import com.example.blog.model.StatusBlog;
 
 import java.util.List;
@@ -14,4 +15,7 @@ public interface IAuthorService {
 
     boolean edit(Author author);
     boolean remove(int id);
+    boolean delete(int id);
+
+
 }

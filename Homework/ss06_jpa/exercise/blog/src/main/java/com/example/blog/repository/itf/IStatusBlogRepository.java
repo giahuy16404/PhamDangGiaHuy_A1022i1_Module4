@@ -20,4 +20,5 @@ public interface IStatusBlogRepository extends JpaRepository<StatusBlog,Integer>
     @Query(value = "UPDATE status_blog SET status_blog.like_blog = status_blog.like_blog + 1 WHERE status_blog.id_status_blog = :id", nativeQuery = true)
     @Modifying
     void addLike(@Param("id") int id);
+
 }

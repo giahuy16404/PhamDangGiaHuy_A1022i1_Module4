@@ -42,6 +42,17 @@ public class StatusBlogService implements IStatusBlogService {
     }
 
     @Override
+    public boolean delete(int id) {
+        try{
+            iStatusBlogRepository.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     @Transactional
     public boolean addView(int id) {
         try{

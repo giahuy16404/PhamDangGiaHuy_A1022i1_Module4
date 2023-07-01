@@ -5,6 +5,7 @@ import com.example.blog.model.Category;
 import com.example.blog.model.StatusBlog;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -16,6 +17,12 @@ public interface IBlogService{
     List<Blog> findBlogTopView();
     List<Blog> findById(int id);
     boolean update(Blog blog);
+    boolean delete(int id);
+    Page<Blog> findBlogByCategory(String category,Pageable pageable);
+
+    Page<Blog> findBlogByAll( String title, String description, String name,Pageable pageable);
+
+
 
 
 

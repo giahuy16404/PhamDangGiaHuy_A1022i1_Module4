@@ -63,5 +63,27 @@ public class BlogService implements IBlogService {
         return blog1 != null;
     }
 
+    @Override
+    @Transactional
+    public boolean delete(int id) {
+        try{
+            iBlogRepository.deleteById(id);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public Page<Blog> findBlogByCategory(String category,Pageable pageable) {
+        return iBlogRepository.findBlogByCategory("%"+category+"%",pageable);
+    }
+
+    @Override
+    public Page<Blog> findBlogByAll(String title, String description, String name, Pageable pageable) {
+        return iBlogRepository.findBlogByAll("%"+title+"%","%"+description+"%","%"+name+"%",pageable);
+    }
+
 
 }

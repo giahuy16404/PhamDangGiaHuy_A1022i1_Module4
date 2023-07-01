@@ -26,7 +26,7 @@ public class QueryDb {
             "            JOIN category ON blog.id_category = category.id_category WHERE\n" +
             "status_blog.view_blog IN ( SELECT  MAX(status_blog.view_blog) FROM status_blog);";
 
-    public static final String SELECT_ALL_BLOG  = "SELECT blog.id_Blog , blog.content , blog.title ,blog.description, author.id_author ,\n" +
+    public static final String SELECT_ALL_BLOG = "SELECT blog.id_Blog , blog.content , blog.title ,blog.description, author.id_author ,\n" +
             "           author.name , status_blog.id_status_blog , status_blog.like_blog , status_blog.time_create_blog,\n" +
             "            status_blog.time_view_blog , status_blog.view_blog, category.id_category,category.name\n" +
             "            FROM blog JOIN author ON blog.id_author = author.id_author\n" +
@@ -35,5 +35,21 @@ public class QueryDb {
 
     public static final String ADD_VIEW = "UPDATE status_blog SET status_blog.view_blog = status_blog.view_blog + 1 WHERE status_blog.id_status_blog = :id;";
     public static final String ADD_LIKE = "UPDATE status_blog SET status_blog.likeBlog = status_blog.likeBlog + 1 WHERE status_blog.id_status_blog = :id;";
+
+    public static final String SELECT_BLOG_BY_CATEGORY = "SELECT blog.id_Blog , blog.content , blog.title ,blog.description, author.id_author, author.name , \n" +
+            "status_blog.id_status_blog , status_blog.like_blog , status_blog.time_create_blog, status_blog.time_view_blog , \n" +
+            "status_blog.view_blog, category.id_category,category.name \n" +
+            "FROM blog JOIN author ON blog.id_author = author.id_author \n" +
+            "JOIN status_blog ON blog.id_status_blog = status_blog.id_status_blog \n" +
+            "JOIN category ON blog.id_category = category.id_category \n" +
+            "WHERE category.id_category LIKE :id";
+
+    public static final String SELECT_BLOG_BY_SEARCH_ALL = "SELECT blog.id_Blog , blog.content , blog.title ,blog.description, author.id_author, author.name , \n" +
+            "status_blog.id_status_blog , status_blog.like_blog , status_blog.time_create_blog, status_blog.time_view_blog , \n" +
+            "status_blog.view_blog, category.id_category,category.name \n" +
+            "FROM blog JOIN author ON blog.id_author = author.id_author \n" +
+            "JOIN status_blog ON blog.id_status_blog = status_blog.id_status_blog \n" +
+            "JOIN category ON blog.id_category = category.id_category \n" +
+            "WHERE blog.title  LIKE :title OR blog.description LIKE :description OR author.name LIKE :name";
 
 }
