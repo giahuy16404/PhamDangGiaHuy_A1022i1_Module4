@@ -37,17 +37,23 @@
                             <a class="nav-link" th:href="@{/blog/create}">Viết blog <span class="sr-only">(current)</span></a>
                         </li>
 
+                        <li class="nav-item active">
+                            <a class="nav-link" th:href="@{/user/create}">Login <span class="sr-only">(current)</span></a>
+                        </li>
+
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Dropdown
                             </a>
-                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <a class="dropdown-item" th:href="@{/blog/showBlogByCategory/__${ctgr.idCategory}__}" th:each="ctgr:${categoryList}" th:text="${ctgr.name}"></a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown" >
+                                <form id="formCategory" th:action="@{/blog/list}">
+                                    <button onchange="document.getElementById('formCategory').submit()" class="dropdown-item" th:each="ctgr:${categoryList}" name="category" th:text="${ctgr.name}" th:value="${ctgr.idCategory}"></button>
+                                </form>
                             </div>
                         </li>
 
                     </ul>
-                    <form class="form-inline my-2 my-lg-0" method="post" th:action="@{/blog/search}">
+                    <form class="form-inline my-2 my-lg-0" method="get" th:action="@{/blog/list}">
                         <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" name="valueSearch">
                         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                     </form>
@@ -90,7 +96,7 @@
             <div th:each="list : ${blogById}">
                 <div id="main-content">
                     <strong><h2 th:text="${list.title}" class="title-main-content"></h2></strong>
-                    <strong>Tác giả : <span th:text="${list.author.name}"></span></strong>
+                    <strong>Tác giả : <span th:text="${list.user.name}"></span></strong>
                     <br>
                     <br>
                     <p th:text="${list.content}"></p>

@@ -59,6 +59,14 @@ public class BlogService implements IBlogService {
 
     @Override
     public boolean update(Blog blog) {
+         Blog blog2 = iBlogRepository.findById(blog.getIdBlog()).orElse(null);
+        blog2.setIdBlog(blog.getIdBlog());
+        blog2.setUser(blog.getUser());
+        blog2.setTitle(blog.getTitle());
+        blog2.setDescription(blog.getDescription());
+        blog2.setContent(blog.getContent());
+        blog2.setStatusBlog(blog.getStatusBlog());
+        blog2.setCategory(blog.getCategory());
         Blog blog1 = iBlogRepository.save(blog);
         return blog1 != null;
     }

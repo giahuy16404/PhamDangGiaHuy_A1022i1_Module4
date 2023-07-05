@@ -1,39 +1,29 @@
-package com.example.blog.model;
+package com.example.blog.dto;
 
-import javax.persistence.*;
-import java.util.Set;
+import com.example.blog.model.Category;
+import com.example.blog.model.StatusBlog;
 
-@Entity
-public class Blog {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class BlogDto {
     private int idBlog;
-    @ManyToOne
-    @JoinColumn(name = "idUser",nullable = false,referencedColumnName = "idUser")
-    private User user;
+    private UserDto author;
     private String title;
     private String description;
-    @Column(columnDefinition = "LONGTEXT")
     private String content;
-    @OneToOne
-    @JoinColumn(name = "idStatusBlog",nullable = false,referencedColumnName = "idStatusBlog")
     private StatusBlog statusBlog;
 
-    @ManyToOne
-    @JoinColumn(name = "idCategory",nullable = false,referencedColumnName = "idCategory")
     private Category category;
 
-    public Blog() {
-    }
-
-    public Blog(int idBlog, User user, String title, String description, String content, StatusBlog statusBlog, Category category) {
+    public BlogDto(int idBlog, UserDto author, String title, String description, String content, StatusBlog statusBlog, Category category) {
         this.idBlog = idBlog;
-        this.user = user;
+        this.author = author;
         this.title = title;
         this.description = description;
         this.content = content;
         this.statusBlog = statusBlog;
         this.category = category;
+    }
+
+    public BlogDto() {
     }
 
     public int getIdBlog() {
@@ -44,12 +34,12 @@ public class Blog {
         this.idBlog = idBlog;
     }
 
-    public User getUser() {
-        return user;
+    public UserDto getAuthor() {
+        return author;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setAuthor(UserDto author) {
+        this.author = author;
     }
 
     public String getTitle() {

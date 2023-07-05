@@ -25,10 +25,7 @@
     </style>
 </head>
 <body>
-<form th:object="${obBlog}" action="/blog/create" method="post">
-    <label for="nameAuthor">Name Author:</label>
-    <input type="text" th:field="*{author.name}" id="nameAuthor"><br>
-
+<form th:object="${obBlogDto}" action="/blog/create" method="post">
     <label for="title">Title Blog:</label>
     <input type="text" th:field="*{title}" id="title"><br>
 

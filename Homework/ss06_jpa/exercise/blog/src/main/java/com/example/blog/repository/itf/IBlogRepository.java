@@ -24,5 +24,7 @@ public interface IBlogRepository extends JpaRepository<Blog,Integer> {
     @Query(value = QueryDb.SELECT_BLOG_BY_SEARCH_ALL,nativeQuery = true)
     Page<Blog> findBlogByAll(@Param("title") String title,@Param("description") String description,@Param("name") String name,Pageable pageable);
 
+    @Query(value = QueryDb.FIND_ALL_BLOG,nativeQuery = true)
+    Page<Blog> findAll(Pageable pageable);
 
 }

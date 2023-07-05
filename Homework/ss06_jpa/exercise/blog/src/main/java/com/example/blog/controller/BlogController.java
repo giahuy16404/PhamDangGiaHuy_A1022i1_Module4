@@ -2,19 +2,21 @@ package com.example.blog.controller;
 
 //import com.example.blog.config.LocalDateFormatString;
 
-import com.example.blog.model.Author;
+import com.example.blog.dto.BlogDto;
+import com.example.blog.model.User;
 import com.example.blog.model.Blog;
 import com.example.blog.model.Category;
 import com.example.blog.model.StatusBlog;
-import com.example.blog.service.itf.IAuthorService;
 import com.example.blog.service.itf.IBlogService;
 import com.example.blog.service.itf.ICategoryService;
 import com.example.blog.service.itf.IStatusBlogService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -24,8 +26,7 @@ import java.time.LocalDate;
 @Controller
 @RequestMapping("/blog")
 public class BlogController {
-    @Autowired
-    private IAuthorService iAuthorService;
+
     @Autowired
     private IBlogService iBlogService;
     @Autowired
@@ -36,22 +37,30 @@ public class BlogController {
     @GetMapping("/create")
     public ModelAndView showCreateBlog() {
         ModelAndView modelAndView = new ModelAndView("createBlog");
-        modelAndView.addObject("obBlog", new Blog());
+        modelAndView.addObject("obBlogDto", new BlogDto());
         modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public String createBlog(Blog blog) {
-        Author author = new Author();
+    public String createBlog(BlogDto blogDto, BindingResult bindingResult) {
+//        new AuthorDto().validate(blogDto,bindingResult);
+//        if (bindingResult.hasErrors()){
+//            return "/createBlog";
+//        }
+        User user = new User();
         StatusBlog statusBlog = new StatusBlog();
         Category category = new Category();
+        Blog blog = new Blog();
+        BeanUtils.copyProperties(blogDto,blog);
+
 
         //CREATE TABLE AUTHOR
-        author.setName(blog.getAuthor().getName());
-        iAuthorService.create(author);
-        int maxIdAuthor = iAuthorService.showMaxId();
-        author.setIdAuthor(maxIdAuthor);
+        user.setName(blogDto.getAuthor().getName());
+        user.setAge(blogDto.getAuthor().getAge());
+        user.setEmail(blogDto.getAuthor().getEmail());
+        user.setGender(blogDto.getAuthor().getGender());
+        user.setPhoneNumber(blogDto.getAuthor().getPhoneNumber());
 
         //CREATE TABLE STATUS_BLOG
         LocalDate localDate = LocalDate.now();
@@ -66,9 +75,8 @@ public class BlogController {
         //Category
         category.setIdCategory(blog.getCategory().getIdCategory());
 
-
         //CREATE TABLE BLOG
-        Blog newBlog = new Blog(0, author, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
+        Blog newBlog = new Blog(0, user, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
         iBlogService.create(newBlog);
         return "redirect:/blog";
     }
@@ -93,11 +101,23 @@ public class BlogController {
 
 
     @GetMapping("/list")
-    public ModelAndView showList(@RequestParam(defaultValue = "0") int page) {
+    public ModelAndView showList(@RequestParam(defaultValue = "0") int page,
+                                 @RequestParam(defaultValue = "") String valueSearch,
+                                 @RequestParam(defaultValue = "") String category
+    ) {
         ModelAndView modelAndView = new ModelAndView("list");
         Pageable pageable = PageRequest.of(page, 8);
-        Page<Blog> blogPage = iBlogService.findAll(pageable);
+        Page<Blog> blogPage;
+        if (!valueSearch.equals("")) {
+            blogPage = iBlogService.findBlogByAll(valueSearch, valueSearch, valueSearch, pageable);
+        } else if (!category.equals("")) {
+            blogPage = iBlogService.findBlogByCategory(category, pageable);
+        }else {
+            blogPage = iBlogService.findAll(pageable);
+        }
         modelAndView.addObject("blogPage", blogPage);
+        modelAndView.addObject("valueSearch",valueSearch);
+        modelAndView.addObject("category",category);
         modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
@@ -140,13 +160,14 @@ public class BlogController {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog/view/{idBlog}");
         redirectAttributes.addFlashAttribute("idBlog", idBlog);
         StatusBlog statusBlog = new StatusBlog();
-        Author author = new Author();
+        User user = new User();
         Category category = new Category();
 
+
+
         //CREATE TABLE AUTHOR
-        author.setName(blog.getAuthor().getName());
-        author.setIdAuthor(idBlog);
-        iAuthorService.update(author);
+        user.setName(blog.getUser().getName());
+        user.setIdUser(idBlog);
 
         //CREATE TABLE STATUS_BLOG
         statusBlog.setTimeCreateBlog(blog.getStatusBlog().getTimeCreateBlog());
@@ -160,7 +181,7 @@ public class BlogController {
         category.setIdCategory(blog.getCategory().getIdCategory());
 
         //CREATE TABLE BLOG
-        Blog newBlog = new Blog(idBlog, author, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
+        Blog newBlog = new Blog(idBlog, user, blog.getTitle(), blog.getDescription(), blog.getContent(), statusBlog, category);
         iBlogService.update(newBlog);
 
         return modelAndView;
@@ -170,32 +191,31 @@ public class BlogController {
     public ModelAndView delete(@PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog/list");
         iBlogService.delete(idBlog);
-        iAuthorService.delete(idBlog);
         iStatusBlogService.delete(idBlog);
         return modelAndView;
     }
 
-    @GetMapping("/showBlogByCategory/{idCategory}")
-    public ModelAndView showBlogByCategory(@PathVariable String idCategory,
-                                           @RequestParam(defaultValue = "0") int page
-                                           ) {
-        ModelAndView modelAndView = new ModelAndView("/list");
-        Pageable pageable = PageRequest.of(page, 8);
-        Page<Blog> blogPage = iBlogService.findBlogByCategory(idCategory,pageable);
-        modelAndView.addObject("categoryList", iCategoryService.findCategory());
-        modelAndView.addObject("blogPage",blogPage);
-        return modelAndView;
-    }
-
-    @PostMapping("/search")
-    public ModelAndView search(@RequestParam String valueSearch, @RequestParam(defaultValue = "0") int page){
-        ModelAndView modelAndView = new ModelAndView("/list");
-        Pageable pageable = PageRequest.of(page,8);
-        Page<Blog> blogPage = iBlogService.findBlogByAll(valueSearch,valueSearch,valueSearch,pageable);
-        modelAndView.addObject("categoryList", iCategoryService.findCategory());
-        modelAndView.addObject("blogPage",blogPage);
-        return modelAndView;
-
-    }
+//    @GetMapping("/showBlogByCategory/{idCategory}")
+//    public ModelAndView showBlogByCategory(@PathVariable String idCategory,
+//                                           @RequestParam(defaultValue = "0") int page
+//    ) {
+//        ModelAndView modelAndView = new ModelAndView("/list");
+//        Pageable pageable = PageRequest.of(page, 8);
+//        Page<Blog> blogPage = iBlogService.findBlogByCategory(idCategory, pageable);
+//        modelAndView.addObject("categoryList", iCategoryService.findCategory());
+//        modelAndView.addObject("blogPage", blogPage);
+//        return modelAndView;
+//    }
+//
+//    @PostMapping("/search")
+//    public ModelAndView search(@RequestParam(defaultValue = "0") int page) {
+//        ModelAndView modelAndView = new ModelAndView("/list");
+//        Pageable pageable = PageRequest.of(page, 8);
+//        Page<Blog> blogPage = iBlogService.findBlogByAll(valueSearch, valueSearch, valueSearch, pageable);
+//        modelAndView.addObject("categoryList", iCategoryService.findCategory());
+//        modelAndView.addObject("blogPage", blogPage);
+//        return modelAndView;
+//
+//    }
 
 }

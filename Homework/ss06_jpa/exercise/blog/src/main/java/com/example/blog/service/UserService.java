@@ -1,10 +1,8 @@
 package com.example.blog.service;
 
-import com.example.blog.model.Author;
-import com.example.blog.model.Blog;
-import com.example.blog.model.StatusBlog;
+import com.example.blog.model.User;
 import com.example.blog.repository.itf.IAuthorRepository;
-import com.example.blog.service.itf.IAuthorService;
+import com.example.blog.service.itf.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,14 +10,14 @@ import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
-public class AuthorService implements IAuthorService {
+public class UserService implements IUserService {
     @Autowired
     private IAuthorRepository iAuthorRepository;
     @Override
     @Transactional
-    public boolean create(Author author) {
-        Author author1 = iAuthorRepository.save(author);
-        return author1 != null;
+    public boolean create(User user) {
+        User user1 = iAuthorRepository.save(user);
+        return user1 != null;
     }
 
     @Override
@@ -28,18 +26,18 @@ public class AuthorService implements IAuthorService {
     }
 
     @Override
-    public boolean update(Author author) {
-        Author author1 = iAuthorRepository.save(author);
-        return author1 != null;
+    public boolean update(User user) {
+        User user1 = iAuthorRepository.save(user);
+        return user1 != null;
     }
 
     @Override
-    public List<Author> findAll() {
+    public List<User> findAll() {
         return null;
     }
 
     @Override
-    public boolean edit(Author author) {
+    public boolean edit(User user) {
         return false;
     }
 

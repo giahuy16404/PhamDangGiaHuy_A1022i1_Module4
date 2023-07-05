@@ -25,7 +25,7 @@
 
             <div th:each="list : ${viewBlog}">
                 <strong><h2 th:text="${list.title}" class="title-main-content"></h2></strong>
-                <strong>Tác giả : <span th:text="${list.author.name}"></span></strong>
+                <strong>Tác giả : <span th:text="${list.user.name}"></span></strong>
                 <br>
                 <strong>Thể loại : <span th:text="${list.category.name}"></span></strong>
                 <br>

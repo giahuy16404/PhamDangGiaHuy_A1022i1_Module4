@@ -25,8 +25,8 @@
             <form th:object="${updateObjBlog}" method="post">
 
                 <label for="nameAuthor">Name Author:</label>
-                <input type="text" id="nameAuthor" th:value="${list.author.name}" name="author.name"/>
-                <input type="text" style="display: none" id="idAuthor" th:value="${list.author.idAuthor}" name="author.idAuthor"/><br>
+                <input type="text" id="nameAuthor" th:value="${list.user.name}" name="user.name"/>
+                <input type="text" style="display: none" id="idAuthor" th:value="${list.user.idAuthor}" name="user.idAuthor"/><br>
 
                 <input type="text" style="display: none" id="getViewBlog" th:value="${list.statusBlog.viewBlog}" name="statusBlog.viewBlog"/>
                 <input type="text" style="display: none" id="getLikeBlog" th:value="${list.statusBlog.likeBlog}" name="statusBlog.likeBlog"/>

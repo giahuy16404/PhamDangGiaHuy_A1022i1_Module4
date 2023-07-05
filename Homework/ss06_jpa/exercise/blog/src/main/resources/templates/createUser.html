@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="/cssCreateUser.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+            integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js"
+            integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/js/bootstrap.min.js"
+            integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+            crossorigin="anonymous"></script>
+</head>
+<body>
+<div th:insert="~{main :: header_main}"></div>
+<form th:object="${userDto}" method="post" action="/user/create">
+    <label for="nameAuthor">Name Author:</label>
+    <input type="text" th:field="*{name}" id="nameAuthor">
+<!--    <small style="color: red" class="error-create" th:errors="*{name}"></small>-->
+        <small style="color: red" class="error-create" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>
+    <br>
+
+    <label for="emailAuthor">Email Author:</label>
+    <input type="text" th:field="*{email}" id="emailAuthor">
+<!--    <small style="color: red" class="error-create" th:errors="*{email}"></small>-->
+        <small style="color: red" class="error-create" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></small>
+    <br>
+
+    <label>Gender Author:</label>
+    <input type="radio" th:field="*{gender}" value="1">Nam
+    <input type="radio" th:field="*{gender}" value="2">Nu
+    <input type="radio" th:field="*{gender}" value="3">Lgbt
+<!--    <small style="color: red" class="error-create" th:errors="*{gender}"></small>-->
+        <small style="color: red" class="error-create" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></small>
+    <br>
+
+    <label for="phoneNumber">Phone Author:</label>
+    <input type="text" th:field="*{phoneNumber}" id="phoneNumber">
+<!--    <small style="color: red" class="error-create" th:errors="*{phoneNumber}"></small>-->
+        <small style="color: red" class="error-create" th:if="${#fields.hasErrors('phoneNumber')}" th:errors="*{phoneNumber}"></small>
+    <br>
+    <label for="age">Age Author:</label>
+    <input type="text" th:field="*{age}" id="age">
+<!--    <small style="color: red" class="error-create" th:errors="*{age}"></small>-->
+        <small style="color: red" class="error-create" th:if="${#fields.hasErrors('age')}" th:errors="*{age}"></small>
+    <button>Save</button>
+</form>
+</body>
+</html>
