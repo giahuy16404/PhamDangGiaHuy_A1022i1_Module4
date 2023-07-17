@@ -13,17 +13,12 @@ public class Position {
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "position")
-    private Set<Employee> employees;
-
-
     public Position() {
     }
 
-    public Position(long id, String name, Set<Employee> employees) {
+    public Position(long id, String name) {
         this.id = id;
         this.name = name;
-        this.employees = employees;
     }
 
     public long getId() {
@@ -42,20 +37,11 @@ public class Position {
         this.name = name;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
-
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
-
     @Override
     public String toString() {
         return "Position{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", employees=" + employees +
                 '}';
     }
 }

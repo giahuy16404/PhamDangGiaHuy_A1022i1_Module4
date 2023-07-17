@@ -14,15 +14,13 @@ public class AttachService {
     private int unit;
     private String status;
 
-    public AttachService() {
-    }
-
     public AttachService(long id, String name, double cost, int unit, String status) {
         this.id = id;
         this.name = name;
         this.cost = cost;
         this.unit = unit;
         this.status = status;
+
     }
 
     public long getId() {
@@ -64,4 +62,9 @@ public class AttachService {
     public void setStatus(String status) {
         this.status = status;
     }
+
+
+    public AttachService() {
+    }
+
 }

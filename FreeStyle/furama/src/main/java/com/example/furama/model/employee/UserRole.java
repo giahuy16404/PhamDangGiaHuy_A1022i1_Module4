@@ -1,26 +1,35 @@
 package com.example.furama.model.employee;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 
 @Entity
 public class UserRole {
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_role_id")
+    private long id;
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id" )
+    @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
     private Role role;
     @ManyToOne
-    @JoinColumn(name = "userName",nullable = false,referencedColumnName = "userName" )
+    @JoinColumn(name = "userName", nullable = false, referencedColumnName = "userName")
     private User user;
 
-    public UserRole(Role role, User user) {
+    public UserRole(long id, Role role, User user) {
+        this.id = id;
         this.role = role;
         this.user = user;
     }
 
     public UserRole() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Role getRole() {
@@ -42,7 +51,8 @@ public class UserRole {
     @Override
     public String toString() {
         return "UserRole{" +
-                "role=" + role +
+                "id=" + id +
+                ", role=" + role +
                 ", user=" + user +
                 '}';
     }

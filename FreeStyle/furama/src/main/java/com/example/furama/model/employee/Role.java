@@ -9,16 +9,14 @@ import java.util.Set;
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "role_id")
     private long id;
     private String name;
 
-    @OneToMany(mappedBy = "role")
-    private Set<UserRole> userRoles;
-
-    public Role(long id, String name, Set<UserRole> userRoles) {
+    public Role(long id, String name) {
         this.id = id;
         this.name = name;
-        this.userRoles = userRoles;
+
     }
 
     public Role() {
@@ -40,20 +38,11 @@ public class Role {
         this.name = name;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
-
-    public void setUserRoles(Set<UserRole> userRole) {
-        this.userRoles = userRole;
-    }
-
     @Override
     public String toString() {
         return "Role{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", userRole=" + userRoles +
                 '}';
     }
 }

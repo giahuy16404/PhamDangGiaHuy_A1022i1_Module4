@@ -9,19 +9,17 @@ import java.util.Set;
 public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "division_id")
     private long id;
     private String name;
-
-    @OneToMany(mappedBy = "division")
-    private Set<Employee> employees;
 
     public Division() {
     }
 
-    public Division(long id, String name, Set<Employee> employees) {
+    public Division(long id, String name) {
         this.id = id;
         this.name = name;
-        this.employees = employees;
+
     }
 
     public long getId() {
@@ -40,20 +38,13 @@ public class Division {
         this.name = name;
     }
 
-    public Set<Employee> getEmployees() {
-        return employees;
-    }
 
-    public void setEmployees(Set<Employee> employees) {
-        this.employees = employees;
-    }
 
     @Override
     public String toString() {
         return "Division{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", employees=" + employees +
                 '}';
     }
 }

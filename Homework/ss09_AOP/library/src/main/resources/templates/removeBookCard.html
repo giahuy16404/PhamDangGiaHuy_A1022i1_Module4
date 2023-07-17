@@ -1,10 +1,108 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #footer {
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div th:insert="~{listBooks :: header_main}">
+</div>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th colspan="4" style="text-align: center;font-size: 20px"><strong>Thẻ mượn sách</strong></th>
+    </tr>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Code</th>
+        <th scope="col">Star borrowed</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="list,status:${borrowedCard}" th:if="${status.index == 0}">
+        <th scope="row" th:text="${status.count}"></th>
+        <td th:text="${list.getBorrowedCard().getCodeBorrowedCard()}"></td>
+        <td th:text="${list.getBorrowedCard().getStarBorrowed()}"></td>
+        <td th:text="${list.getBorrowedCard().getQuantityBorrowedBooks()}"></td>
+    </tr>
+    </tbody>
+</table>
+<form method="post" action="/library/remove-book-card">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th colspan="4" style="text-align: center;font-size: 20px"><strong>Sách đã mượn</strong></th>
+        </tr>
+        <tr>
+            <th scope="col">STT</th>
+            <th scope="col">Tên sách</th>
+            <th scope="col">Tác giả</th>
+            <th scope="col">Trả sách</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="list,status:${borrowedCard}">
+            <th scope="row" th:text="${status.count}"></th>
+            <td th:text="${list.getBook().name}"></td>
+            <td th:text="${list.getBook().author}"></td>
+            <td>
+                <!-- id của sách -->
+                <input type="checkbox" th:value="${list.getBook().id}" name="checkRemoveBook" class="checkBox">tick trả sách
+                <!-- id của thẻ mượn sách -->
+                <input type="text" style="display: none" th:value="${list.getBorrowedCard().id}" name="idBorrowedCard">
+                <!-- Số lượng sách đã mượn -->
+                <input type="text" style="display: none" th:value="${list.getBorrowedCard().quantityBorrowedBooks}" name="quantityBorrowedBooks">
+
+            </td>
+        </tr>
+        </tbody>
+
+    </table>
+    <button type="button"><label for="selectAllCheckbox">Chọn Tất cả</label></button>
+
+    <input style="display: none;" type="checkbox" id="selectAllCheckbox">
+    <button type="button" data-toggle="modal" data-target="#removeBooks">Trả Sách</button>
+    <div class="modal fade" id="removeBooks">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <!-- Modal Header -->
+                <div class="modal-header">
+                    <h4 class="modal-title">Trả sách</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label>Xác nhận trả sách</label>
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Thoát</button>
+                    <button class="btn btn-primary">Trả sách</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.getElementById("selectAllCheckbox").addEventListener("change", function () {
+            var checkBoxes = document.getElementsByClassName("checkBox");
+            for (var i = 0; i < checkBoxes.length; i++) {
+                checkBoxes[i].checked = this.checked;
+            }
+        });
+    </script>
+</form>
+
+<div id="footer">
+    <a th:if="${borrowedCard.hasPrevious()}" th:href="@{/library/remove-book-card/(page=${borrowedCard.number + 1})}">Previous</a>
+    <span th:text="${borrowedCard.number +1}"></span>
+    <span th:text="${borrowedCard.totalPages}"></span>
+    <a th:if="${borrowedCard.hasNext()}" th:href="@{/library/remove-book-card/(page=${borrowedCard.number + 1})}">Previous</a>
+</div>
 </body>
 </html>

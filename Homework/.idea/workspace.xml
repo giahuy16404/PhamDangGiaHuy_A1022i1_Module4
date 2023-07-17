@@ -2,7 +2,31 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8fbe122a-a4a7-4a0f-a484-7f71c31cc535" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/../New Text Document.txt" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/contract/AttachService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/contract/Contract.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/contract/ContractDetail.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/customer/Customer.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/customer/CustomerType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/Division.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/EducationDegree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/Employee.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/Position.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/Role.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/User.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/employee/UserRole.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/service/RentType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/service/Service.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../FreeStyle/furama/src/main/java/com/example/furama/model/service/ServiceType.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/java/com/example/user_role/model/Division.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/java/com/example/user_role/model/EducationDegree.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/java/com/example/user_role/model/Employee.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Demo_teacher/a10_demo_thymeleaf/.idea/modules/a10_demo_thymeleaf.main.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss01_spring_mvc_overview/practice/customer-management" beforeDir="false" afterPath="$PROJECT_DIR$/ss01_spring_mvc_overview/practice/customer-management" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss01_spring_mvc_overview/practice/customer-management/src/main/webapp/WEB-INF/web.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ss01_spring_mvc_overview/practice/customer-management/src/main/webapp/WEB-INF/web.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss02_spring_controller/practice/demo_2/.idea/gradle.xml" beforeDir="false" afterPath="$PROJECT_DIR$/ss02_spring_controller/practice/demo_2/.idea/gradle.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/java/com/example/user_role/model/Role.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/java/com/example/user_role/model/User.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/ss06_jpa/practice/user_role/src/main/resources/application.properties" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,6 +61,7 @@
       <workItem from="1686143631658" duration="31000" />
       <workItem from="1686143678545" duration="40000" />
       <workItem from="1686143747563" duration="140000" />
+      <workItem from="1688735467849" duration="8000" />
     </task>
     <servers />
   </component>

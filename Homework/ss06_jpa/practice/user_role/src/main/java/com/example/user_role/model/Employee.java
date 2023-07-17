@@ -1,4 +1,4 @@
-package com.example.furama.model;
+package com.example.user_role.model;
 
 import javax.persistence.*;
 
@@ -18,27 +18,22 @@ public class Employee {
     private String email;
     private String address;
 
-    @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
-    private Position position;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "ida",nullable = false,referencedColumnName = "ida")
     private EducationDegree educationDegree;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "idd",nullable = false,referencedColumnName = "idd")
     private Division division;
 
-    @ManyToOne
-    @JoinColumn(name = "userName",nullable = false,referencedColumnName = "userName")
-    private User user;
+
 
     public Employee() {
     }
 
     public Employee(long id, String name, String birthDay, String idCard, double salary,
-                    String phone, String email, String address, Position position, EducationDegree educationDegree, Division division, User user) {
+                    String phone, String email, String address, EducationDegree educationDegree, Division division) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
@@ -47,10 +42,10 @@ public class Employee {
         this.phone = phone;
         this.email = email;
         this.address = address;
-        this.position = position;
+
         this.educationDegree = educationDegree;
         this.division = division;
-        this.user = user;
+
     }
 
     public long getId() {
@@ -117,13 +112,6 @@ public class Employee {
         this.address = address;
     }
 
-    public Position getPosition() {
-        return position;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
 
     public EducationDegree getEducationDegree() {
         return educationDegree;
@@ -141,29 +129,6 @@ public class Employee {
         this.division = division;
     }
 
-    public User getUser() {
-        return user;
-    }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
 
-    @Override
-    public String toString() {
-        return "Employee{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", birthDay='" + birthDay + '\'' +
-                ", idCard='" + idCard + '\'' +
-                ", salary=" + salary +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", position=" + position +
-                ", educationDegree=" + educationDegree +
-                ", division=" + division +
-                ", user=" + user +
-                '}';
-    }
 }

@@ -1,4 +1,4 @@
-package com.example.furama.model;
+package com.example.user_role.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -7,7 +7,7 @@ import java.util.Set;
 public class Division {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long idd;
     private String name;
 
     @OneToMany(mappedBy = "division")
@@ -17,17 +17,17 @@ public class Division {
     }
 
     public Division(long id, String name, Set<Employee> employees) {
-        this.id = id;
+        this.idd = id;
         this.name = name;
         this.employees = employees;
     }
 
     public long getId() {
-        return id;
+        return idd;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.idd = id;
     }
 
     public String getName() {
@@ -49,7 +49,7 @@ public class Division {
     @Override
     public String toString() {
         return "Division{" +
-                "id=" + id +
+                "id=" + idd +
                 ", name='" + name + '\'' +
                 ", employees=" + employees +
                 '}';

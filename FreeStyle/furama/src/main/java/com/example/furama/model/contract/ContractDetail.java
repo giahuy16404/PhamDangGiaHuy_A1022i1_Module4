@@ -16,10 +16,21 @@ public class ContractDetail {
     @JoinColumn(name = "contract_id",nullable = false,referencedColumnName = "contract_id")
     private Contract contract;
 
-    public ContractDetail(long id, AttachService attachService, Contract contract) {
+    private int quantity;
+
+    public ContractDetail(long id, AttachService attachService, Contract contract, int quantity) {
         this.id = id;
         this.attachService = attachService;
         this.contract = contract;
+        this.quantity = quantity;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
     public ContractDetail() {

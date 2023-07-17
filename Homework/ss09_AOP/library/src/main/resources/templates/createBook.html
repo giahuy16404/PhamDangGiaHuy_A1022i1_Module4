@@ -1,10 +1,29 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
 </head>
 <body>
-$END$
+<div th:insert="~{listBooks :: header_main}">
+</div>
+<form th:object="${bookDto}" method="post" enctype="multipart/form-data">
+
+    <label for="name" >Tên sách : </label>
+    <input type="text" th:field="*{name}" id="name"><br>
+
+    <label for="author" >Tác giả : </label>
+    <input type="text" th:field="*{author}" id="author"><br>
+
+    <label for="quantity" >Số lượng : </label>
+    <input type="number" th:field="*{quantity}" id="quantity"><br>
+
+    <label for="imgFile" >Số lượng : </label>
+    <input type="file" th:field="*{img}" id="imgFile" multiple><br>
+    <p th:if="${errorCreateBook}" th:text="${errorCreateBook}"></p>
+    <button>Save</button>
+
+</form>
+
 </body>
 </html>

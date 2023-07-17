@@ -1,4 +1,4 @@
-package com.example.furama.model;
+package com.example.user_role.model;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -7,7 +7,7 @@ import java.util.Set;
 public class EducationDegree {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private long ida;
 
     private String name;
 
@@ -18,17 +18,17 @@ public class EducationDegree {
     }
 
     public EducationDegree(long id, String name, Set<Employee> employees) {
-        this.id = id;
+        this.ida = id;
         this.name = name;
         this.employees = employees;
     }
 
     public long getId() {
-        return id;
+        return ida;
     }
 
     public void setId(long id) {
-        this.id = id;
+        this.ida = id;
     }
 
     public String getName() {
@@ -50,7 +50,7 @@ public class EducationDegree {
     @Override
     public String toString() {
         return "EducationDegree{" +
-                "id=" + id +
+                "id=" + ida +
                 ", name='" + name + '\'' +
                 ", employees=" + employees +
                 '}';

@@ -131,13 +131,14 @@ public class ProductController {
 
         //Thêm đối tượng vào list
         for (Cookie cookie : cookies) {
-            if (cookie.getName().equals("productId0") ||
+            if (    cookie.getName().equals("productId0") ||
                     cookie.getName().equals("productId1") ||
                     cookie.getName().equals("productId2") ||
                     cookie.getName().equals("productId3")) {
                 viewProductId.add(Long.parseLong(cookie.getValue()));
             }
         }
+
         //Tránh trùng lặp
         for (int i = 0; i < viewProductId.size(); i++) {
             if (viewProductId.get(i) == id) {
@@ -161,7 +162,6 @@ public class ProductController {
             cookie.setPath("/");
             response.addCookie(cookie);
         }
-
         model.addAttribute("product", iProductService.findById(id));
         return "/product/detail";
     }

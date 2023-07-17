@@ -10,14 +10,9 @@ public class User {
     @Id
     private String userName;
     private String passWord;
-
-    @OneToMany(mappedBy = "user")
-    private Set<UserRole> userRoles;
-
-    public User(String userName, String passWord, Set<UserRole> userRoles) {
+    public User(String userName, String passWord) {
         this.userName = userName;
         this.passWord = passWord;
-        this.userRoles = userRoles;
     }
     public User() {
     }
@@ -38,20 +33,13 @@ public class User {
         this.passWord = passWord;
     }
 
-    public Set<UserRole> getUserRoles() {
-        return userRoles;
-    }
 
-    public void setUserRoles(Set<UserRole> userRoles) {
-        this.userRoles = userRoles;
-    }
 
     @Override
     public String toString() {
         return "User{" +
                 "userName='" + userName + '\'' +
                 ", passWord='" + passWord + '\'' +
-                ", userRoles=" + userRoles +
                 '}';
     }
 }

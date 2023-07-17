@@ -1,10 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        #footer{
+            text-align: center;
+        }
+    </style>
 </head>
 <body>
-$END$
+<div th:insert="~{listBooks :: header_main}"></div>
+<h4 style="color: red" th:if="${successfulCard}" th:text="${successfulCard}"></h4>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Code</th>
+        <th scope="col">Star borrowed</th>
+        <th scope="col">Quantity</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="list,status:${borrowedCards}">
+        <th scope="row" th:text="${status.count}"></th>
+        <td th:text="${list.getCodeBorrowedCard()}"></td>
+        <td th:text="${list.getStarBorrowed()}"></td>
+        <td th:text="${list.getQuantityBorrowedBooks()}"></td>
+    </tr>
+    </tbody>
+</table>
+<div id="footer">
+    <a th:if="${borrowedCards.hasPrevious()}" th:href="@{/library/list-card-borrowed/(page=${borrowedCards.number - 1})}">Previous</a>
+        <span th:text="${borrowedCards.number +1}"></span>
+        <span th:text="${borrowedCards.totalPages}"></span>
+    <a th:if="${borrowedCards.hasNext()}" th:href="@{/library/list-card-borrowed/(page=${borrowedCards.number + 1})}">Next</a>
+</div>
+
 </body>
 </html>

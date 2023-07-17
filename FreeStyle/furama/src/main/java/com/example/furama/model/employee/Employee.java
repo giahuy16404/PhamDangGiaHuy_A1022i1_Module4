@@ -1,13 +1,12 @@
 package com.example.furama.model.employee;
 
-import com.example.furama.model.Position;
-
 import javax.persistence.*;
 
 @Entity
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "employee_id")
     private long id;
 
     private String name;
@@ -21,19 +20,19 @@ public class Employee {
     private String address;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "position_id", nullable = false, referencedColumnName = "position_id")
     private Position position;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "education_degree_id", nullable = false, referencedColumnName = "education_degree_id")
     private EducationDegree educationDegree;
 
     @ManyToOne
-    @JoinColumn(name = "id",nullable = false,referencedColumnName = "id")
+    @JoinColumn(name = "division_id", nullable = false, referencedColumnName = "division_id")
     private Division division;
 
     @ManyToOne
-    @JoinColumn(name = "userName",nullable = false,referencedColumnName = "userName")
+    @JoinColumn(name = "userName", nullable = false, referencedColumnName = "userName")
     private User user;
 
     public Employee() {
