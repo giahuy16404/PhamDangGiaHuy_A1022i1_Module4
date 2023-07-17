@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{'/css/listCart.css'}">
+</head>
+<body>
+<div th:insert="~{product/header :: header}"></div>
+
+<div class="container">
+    <div class="row">
+        <table class="table" th:if="${cartSize != 0}">
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Image</th>
+                <th>Price</th>
+                <th>Quantity</th>
+                <th>
+                    <label th:for="removeProducts">Tick all</label>
+                    <input type="checkbox" style="display: inline" id="removeProducts">
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            <form th:action="@{/shop/remove-cart}" method="post">
+
+                <tr th:each="productMap:${cart.productMap}">
+                    <td th:text="${productMap.key.name}"></td>
+                    <td>
+                        <a th:href="@{/shop}">
+                            <img th:src="@{'/img/' + ${productMap.key.getImage()}}" style="width: 50px ; height: 60px">
+                        </a>
+                    </td>
+                    <td th:text="${productMap.key.price}"></td>
+                    <td>
+                        <button type="button" class="decrease-button"> -</button>
+                        <span class="productValue" th:text="${productMap.value}"></span>
+                        <button type="button" class="increase-button"> +</button>
+                    </td>
+                    <td>
+                        <input type="checkbox" class="removeProducts" name="id"
+                               th:value="${productMap.key.id}">
+                        <button style="display: none" id="removeSubmit"></button>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <label for="removeSubmit" id="buttonRemove"> remove </label>
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Tổng thanh toán </strong>  : <span th:text="${total}"></span></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                </tr>
+            </form>
+
+            </tbody>
+        </table>
+
+
+        <div class="alert alert-warning" role="alert" th:unless="${cartSize != 0}">
+            Cart Empty.
+        </div>
+    </div>
+</div>
+<script>
+    document.getElementById("removeProducts").addEventListener("change", function () {
+        let checkBox = document.getElementsByClassName("removeProducts")
+        for (let i = 0; i < checkBox.length; i++) {
+            checkBox[i].checked = this.checked;
+        }
+    });
+
+    document.addEventListener("DOMContentLoaded", function () {
+        // Lắng nghe sự kiện click trên các nút tăng/giảm
+        var decreaseButtons = document.querySelectorAll(".decrease-button");
+        var increaseButtons = document.querySelectorAll(".increase-button");
+
+        decreaseButtons.forEach(function (button) {
+            button.addEventListener("click", decreaseValue);
+        });
+
+        increaseButtons.forEach(function (button) {
+            button.addEventListener("click", increaseValue);
+        });
+
+        function decreaseValue() {
+            var productValue = parseInt(this.nextElementSibling.textContent);
+            if (productValue > 0) {
+                productValue--; // Giảm giá trị đi 1
+                this.nextElementSibling.textContent = productValue; // Cập nhật giá trị mới lên giao diện
+            }
+        }
+
+        function increaseValue() {
+            var productValue = parseInt(this.previousElementSibling.textContent);
+            productValue++; // Tăng giá trị lên 1
+            this.previousElementSibling.textContent = productValue; // Cập nhật giá trị mới lên giao diện
+        }
+    });
+</script>
+
+</body>
+</html>

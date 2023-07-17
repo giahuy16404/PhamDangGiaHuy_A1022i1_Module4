@@ -1,0 +1,11 @@
+#buttonRemove {
+    width: 70px;
+    height: 30px;
+    border: solid 2px black;
+    border-radius: 10px;
+    color: black;
+    text-align: center;
+}
+#buttonRemove:hover{
+    background-color: #8e9396;
+}
