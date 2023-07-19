@@ -42,4 +42,10 @@ public class CartDto {
         }
         return total;
     }
+    public void increaseQuantity(Product product){
+        productMap.put(product,productMap.get(product) + 1);
+    }
+    public void diminishQuantity(Product product){
+        productMap.put(product,productMap.get(product) - 1);
+    }
 }

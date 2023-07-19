@@ -179,4 +179,18 @@ public class ProductController {
         }
         return "redirect:/cart";
     }
+
+    @GetMapping("/increase/{id}")
+    public String increaseQuantityCart(@SessionAttribute(value = "cart") CartDto cartDto,
+                                       @PathVariable long id
+                                       ){
+        cartDto.increaseQuantity(iProductService.findById(id));
+        return "redirect:/cart";
+    }
+    @GetMapping("/diminish/{id}")
+    public String diminishQuantityCart(@SessionAttribute(value = "cart") CartDto cartDto,
+                                       @PathVariable long id){
+        cartDto.diminishQuantity(iProductService.findById(id));
+        return "redirect:/cart";
+    }
 }

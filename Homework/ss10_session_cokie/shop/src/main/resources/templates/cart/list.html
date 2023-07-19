@@ -25,7 +25,6 @@
             </thead>
             <tbody>
             <form th:action="@{/shop/remove-cart}" method="post">
-
                 <tr th:each="productMap:${cart.productMap}">
                     <td th:text="${productMap.key.name}"></td>
                     <td>
@@ -35,9 +34,9 @@
                     </td>
                     <td th:text="${productMap.key.price}"></td>
                     <td>
-                        <button type="button" class="decrease-button"> -</button>
-                        <span class="productValue" th:text="${productMap.value}"></span>
-                        <button type="button" class="increase-button"> +</button>
+                        <a th:href="@{/shop/increase/__${productMap.key.getId()}__}"><button type="button" >+</button></a>
+                        <span id="valueQuantity" th:text="${productMap.value}"></span>
+                        <a th:href="@{/shop/diminish/__${productMap.key.getId()}__}"><button type="button" >-</button></a>
                     </td>
                     <td>
                         <input type="checkbox" class="removeProducts" name="id"
@@ -62,11 +61,8 @@
                     <td></td>
                 </tr>
             </form>
-
             </tbody>
         </table>
-
-
         <div class="alert alert-warning" role="alert" th:unless="${cartSize != 0}">
             Cart Empty.
         </div>
@@ -77,34 +73,6 @@
         let checkBox = document.getElementsByClassName("removeProducts")
         for (let i = 0; i < checkBox.length; i++) {
             checkBox[i].checked = this.checked;
-        }
-    });
-
-    document.addEventListener("DOMContentLoaded", function () {
-        // Lắng nghe sự kiện click trên các nút tăng/giảm
-        var decreaseButtons = document.querySelectorAll(".decrease-button");
-        var increaseButtons = document.querySelectorAll(".increase-button");
-
-        decreaseButtons.forEach(function (button) {
-            button.addEventListener("click", decreaseValue);
-        });
-
-        increaseButtons.forEach(function (button) {
-            button.addEventListener("click", increaseValue);
-        });
-
-        function decreaseValue() {
-            var productValue = parseInt(this.nextElementSibling.textContent);
-            if (productValue > 0) {
-                productValue--; // Giảm giá trị đi 1
-                this.nextElementSibling.textContent = productValue; // Cập nhật giá trị mới lên giao diện
-            }
-        }
-
-        function increaseValue() {
-            var productValue = parseInt(this.previousElementSibling.textContent);
-            productValue++; // Tăng giá trị lên 1
-            this.previousElementSibling.textContent = productValue; // Cập nhật giá trị mới lên giao diện
         }
     });
 </script>
