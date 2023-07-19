@@ -1,5 +1,7 @@
 package com.example.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -15,6 +17,7 @@ public class Blog {
     private String description;
     @Column(columnDefinition = "LONGTEXT")
     private String content;
+    @JsonBackReference
     @OneToOne
     @JoinColumn(name = "idStatusBlog",nullable = false,referencedColumnName = "idStatusBlog")
     private StatusBlog statusBlog;

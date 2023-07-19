@@ -20,22 +20,24 @@ import javax.validation.Valid;
 public class UserController {
     @Autowired
     private IUserService iUserService;
+
     @GetMapping("/create")
-    public ModelAndView create(){
+    public ModelAndView create() {
         ModelAndView modelAndView = new ModelAndView("createUser");
-        modelAndView.addObject("userDto",new UserDto());
+        modelAndView.addObject("userDto", new UserDto());
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public String create(@Valid @ModelAttribute UserDto userDto, BindingResult bindingResult){
-        new UserDto().validate(userDto,bindingResult);
-        if (bindingResult.hasErrors()){
+    public String create(@Valid @ModelAttribute UserDto userDto, BindingResult bindingResult) {
+        new UserDto().validate(userDto, bindingResult);
+        if (bindingResult.hasErrors()) {
             return "createUser";
         }
         User user = new User();
-        BeanUtils.copyProperties(userDto,user);
+        BeanUtils.copyProperties(userDto, user);
         iUserService.create(user);
         return "redirect:/blog";
     }
+
 }

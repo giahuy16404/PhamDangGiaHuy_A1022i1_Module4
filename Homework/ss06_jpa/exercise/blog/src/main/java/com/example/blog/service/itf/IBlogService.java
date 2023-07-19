@@ -18,7 +18,7 @@ public interface IBlogService{
     List<Blog> findById(int id);
     boolean update(Blog blog);
     boolean delete(int id);
-    Page<Blog> findBlogByCategory(String category,Pageable pageable);
+    Page<Blog> findBlogByCategory(int category,Pageable pageable);
 
     Page<Blog> findBlogByAll( String title, String description, String name,Pageable pageable);
 

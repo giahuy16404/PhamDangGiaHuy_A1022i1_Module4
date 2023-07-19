@@ -1,5 +1,6 @@
 package com.example.blog.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.springframework.web.bind.annotation.Mapping;
 
 import javax.persistence.*;
@@ -11,6 +12,8 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int idCategory;
     private String name;
+
+    @JsonBackReference
     @OneToMany(mappedBy = "category")
     private Set<Blog> blogs;
 

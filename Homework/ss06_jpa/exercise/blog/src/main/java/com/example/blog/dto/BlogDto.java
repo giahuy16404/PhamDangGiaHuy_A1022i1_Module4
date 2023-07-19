@@ -2,10 +2,13 @@ package com.example.blog.dto;
 
 import com.example.blog.model.Category;
 import com.example.blog.model.StatusBlog;
+import com.example.blog.model.User;
+import org.springframework.validation.Errors;
+import org.springframework.validation.Validator;
 
-public class BlogDto {
+public class BlogDto implements Validator {
     private int idBlog;
-    private UserDto author;
+    private int idUser;
     private String title;
     private String description;
     private String content;
@@ -13,14 +16,22 @@ public class BlogDto {
 
     private Category category;
 
-    public BlogDto(int idBlog, UserDto author, String title, String description, String content, StatusBlog statusBlog, Category category) {
+    public BlogDto(int idBlog, int idUser, String title, String description, String content, StatusBlog statusBlog, Category category) {
         this.idBlog = idBlog;
-        this.author = author;
+        this.idUser = idUser;
         this.title = title;
         this.description = description;
         this.content = content;
         this.statusBlog = statusBlog;
         this.category = category;
+    }
+
+    public int getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(int idUser) {
+        this.idUser = idUser;
     }
 
     public BlogDto() {
@@ -32,14 +43,6 @@ public class BlogDto {
 
     public void setIdBlog(int idBlog) {
         this.idBlog = idBlog;
-    }
-
-    public UserDto getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(UserDto author) {
-        this.author = author;
     }
 
     public String getTitle() {
@@ -80,5 +83,15 @@ public class BlogDto {
 
     public void setCategory(Category category) {
         this.category = category;
+    }
+
+    @Override
+    public boolean supports(Class<?> clazz) {
+        return false;
+    }
+
+    @Override
+    public void validate(Object target, Errors errors) {
+
     }
 }

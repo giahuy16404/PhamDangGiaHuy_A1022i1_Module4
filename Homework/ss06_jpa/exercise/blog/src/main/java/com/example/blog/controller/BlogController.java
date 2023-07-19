@@ -10,6 +10,7 @@ import com.example.blog.model.StatusBlog;
 import com.example.blog.service.itf.IBlogService;
 import com.example.blog.service.itf.ICategoryService;
 import com.example.blog.service.itf.IStatusBlogService;
+import com.example.blog.service.itf.IUserService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -34,33 +35,31 @@ public class BlogController {
     @Autowired
     private ICategoryService iCategoryService;
 
+    @Autowired
+    private IUserService iUserService;
+
     @GetMapping("/create")
     public ModelAndView showCreateBlog() {
         ModelAndView modelAndView = new ModelAndView("createBlog");
-        modelAndView.addObject("obBlogDto", new BlogDto());
+        modelAndView.addObject("blogDto", new BlogDto());
         modelAndView.addObject("categoryList", iCategoryService.findCategory());
+        modelAndView.addObject("user", iUserService.findAll());
         return modelAndView;
     }
 
     @PostMapping("/create")
-    public String createBlog(BlogDto blogDto, BindingResult bindingResult) {
-//        new AuthorDto().validate(blogDto,bindingResult);
-//        if (bindingResult.hasErrors()){
-//            return "/createBlog";
-//        }
+    public String createBlog(@ModelAttribute BlogDto blogDto, BindingResult bindingResult) {
+        new BlogDto().validate(blogDto, bindingResult);
+        if (bindingResult.hasErrors()) {
+            return "/createBlog";
+        }
         User user = new User();
         StatusBlog statusBlog = new StatusBlog();
         Category category = new Category();
         Blog blog = new Blog();
-        BeanUtils.copyProperties(blogDto,blog);
-
-
-        //CREATE TABLE AUTHOR
-        user.setName(blogDto.getAuthor().getName());
-        user.setAge(blogDto.getAuthor().getAge());
-        user.setEmail(blogDto.getAuthor().getEmail());
-        user.setGender(blogDto.getAuthor().getGender());
-        user.setPhoneNumber(blogDto.getAuthor().getPhoneNumber());
+        BeanUtils.copyProperties(blogDto, blog);
+        user.setIdUser(blogDto.getIdUser());
+        blog.setUser(user);
 
         //CREATE TABLE STATUS_BLOG
         LocalDate localDate = LocalDate.now();
@@ -90,7 +89,6 @@ public class BlogController {
         return modelAndView;
     }
 
-
     @GetMapping("/showBlog/{idBlog}")
     public ModelAndView showBlog(RedirectAttributes redirectAttributes, @PathVariable int idBlog) {
         ModelAndView modelAndView = new ModelAndView("redirect:/blog");
@@ -103,21 +101,21 @@ public class BlogController {
     @GetMapping("/list")
     public ModelAndView showList(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "") String valueSearch,
-                                 @RequestParam(defaultValue = "") String category
+                                 @RequestParam(defaultValue = "") int category
     ) {
         ModelAndView modelAndView = new ModelAndView("list");
         Pageable pageable = PageRequest.of(page, 8);
         Page<Blog> blogPage;
         if (!valueSearch.equals("")) {
             blogPage = iBlogService.findBlogByAll(valueSearch, valueSearch, valueSearch, pageable);
-        } else if (!category.equals("")) {
+        } else if (category != 0) {
             blogPage = iBlogService.findBlogByCategory(category, pageable);
-        }else {
+        } else {
             blogPage = iBlogService.findAll(pageable);
         }
         modelAndView.addObject("blogPage", blogPage);
-        modelAndView.addObject("valueSearch",valueSearch);
-        modelAndView.addObject("category",category);
+        modelAndView.addObject("valueSearch", valueSearch);
+        modelAndView.addObject("category", category);
         modelAndView.addObject("categoryList", iCategoryService.findCategory());
         return modelAndView;
     }
@@ -162,7 +160,6 @@ public class BlogController {
         StatusBlog statusBlog = new StatusBlog();
         User user = new User();
         Category category = new Category();
-
 
 
         //CREATE TABLE AUTHOR
