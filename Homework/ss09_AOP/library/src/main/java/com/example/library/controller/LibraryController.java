@@ -37,7 +37,6 @@ import java.util.Random;
 public class LibraryController {
     @Autowired
     private IBookService iBookService;
-
     @Autowired
     private IBorrowedCardService iBorrowedCardService;
     @Autowired

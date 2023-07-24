@@ -1,9 +1,8 @@
-package com.example.shop.dto;
+package com.example.shop.dto.cart;
 
-import com.example.shop.model.Product;
+import com.example.shop.model.product.Product;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CartDto {

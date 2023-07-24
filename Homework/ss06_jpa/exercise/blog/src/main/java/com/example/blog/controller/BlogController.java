@@ -101,15 +101,15 @@ public class BlogController {
     @GetMapping("/list")
     public ModelAndView showList(@RequestParam(defaultValue = "0") int page,
                                  @RequestParam(defaultValue = "") String valueSearch,
-                                 @RequestParam(defaultValue = "") int category
+                                 @RequestParam(defaultValue = "") String category
     ) {
         ModelAndView modelAndView = new ModelAndView("list");
         Pageable pageable = PageRequest.of(page, 8);
         Page<Blog> blogPage;
         if (!valueSearch.equals("")) {
             blogPage = iBlogService.findBlogByAll(valueSearch, valueSearch, valueSearch, pageable);
-        } else if (category != 0) {
-            blogPage = iBlogService.findBlogByCategory(category, pageable);
+        } else if (!category.equals("") ) {
+            blogPage = iBlogService.findBlogByCategory( Integer.parseInt(category), pageable);
         } else {
             blogPage = iBlogService.findAll(pageable);
         }

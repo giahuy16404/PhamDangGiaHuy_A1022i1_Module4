@@ -22,7 +22,6 @@
     <div id="main-ads-left"></div>
     <div id="main-content">
         <div id="content">
-
             <div th:each="list : ${viewBlog}">
                 <strong><h2 th:text="${list.title}" class="title-main-content"></h2></strong>
                 <strong>Tác giả : <span th:text="${list.user.name}"></span></strong>
@@ -59,12 +58,20 @@
                     </div>
                 </div>
             </div>
+
+            <table>
+                <tr>
+                    <th>Stt</th>
+                    <th>Title</th>
+                    <th>Des</th>
+                </tr>
+                <tbody>
+
+                </tbody>
+            </table>
         </div>
     </div>
-
     <div id="main-ads-right"></div>
 </div>
-
-
 </body>
 </html>

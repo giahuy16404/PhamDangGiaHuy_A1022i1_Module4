@@ -1,9 +1,8 @@
-package com.example.shop.controller;
+package com.example.shop.controller.cart;
 
-import com.example.shop.dto.CartDto;
+import com.example.shop.dto.cart.CartDto;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;

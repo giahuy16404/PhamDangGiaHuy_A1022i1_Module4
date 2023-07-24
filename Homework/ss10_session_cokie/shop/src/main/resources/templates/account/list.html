@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="js/code.jquery.com_jquery-3.7.0.min.js"></script>
+    <script src="js/account.js"></script>
+</head>
+<body>
+<h1>Danh sách account</h1>
+<input type="text" placeholder="search name" id="search-name">
+<button id="btn-search-name" onclick="searchByName()">search</button>
+
+<table border="1" style="border-collapse: collapse">
+    <tr>
+        <td>STT</td>
+        <td>Tài khoản</td>
+        <td>Quyền</td>
+    </tr>
+    <tbody id="content-table"></tbody>
+</table>
+<button id="show-more" onclick="showMore()" value="page">Thêm</button>
+</body>
+</html>

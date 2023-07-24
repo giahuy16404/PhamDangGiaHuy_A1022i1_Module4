@@ -24,8 +24,7 @@ import java.util.List;
 @CrossOrigin("*")
 @RestController
 @RequestMapping("api/blog")
-public class RestBlogController {
-
+public class RestBlogController{
     @Autowired
     private ICategoryService iCategoryService;
 
@@ -77,10 +76,12 @@ public class RestBlogController {
 
     @PostMapping("/create-blog")
     public ResponseEntity<?> create(@RequestBody BlogDto blogDto) {
-        User user = new User();
         StatusBlog statusBlog = new StatusBlog();
-        Category category = new Category();
+        User user = new User();
         Blog blog = new Blog();
+        Category category = new Category();
+
+
         BeanUtils.copyProperties(blogDto, blog);
         user.setIdUser(blogDto.getIdUser());
         blog.setUser(user);

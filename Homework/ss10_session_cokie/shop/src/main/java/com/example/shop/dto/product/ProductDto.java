@@ -1,4 +1,4 @@
-package com.example.shop.dto;
+package com.example.shop.dto.product;
 
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;

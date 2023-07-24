@@ -1,10 +1,9 @@
-package com.example.shop.controller;
+package com.example.shop.controller.product;
 
-import com.example.shop.dto.CartDto;
-import com.example.shop.dto.ProductDto;
-import com.example.shop.model.Product;
-import com.example.shop.service.IProductService;
-import net.bytebuddy.implementation.bind.annotation.Default;
+import com.example.shop.dto.cart.CartDto;
+import com.example.shop.dto.product.ProductDto;
+import com.example.shop.model.product.Product;
+import com.example.shop.service.product.IProductService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
