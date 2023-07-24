@@ -21,7 +21,7 @@ function update() {
         data: JSON.stringify(product),
         url: "http://localhost:8080/api/product/update",
         success: function () {
-            alert("update thành công ")
+            findById(id);
         }
     })
 
