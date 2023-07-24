@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 public class productService implements IProductService {
 
     @Autowired
-    iProductRepository iProductRepository;
+    private iProductRepository iProductRepository;
 
     @Override
     public Page<Product> findAll(Pageable pageable) {

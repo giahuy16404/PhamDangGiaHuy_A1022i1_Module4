@@ -16,10 +16,11 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("api/product")
 public class RestProductController {
     @Autowired
-    IProductService iProductService;
+    private IProductService iProductService;
+
     @PatchMapping("/update")
-    public ResponseEntity<?> update(@RequestBody Product product){
-        if (iProductService.update(product)){
+    public ResponseEntity<?> update(@RequestBody Product product) {
+        if (iProductService.update(product)) {
             return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.FOUND);
@@ -28,20 +29,21 @@ public class RestProductController {
     @GetMapping("/list")
     public ResponseEntity<Page<Product>> getAll(@RequestParam(defaultValue = "0") int page,
                                                 @RequestParam(defaultValue = "0") int size
-                                                ){
-        Pageable pageable = PageRequest.of(page,size);
+    ) {
+        Pageable pageable = PageRequest.of(page, size);
         Page<Product> getAll = iProductService.findAll(pageable);
-        if (getAll.isEmpty()){
+        if (getAll.isEmpty()) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(getAll,HttpStatus.OK);
+        return new ResponseEntity<>(getAll, HttpStatus.OK);
     }
+
     @GetMapping("/findById")
-    public ResponseEntity<Product>  findById(@RequestParam long id){
+    public ResponseEntity<Product> findById(@RequestParam long id) {
         Product product = iProductService.findById(id);
-        if (product == null){
+        if (product == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        return new ResponseEntity<>(product,HttpStatus.OK);
+        return new ResponseEntity<>(product, HttpStatus.OK);
     }
 }
