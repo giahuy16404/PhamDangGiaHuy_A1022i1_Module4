@@ -51,7 +51,6 @@ function showMore() {
     });
 }
 
-
 function searchByName() {
     let valueSearch = $("#search-name").val();
     let content = "";
