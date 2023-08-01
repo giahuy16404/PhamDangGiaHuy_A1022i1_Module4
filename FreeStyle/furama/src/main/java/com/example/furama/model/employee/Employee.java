@@ -33,13 +33,13 @@ public class Employee {
 
     @ManyToOne
     @JoinColumn(name = "userName", nullable = false, referencedColumnName = "userName")
-    private User user;
+    private AppUser appUser;
 
     public Employee() {
     }
 
     public Employee(long id, String name, String birthDay, String idCard, double salary,
-                    String phone, String email, String address, Position position, EducationDegree educationDegree, Division division, User user) {
+                    String phone, String email, String address, Position position, EducationDegree educationDegree, Division division, AppUser appUser) {
         this.id = id;
         this.name = name;
         this.birthDay = birthDay;
@@ -51,7 +51,7 @@ public class Employee {
         this.position = position;
         this.educationDegree = educationDegree;
         this.division = division;
-        this.user = user;
+        this.appUser = appUser;
     }
 
     public long getId() {
@@ -142,12 +142,12 @@ public class Employee {
         this.division = division;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getUser() {
+        return appUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     @Override
@@ -164,7 +164,7 @@ public class Employee {
                 ", position=" + position +
                 ", educationDegree=" + educationDegree +
                 ", division=" + division +
-                ", user=" + user +
+                ", user=" + appUser +
                 '}';
     }
 }
