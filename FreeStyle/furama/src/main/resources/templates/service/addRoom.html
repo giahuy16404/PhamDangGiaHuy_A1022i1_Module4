@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="display/header :: header"></div>
+<div class="container">
+    <h1>Thêm Room </h1>
+    <br>
+    <form th:object="${serviceDto}" method="post" th:action="@{/service/add}">
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" placeholder="Name" th:field="*{name}">
+                <input type="text" style="display: none" class="form-control" id="id" placeholder="id"
+                       th:field="*{name}">
+                <!--                <small style="color: red" class="error-create" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>-->
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="area" class="col-sm-2 col-form-label">Area</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="area" placeholder="Area" th:field="*{area}">
+                <!--                <small style="color: red" class="error-create" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>-->
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="cost" class="col-sm-2 col-form-label">Cost</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="cost" placeholder="Cost" th:field="*{cost}">
+                <!--                <small style="color: red" class="error-create" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>-->
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="maxPeople" class="col-sm-2 col-form-label">Max People</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="maxPeople" placeholder="Max People"
+                       th:field="*{maxPeople}">
+                <!--                <small style="color: red" class="error-create" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></small>-->
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="maxPeople" class="col-sm-2 col-form-label">Rent Type</label>
+            <div class="col-sm-10">
+                <select th:field="*{rentType}">
+                    <option th:each="r : ${rentType}" th:text="${r.name}" th:value="${r.id}"></option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <input type="text" th:value="3" th:name="serviceType" th:id="serviceType" style="display: none">
+
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Add</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

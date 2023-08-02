@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{display/header :: header}"></div>
+<h2 style="text-align: center">Customer</h2>
+
+<form class="d-flex" th:action="@{/customer}" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search"
+           style="width: 300px;margin: auto">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Name</th>
+        <th scope="col">BirthDay</th>
+        <th scope="col">Gender</th>
+        <th scope="col">CCCD</th>
+        <th scope="col">Phone</th>
+        <th scope="col">Customer Type</th>
+        <th scope="col">Email</th>
+        <th scope="col">Address</th>
+        <th scope="col">Action</th>
+
+    </tr>
+    </thead>
+    <tbody>
+    <form th:action="@{/customer/remove}" method="post">
+        <tr th:each="c,status:${customerPage}">
+            <th scope="row" style="font-size: 14px" th:text="${status.index + 1}"></th>
+            <td style="display: none" th:text="${c.id}" th:data-id="${c.id}"></td>
+            <td style="font-size: 14px" th:text="${c.name}" th:data-name="${c.name}"></td>
+            <td style="font-size: 14px" th:text="${c.birthDay}" th:data-birthDay="${c.birthDay}"></td>
+            <td style="font-size: 14px" th:text="${c.gender ? 'Nam' : 'Nữ'}" th:data-gender="${c.gender}"></td>
+            <td style="font-size: 14px" th:text="${c.idCard}" th:data-idCard="${c.idCard}"></td>
+            <td style="font-size: 14px" th:text="${c.phone}" th:data-phone="${c.phone}"></td>
+            <td style="font-size: 14px" th:text="${c.customerType.name}"
+                th:data-customerType="${c.customerType.name}"></td>
+            <td style="font-size: 14px" th:text="${c.email}" th:data-email="${c.email}"></td>
+            <td style="font-size: 14px" th:text="${c.address}" th:data-address="${c.address}"></td>
+            <td colspan="2">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalUpdate"
+                        th:data-bs-id="${c.id}"
+                        th:data-bs-name="${c.name}"
+                        th:data-bs-birthDay="${c.birthDay}"
+                        th:data-bs-gender="${c.gender}"
+                        th:data-bs-idCard="${c.idCard}"
+                        th:data-bs-phone="${c.phone}"
+                        th:data-bs-customerType="${c.customerType.name}"
+                        th:data-bs-email="${c.email}"
+                        th:data-bs-address="${c.address}"
+                >
+                    Update
+                </button>
+                |
+                <input type="checkbox" th:value="${c.id}" name="idRemove"></td>
+        </tr>
+        <button type="submit" id="button-remove" style="display: none">remove</button>
+    </form>
+
+    </tbody>
+</table>
+<a th:href="@{/customer/add}">
+    <button type="button" class="btn btn-primary">Add</button>
+</a>
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalRemove">Remove</button>
+<!-- Modal Remove -->
+<div class="modal fade" id="exampleModalRemove"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabelRemove">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <h3>Xóa khách hàng </h3>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <label for="button-remove"> Remove </label>
+                </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal Update -->
+<div class="modal fade" id="exampleModalUpdate"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:object="${customerDto}" method="post" th:action="@{/customer/update}">
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="text" class="form-control" style="display: none" name="idUpdate" th:field="*{id}"
+                           id="idUpdate" placeholder="id">
+
+                    <label for="nameUpdate">Name</label>
+                    <input type="text" class="form-control" name="nameUpdate" th:field="*{name}"
+                           id="nameUpdate"
+                           placeholder="BirthDay">
+
+                    <label for="birthdayUpdate">BirthDay</label>
+                    <input type="date" class="form-control" name="birthdayUpdate" th:field="*{birthDay}"
+                           id="birthdayUpdate"
+                           placeholder="BirthDay">
+
+                    <label for="genderUpdate">Gender</label>
+                    <select th:field="*{gender}" name="genderUpdate" id="genderUpdate" class="form-control">
+                        <option th:value="${true}">Nam</option>
+                        <option th:value="${false}">Nữ</option>
+                    </select>
+
+                    <label for="idCardUpdate">CCCD</label>
+                    <input type="number" class="form-control" name="idCardUpdate" th:field="*{idCard}" id="idCardUpdate"
+                           placeholder="idCardUpdate">
+
+                    <label for="phoneUpdate">Phone</label>
+                    <input type="number" class="form-control" name="phoneUpdate" th:field="*{phone}" id="phoneUpdate"
+                           placeholder="Phone">
+
+                    <label>Customer Type</label>
+                    <select th:field="*{customerType}" class="form-control">
+                        <option id="customerTypeUpdate" th:value="${customerType}" selected></option>
+                        <option th:each="c:${customerType}" th:text="${c.name}" selected th:value="${c.id}"></option>
+                    </select>
+
+                    <label for="emailUpdate">Email</label>
+                    <input type="text" class="form-control" name="emailUpdate" th:field="*{email}" id="emailUpdate"
+                           placeholder="Email">
+
+                    <label>Address</label>
+                    <input type="text" class="form-control" name="addressUpdate" th:field="*{address}"
+                           id="addressUpdate"
+                           placeholder="addressUpdate">
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="paginate">
+    <a th:if="${customerPage.hasPrevious()}" th:href="@{/customer(page = ${customerPage.number - 1})}"></a>
+    <span th:text="${customerPage.number + 1}"></span>
+    <span th:text="${customerPage.totalPages}"></span>
+    <a th:if="${customerPage.hasNext()}" th:href="@{/customer(page = ${customerPage.number + 1})}"></a>
+</div>
+</body>
+</html>
+<script>
+    let updateCustomer = document.getElementById("exampleModalUpdate");
+    updateCustomer.addEventListener("show.bs.modal", function (event) {
+        let button = event.relatedTarget;
+
+        let id = button.getAttribute("data-bs-id");
+        let name = button.getAttribute("data-bs-name");
+        let birthDay = button.getAttribute("data-bs-birthDay");
+        let gender = button.getAttribute("data-bs-gender");
+        let idCard = button.getAttribute("data-bs-idCard");
+        let phone = button.getAttribute("data-bs-phone");
+        let customerType = button.getAttribute("data-bs-customerType");
+        let email = button.getAttribute("data-bs-email");
+        let address = button.getAttribute("data-bs-address");
+
+        let modalInputNewCustomerId = updateCustomer.querySelector("#idUpdate");
+        let modalInputNewCustomerName = updateCustomer.querySelector("#nameUpdate");
+        let modalInputNewCustomerBirthDay = updateCustomer.querySelector("#birthdayUpdate");
+        let modalInputNewCustomerGender = updateCustomer.querySelector("#genderUpdate");
+        let modalInputNewCustomerIdCard = updateCustomer.querySelector("#idCardUpdate");
+        let modalInputNewCustomerPhone = updateCustomer.querySelector("#phoneUpdate");
+        let modalInputNewCustomerCustomerType = updateCustomer.querySelector("#customerTypeUpdate");
+        let modalInputNewCustomerEmail = updateCustomer.querySelector("#emailUpdate");
+        let modalInputNewCustomerAddress = updateCustomer.querySelector("#addressUpdate");
+
+        modalInputNewCustomerId.value = id;
+        modalInputNewCustomerName.value = name;
+        modalInputNewCustomerBirthDay.value = birthDay;
+        modalInputNewCustomerGender.value = gender;
+        modalInputNewCustomerIdCard.value = idCard;
+        modalInputNewCustomerPhone.value = phone;
+        modalInputNewCustomerCustomerType.innerText = customerType;
+        modalInputNewCustomerEmail.value = email;
+        modalInputNewCustomerAddress.value = address;
+    })
+</script>

@@ -1,9 +1,8 @@
-package com.example.furama.controller;
+package com.example.furama.controller.employee;
 
-import com.example.furama.dto.employee.EmployeeDTO;
+import com.example.furama.dto.employeeDto.EmployeeDTO;
 import com.example.furama.model.employee.AppUser;
 import com.example.furama.model.employee.Employee;
-import com.example.furama.repository.employee.IPositionRepository;
 import com.example.furama.service.employee.itf.IEmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +19,26 @@ import java.util.List;
 
 @Controller
 @RequestMapping("/employee")
-public class employeeController {
+public class EmployeeController {
     @Autowired
     private IEmployeeService iEmployeeService;
 
     @GetMapping("")
     public String showList(@RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "0") int size,
+                           @RequestParam(defaultValue = "") String valueSearch,
                            Model model
     ) {
-        Pageable pageable = PageRequest.of(page, 10);
-        Page<Employee> employeePage = iEmployeeService.findAll(pageable);
+        Pageable pageable = PageRequest.of(page, 3);
+        Page<Employee> employeePage;
+        if (valueSearch.equals("")) {
+            employeePage = iEmployeeService.findAll(pageable);
+        } else {
+            employeePage = iEmployeeService.searchByName(pageable, valueSearch);
+        }
         model.addAttribute("employeePage", employeePage);
         model.addAttribute("employeeDto", new EmployeeDTO());
+        model.addAttribute("valueSearch", valueSearch);
         model.addAttribute("position", iEmployeeService.findPosition());
         model.addAttribute("division", iEmployeeService.findDivision());
         model.addAttribute("education", iEmployeeService.findEducation());
@@ -62,8 +68,12 @@ public class employeeController {
         appUser.setUserName("Huy");
         appUser.setPassWord("123");
         employee.setUser(appUser);
-        iEmployeeService.add(employee);
-        redirectAttributes.addFlashAttribute("successCreate", "Thêm mới thành công!");
+        if (iEmployeeService.add(employee)){
+            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới thành công!");
+        }else {
+            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới không thành công!");
+        }
+
         return "redirect:/employee";
     }
 
@@ -78,9 +88,14 @@ public class employeeController {
         iEmployeeService.update(employee);
         return "redirect:/employee";
     }
+
     @PostMapping("/remove")
-    public String remove(@RequestParam List<Long> name){
-        System.out.println(name);
+    public String remove(@RequestParam List<Long> idRemove) {
+        for (Long id : idRemove) {
+            iEmployeeService.remove(id);
+        }
         return "redirect:/employee";
     }
+
+
 }

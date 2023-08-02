@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{display/header :: header}"></div>
+<h2 style="text-align: center">Hợp đồng</h2>
+
+<form class="d-flex" th:action="@{/customer}" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search"
+           style="width: 300px;margin: auto">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Employee</th>
+        <th scope="col">Customer</th>
+        <th scope="col">Service</th>
+        <th scope="col">Star Date</th>
+        <th scope="col">End Date</th>
+        <th scope="col">Deposit</th>
+        <th scope="col">Total Money</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="c,status:${contractPage}">
+        <th scope="row" style="font-size: 14px" th:text="${status.index + 1}"></th>
+        <td style="display: none" th:text="${c.id}" th:data-id="${c.id}"></td>
+        <td style="font-size: 14px" th:text="${c.employee.name}"></td>
+        <td style="font-size: 14px" th:text="${c.customer.name}"></td>
+        <td style="font-size: 14px" th:text="${c.service.name}"></td>
+        <td style="font-size: 14px" th:text="${c.starDate}"></td>
+        <td style="font-size: 14px" th:text="${c.endDate}"></td>
+        <td style="font-size: 14px" th:text="${c.deposit}"></td>
+        <td style="font-size: 14px" th:text="${c.totalMoney}"></td>
+
+        <td colspan="2">
+            <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                    data-bs-target="#exampleModalUpdate">Update
+            </button>
+            |
+            <input type="checkbox" th:value="${c.id}" name="idRemove">
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- Modal add -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Add</button>
+<div class="modal fade" id="exampleModalAdd"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabelAdd">Modal Add</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+
+                <a th:href="@{/contract/add_contract_villa}">
+                    <button type="button" class="btn btn-primary">Tạo hợp đồng Villa</button>
+                </a>
+
+                <a th:href="@{/contract/add_contract_villa}">
+                    <button type="button" class="btn btn-primary">Tạo hợp đồng House</button>
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div id="paginate">
+    <a th:if="${contractPage.hasPrevious()}" th:href="@{/contract(page = ${contractPage.number - 1})}"></a>
+    <span th:text="${contractPage.number + 1}"></span>
+    <span th:text="${contractPage.totalPages}"></span>
+    <a th:if="${contractPage.hasNext()}" th:href="@{/contract(page = ${contractPage.number + 1})}"></a>
+</div>
+</body>
+</html>
+<script>
+</script>

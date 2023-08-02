@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+
+    </style>
+</head>
+<body>
+
+<div th:insert="~{ display/header :: header}"></div>
+<h2 style="text-align: center">Service</h2>
+<form class="d-flex" th:action="@{/service}" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search"
+           style="width: 300px;margin: auto">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th scope="col">STT</th>
+        <th scope="col">Name</th>
+        <th scope="col">Area</th>
+        <th scope="col">cost</th>
+        <th scope="col">Max People</th>
+        <th scope="col">Rent Type</th>
+        <th scope="col">Service Type</th>
+        <th scope="col">Standard Room</th>
+        <th scope="col">Description Convenience</th>
+        <th scope="col">Pool Area</th>
+        <th scope="col">Number Of Floors</th>
+        <th scope="col">Action</th>
+    </tr>
+    </thead>
+    <tbody>
+    <form th:action="@{/employee/remove}" method="post">
+        <tr th:each="e,status:${servicePage}">
+            <th scope="row" th:text="${status.index + 1}" style="font-size: 14px"></th>
+            <td th:text="${e.id}" style="display: none" th:data-bs-id="${e.id}"></td>
+            <td th:text="${e.name}" style="font-size: 14px" th:data-bs-name="${e.name}"></td>
+            <td th:text="${e.area}" style="font-size: 14px" th:data-bs-area="${e.area}"></td>
+            <td th:text="${e.cost}" style="font-size: 14px" th:data-bs-cost="${e.cost}"></td>
+            <td th:text="${e.maxPeople}" style="font-size: 14px" th:data-bs-maxPeople="${e.maxPeople}"></td>
+            <td th:text="${e.rentType.name}" style="font-size: 14px" th:data-bs-rentType="${e.rentType.name}"></td>
+            <td th:text="${e.serviceType.name}" style="font-size: 14px"
+                th:data-bs-serviceType="${e.serviceType.name}"></td>
+            <td th:text="${e.standardRoom}" style="font-size: 14px" th:data-bs-standardRoom="${e.standardRoom}"></td>
+            <td th:text="${e.descriptionConvenience}" style="font-size: 14px"
+                th:data-bs-descriptionConvenience="${e.descriptionConvenience}"></td>
+            <td th:text="${e.poolArea}" style="font-size: 14px" th:data-bs-poolArea="${e.poolArea}"></td>
+            <td th:text="${e.numberOfFloors}" style="font-size: 14px"
+                th:data-bs-numberOfFloors="${e.numberOfFloors}"></td>
+
+            <td colspan="2">
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalUpdate"
+                        th:data-bs-id="${e.id}"
+                        th:data-bs-name="${e.name}"
+                        th:data-bs-area="${e.area}"
+                        th:data-bs-cost="${e.cost}"
+                        th:data-bs-maxPeople="${e.maxPeople}"
+                        th:data-bs-rentType="${e.rentType.name}"
+                        th:data-bs-serviceType="${e.serviceType.name}"
+                        th:data-bs-standardRoom="${e.standardRoom}"
+                        th:data-bs-descriptionConvenience="${e.descriptionConvenience}"
+                        th:data-bs-poolArea="${e.poolArea}"
+                >Update
+
+                </button>
+                |
+                <input type="checkbox" th:value="${e.id}" name="idRemove"></td>
+        </tr>
+        <button type="submit" style="display: none" id="button-remove"></button>
+    </form>
+    </tbody>
+</table>
+
+
+<!-- Modal add -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalAdd">Add</button>
+<div class="modal fade" id="exampleModalAdd"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabelAdd">Modal Add</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <a th:href="@{/service/add_villa}">
+                    <button type="button" class="btn btn-primary">Add Villa</button>
+                </a>
+
+                <a th:href="@{/service/add_house}">
+                    <button type="button" class="btn btn-primary">Add House</button>
+                </a>
+
+                <a th:href="@{/service/add_room}">
+                    <button type="button" class="btn btn-primary">Add Room</button>
+                </a>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal remove -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalRemove">Xóa</button>
+<div class="modal fade" id="exampleModalRemove"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabelRemove">Modal Remove</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h3>Xóa nhân viên</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <label for="button-remove">
+                    Remove
+                </label>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal Update -->
+<div class="modal fade" id="exampleModalUpdate"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <form th:object="${serviceDto}" th:action="@{/service/update}" method="post">
+
+                <div class="modal-header">
+                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="text" class="form-control" style="display: none" name="idUpdate" th:field="*{id}"
+                           id="idUpdate" placeholder="id">
+
+                    <label for="nameUpdate">Name</label>
+                    <input type="text" class="form-control" name="nameUpdate" th:field="*{name}" id="nameUpdate"
+                           placeholder="Name">
+                </div>
+
+                <div class="modal-body">
+                    <label for="areaUpdate">Area</label>
+                    <input type="text" class="form-control" name="areaUpdate" th:field="*{area}" id="areaUpdate"
+                           placeholder="Area">
+                </div>
+
+                <div class="modal-body">
+                    <label for="costUpdate">Cost</label>
+                    <input type="text" class="form-control" name="costUpdate" th:field="*{cost}" id="costUpdate"
+                           placeholder="Area">
+                </div>
+
+                <div class="modal-body">
+                    <label for="maxPeopleUpdate">Max People</label>
+                    <input type="text" class="form-control" name="maxPeopleUpdate" th:field="*{maxPeople}" id="maxPeopleUpdate"
+                           placeholder="Max People">
+                </div>
+
+                <div class="modal-body">
+                    <label for="rentTypeUpdate">Rent Type</label>
+
+                    <select th:field="*{rentType}">
+                        <option id="rentTypeUpdate" th:value="${rentType}"></option>
+                        <option th:each="r:${rentType}" th:text="${r.name}" th:value="${r.id}"></option>
+                    </select>
+                </div>
+
+                <div class="modal-body">
+                    <label for="rentTypeUpdate">Service Type</label>
+
+                    <select th:field="*{serviceType}">
+                        <option id="serviceTypeUpdate" th:value="${serviceType}"></option>
+                        <option th:each="r:${serviceType}" th:text="${r.name}" th:value="${r.id}"></option>
+                    </select>
+                </div>
+
+                <div class="modal-body">
+                    <label for="standardRoomUpdate">Standard Room</label>
+                    <input type="text" class="form-control" name="standardRoomUpdate" th:field="*{standardRoom}" id="standardRoomUpdate"
+                           placeholder="Standard Room">
+                </div>
+                <div class="modal-body">
+                    <label for="descriptionConvenienceTypeUpdate">Description Convenience</label>
+                    <input type="text" class="form-control" name="serviceType" th:field="*{descriptionConvenience}" id="descriptionConvenienceTypeUpdate"
+                           placeholder="Description Convenience">
+                </div>
+                <div class="modal-body">
+                    <label for="poolAreaUpdate">Pool Area</label>
+                    <input type="text" class="form-control" name="poolAreaUpdate" th:field="*{poolArea}" id="poolAreaUpdate"
+                           placeholder="Pool Area">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div id="paginate">
+    <a th:if="${servicePage.hasPrevious()}" th:href="@{/service(page = ${servicePage.number - 1},valueSearch = ${valueSearch})}">Previous</a>
+    <span th:text="${servicePage.number + 1}"></span>
+    /<span th:text="${servicePage.totalPages}"></span>
+    <a th:if="${servicePage.hasNext()}" th:href="@{/service(page = ${servicePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
+</div>
+
+</body>
+</html>
+<script>
+
+    let updateServiceModal = document.getElementById("exampleModalUpdate")
+    updateServiceModal.addEventListener("show.bs.modal", function (event) {
+        let button = event.relatedTarget;
+
+        let id = button.getAttribute("data-bs-id");
+        let name = button.getAttribute("data-bs-name");
+        let area = button.getAttribute("data-bs-area");
+        let cost = button.getAttribute("data-bs-cost");
+        let maxPeople = button.getAttribute("data-bs-maxPeople");
+        let rentType = button.getAttribute("data-bs-rentType");
+        let serviceType = button.getAttribute("data-bs-serviceType");
+        let standardRoom = button.getAttribute("data-bs-standardRoom");
+        let descriptionConvenience = button.getAttribute("data-bs-descriptionConvenience");
+        let poolArea = button.getAttribute("data-bs-poolArea");
+
+        let modalBodyUpdateId = updateServiceModal.querySelector("#idUpdate");
+        let modalBodyUpdateName = updateServiceModal.querySelector("#nameUpdate");
+        let modalBodyUpdateArea = updateServiceModal.querySelector("#areaUpdate");
+        let modalBodyUpdateCost = updateServiceModal.querySelector("#costUpdate");
+        let modalBodyUpdateMaxPeople = updateServiceModal.querySelector("#maxPeopleUpdate");
+        let modalBodyUpdateRentType = updateServiceModal.querySelector("#rentTypeUpdate");
+        let modalBodyUpdateServiceType = updateServiceModal.querySelector("#serviceTypeUpdate");
+        let modalBodyUpdateStandardRoom = updateServiceModal.querySelector("#standardRoomUpdate");
+        let modalBodyUpdateDescription = updateServiceModal.querySelector("#descriptionConvenienceTypeUpdate");
+        let modalBodyUpdatePoolArea = updateServiceModal.querySelector("#poolAreaUpdate");
+
+        modalBodyUpdateId.value = id;
+        modalBodyUpdateName.value = name;
+        modalBodyUpdateArea.value = area;
+        modalBodyUpdateCost.value = cost;
+        modalBodyUpdateMaxPeople.value = maxPeople;
+        modalBodyUpdateRentType.innerText = rentType;
+        modalBodyUpdateServiceType.innerText = serviceType;
+        modalBodyUpdateStandardRoom.value = standardRoom;
+        modalBodyUpdateDescription.value = descriptionConvenience;
+        modalBodyUpdatePoolArea.value = poolArea;
+    })
+</script>

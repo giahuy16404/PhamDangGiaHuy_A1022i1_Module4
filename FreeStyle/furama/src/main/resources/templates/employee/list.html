@@ -3,13 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
-    <link rel="stylesheet" href="../../static/employee/css/list.css">
-    <!--    <script src="../static/employee/js/update.js"></script>-->
+    <style>
 
+    </style>
 </head>
 <body>
 
 <div th:insert="~{ display/header :: header}"></div>
+<h2 style="text-align: center">Employee</h2>
+<form class="d-flex" th:action="@{/employee}" role="search" >
+    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search" style="width: 300px;margin: auto">
+    <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 <table class="table table-striped">
     <thead>
     <tr>
@@ -31,7 +36,7 @@
     <form th:action="@{/employee/remove}" method="post">
         <tr th:each="e,status:${employeePage}">
             <th scope="row" th:text="${status.index + 1}" style="font-size: 14px"></th>
-            <td th:text="${e.name}" style="display: none" th:data-bs-name="${e.id}"></td>
+            <td th:text="${e.name}" style="display: none" th:data-bs-id="${e.id}"></td>
             <td th:text="${e.name}" style="font-size: 14px" th:data-bs-name="${e.name}"></td>
             <td th:text="${e.salary}" style="font-size: 14px" th:data-bs-name="${e.salary}"></td>
             <td th:text="${e.idCard}" style="font-size: 14px" th:data-bs-name="${e.idCard}"></td>
@@ -43,7 +48,8 @@
             <td th:text="${e.educationDegree.name}" style="font-size: 14px" th:data-bs-name="${e.educationDegree}"></td>
             <td th:text="${e.division.name}" style="font-size: 14px" th:data-bs-name="${e.name}"></td>
             <td colspan="2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal"
+                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
+                        data-bs-target="#exampleModalUpdate"
                         th:data-bs-id="${e.id}"
                         th:data-bs-name="${e.name}"
                         th:data-bs-salary="${e.salary}"
@@ -61,36 +67,39 @@
                 |
                 <input type="checkbox" th:value="${e.id}" name="idRemove"></td>
         </tr>
-        <button style="display: none" id="button-remove"></button>
+        <button type="submit" style="display: none" id="button-remove"></button>
     </form>
     </tbody>
 </table>
+<a th:href="@{/employee/add}">
+    <button type="button" class="btn btn-primary">Add</button>
+</a>
+
 <!-- Modal remove -->
 <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModalRemove">Xóa</button>
-    <div class="modal fade" id="exampleModalRemove"
-         tabindex="-1"
-         aria-labelledby="exampleModalLabel"
-         aria-hidden="true">
-        <div class="modal-dialog">
-            <div class="modal-content">
-                <form th:object="${employeeDto}" method="post" th:action="@{/employee/update}">
-                    <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="exampleModalLabelRemove">Modal Remove</h1>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <!-- Modal body -->
-                    <div class="modal-body">
-                       <h3>Xóa nhân viên</h3>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <label for="button-remove"><button type="submit" class="btn btn-primary">Remove</button></label>
-                    </div>
-                </form>
+<div class="modal fade" id="exampleModalRemove"
+     tabindex="-1"
+     aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabelRemove">Modal Remove</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-
+            <!-- Modal body -->
+            <div class="modal-body">
+                <h3>Xóa nhân viên</h3>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <label for="button-remove">
+                    Remove
+                </label>
+            </div>
         </div>
     </div>
+</div>
 <!-- Modal Update -->
 <div class="modal fade" id="exampleModalUpdate"
      tabindex="-1"
@@ -162,15 +171,14 @@
                 </div>
             </form>
         </div>
-
     </div>
 </div>
 
 <div id="paginate">
-    <a th:if="${employeePage.hasPrevious()}" th:href="@{/employee/(page = ${employeePage.number - 1})}">Previous</a>
+    <a th:if="${employeePage.hasPrevious()}" th:href="@{/employee(page = ${employeePage.number - 1},valueSearch = ${valueSearch})}">Previous</a>
     <span th:text="${employeePage.number + 1}"></span>
     /<span th:text="${employeePage.totalPages}"></span>
-    <a th:if="${employeePage.hasPrevious()}" th:href="@{/employee/(page = ${employeePage.number + 1})}">Next</a>
+    <a th:if="${employeePage.hasNext()}" th:href="@{/employee(page = ${employeePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
 </div>
 </body>
 </html>
@@ -200,7 +208,6 @@
         var modalBodyInputNewEmployeePhone = editEmployeeModal.querySelector("#phoneUpdate");
         var modalBodyInputNewEmployeeEmail = editEmployeeModal.querySelector("#emailUpdate");
         var modalBodyInputNewEmployeeAddress = editEmployeeModal.querySelector("#addressUpdate");
-        // var modalBodyInputNewEmployeePosition = editEmployeeModal.querySelector("#positionUpdate");
         var modalBodyInputNewEmployeeEducationDegree = editEmployeeModal.querySelector("#educationDegreeUpdate")
         var modalBodyInputNewEmployeeDivision = editEmployeeModal.querySelector("#divisionUpdate")
         var modalBodyInputNewEmployeePositionSelected = editEmployeeModal.querySelector("#positionUpdateSelected");

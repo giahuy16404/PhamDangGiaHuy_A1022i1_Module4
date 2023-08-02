@@ -1,4 +1,4 @@
-package com.example.furama.dto.employee;
+package com.example.furama.dto.employeeDto;
 
 import com.example.furama.model.employee.AppUser;
 import com.example.furama.model.employee.Division;
@@ -6,10 +6,6 @@ import com.example.furama.model.employee.EducationDegree;
 import com.example.furama.model.employee.Position;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-
-import javax.persistence.Column;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 public class EmployeeDTO implements Validator {
     private long id;

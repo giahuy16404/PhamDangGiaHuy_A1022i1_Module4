@@ -35,17 +35,29 @@ public class employeeService implements IEmployeeService {
         try {
             iEmployeeRepository.save(employee);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
     }
+
     @Override
     public boolean update(Employee employee) {
         try {
             iEmployeeRepository.save(employee);
             return true;
-        }catch (Exception e){
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public boolean remove(Long id) {
+        try {
+            iEmployeeRepository.deleteById(id);
+            return true;
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return false;
@@ -69,6 +81,16 @@ public class employeeService implements IEmployeeService {
     @Override
     public Page<Employee> findAll(Pageable pageable) {
         return iEmployeeRepository.findAll(pageable);
+    }
+
+    @Override
+    public Page<Employee> searchByName(Pageable pageable, String name) {
+        return iEmployeeRepository.searchByName(pageable, "%" + name + "%");
+    }
+
+    @Override
+    public List<Employee> getEmployee() {
+        return iEmployeeRepository.findAll();
     }
 
 
