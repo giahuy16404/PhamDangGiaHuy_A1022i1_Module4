@@ -21,62 +21,67 @@ import java.util.List;
 public class CustomerController {
     @Autowired
     private ICustomerService iCustomerService;
+
     @GetMapping("")
     public String showList(@RequestParam(defaultValue = "0") int page,
                            @RequestParam(defaultValue = "0") int size,
                            @RequestParam(defaultValue = "") String valueSearch,
                            Model model
-                           ){
-        Pageable pageable = PageRequest.of(page,3);
+    ) {
+        Pageable pageable = PageRequest.of(page, 3);
         Page<Customer> customerPage;
-        if (valueSearch.equals("")){
+        if (valueSearch.equals("")) {
             customerPage = iCustomerService.findAll(pageable);
-        }else {
-            customerPage = iCustomerService.findByName(pageable,valueSearch);
+        } else {
+            customerPage = iCustomerService.findByName(pageable, valueSearch);
         }
-        model.addAttribute("customerDto",new CustomerDto());
-        model.addAttribute("customerPage",customerPage);
-        model.addAttribute("valueSearch",valueSearch);
-        model.addAttribute("customerType",iCustomerService.findCustomerType());
+        model.addAttribute("customerPage", customerPage);
+        model.addAttribute("valueSearch", valueSearch);
         return "customer/list";
     }
 
     @GetMapping("add")
-    public String add(Model model){
-        model.addAttribute("customerType",iCustomerService.findCustomerType());
-        model.addAttribute("customerDto",new CustomerDto());
+    public String add(Model model) {
+        model.addAttribute("customerType", iCustomerService.findCustomerType());
+        model.addAttribute("customerDto", new CustomerDto());
         return "customer/add";
     }
 
     @PostMapping("/add")
     public String add(@ModelAttribute CustomerDto customerDto,
                       BindingResult bindingResult, RedirectAttributes redirectAttributes
-                      ){
-        new CustomerDto().validate(customerDto,bindingResult);
-        if (bindingResult.hasErrors()){
+    ) {
+        new CustomerDto().validate(customerDto, bindingResult);
+        if (bindingResult.hasErrors()) {
             return "customer/add";
         }
         Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDto,customer);
-        if (iCustomerService.add(customer)){
+        BeanUtils.copyProperties(customerDto, customer);
+        if (iCustomerService.add(customer)) {
             redirectAttributes.addFlashAttribute("successCreate", "Thêm mới thành công!");
-        }else {
+        } else {
             redirectAttributes.addFlashAttribute("successCreate", "Thêm mới không thành công!");
         }
         return "redirect:/customer";
     }
 
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id, Model model) {
+        model.addAttribute("customer", iCustomerService.findById(id));
+        model.addAttribute("customerType", iCustomerService.findCustomerType());
+
+        return "customer/update";
+    }
+
     @PostMapping("/update")
-    public String update(@ModelAttribute CustomerDto customerDto){
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDto,customer);
+    public String update(@ModelAttribute Customer customer) {
         iCustomerService.update(customer);
         return "redirect:/customer";
     }
 
     @PostMapping("/remove")
-    public String remove(@RequestParam List<Long> idRemove){
-        for (Long i: idRemove) {
+    public String remove(@RequestParam List<Long> idRemove) {
+        for (Long i : idRemove) {
             iCustomerService.remove(i);
         }
         return "redirect:/customer";

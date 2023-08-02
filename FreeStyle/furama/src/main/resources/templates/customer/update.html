@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{display/header :: header}"></div>
+<div class="container">
+    <h1>Update Khách hàng</h1>
+    <br>
+    <form th:object="${customer}" method="post" th:action="@{/customer/update}">
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="name" placeholder="Name" th:name="name" th:id="name"
+                       th:value="${customer.name}">
+                <input type="text" style="display: none" class="form-control" th:name="id" th:id="id" placeholder="id"
+                       th:value="${customer.id}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <select th:field="*{customerType}">
+                    <option th:each="c:${customerType}" th:text="${c.name}" th:value="${c.id}"></option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="birthday" class="col-sm-2 col-form-label">Birthday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="birthday" th:name="birthDay" th:id="birthDay"
+                       placeholder="birthday" th:value="${customer.birthDay}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label class="col-sm-2 col-form-label">Gender</label>
+            <div class="col-sm-10">
+                <select th:field="*{gender}">
+                    <option th:value="${true}">Nam</option>
+                    <option th:value="${false}">Nữ</option>
+                </select>
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="idCard" class="col-sm-2 col-form-label">CCCD</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" th:name="idCard" th:id="idCard" id="idCard" placeholder="CCCD"
+                       th:value="${customer.idCard}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">Phone</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" th:name="phone" th:id="phone" id="phone" placeholder="Phone"
+                       th:value="${customer.phone}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" th:name="email" th:id="email" id="email" placeholder="email"
+                       th:value="${customer.email}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Address</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" th:name="address" th:id="address" id="address"
+                       placeholder="Address" th:value="${customer.address}">
+            </div>
+        </div>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,5 +1,6 @@
 package com.example.furama.repository.service;
 
+import com.example.furama.QueryDb.QueryContractDb;
 import com.example.furama.QueryDb.QueryServiceDb;
 import com.example.furama.model.service.Service;
 import org.springframework.data.domain.Page;
@@ -16,4 +17,6 @@ public interface IServiceRepository extends JpaRepository<Service,Long> {
 
     @Query(value = QueryServiceDb.FIND_BY_SERVICE_NAME,nativeQuery = true)
     List<Service> findByServiceName(@Param("service") String service);
+
+
 }

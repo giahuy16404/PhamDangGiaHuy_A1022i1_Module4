@@ -37,12 +37,17 @@ public class EmployeeController {
             employeePage = iEmployeeService.searchByName(pageable, valueSearch);
         }
         model.addAttribute("employeePage", employeePage);
-        model.addAttribute("employeeDto", new EmployeeDTO());
         model.addAttribute("valueSearch", valueSearch);
+        return "employee/list";
+    }
+
+    @GetMapping("/update/{id}")
+    public String update(@PathVariable Long id,Model model){
+        model.addAttribute("employee",iEmployeeService.findById(id));
         model.addAttribute("position", iEmployeeService.findPosition());
         model.addAttribute("division", iEmployeeService.findDivision());
         model.addAttribute("education", iEmployeeService.findEducation());
-        return "employee/list";
+        return "employee/update";
     }
 
     @GetMapping("/add")
@@ -78,9 +83,7 @@ public class EmployeeController {
     }
 
     @PostMapping("/update")
-    public String update(@ModelAttribute EmployeeDTO employeeDTO) {
-        Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO, employee);
+    public String update(@ModelAttribute Employee employee) {
         AppUser appUser = new AppUser();
         appUser.setUserName("Huy");
         appUser.setPassWord("123");

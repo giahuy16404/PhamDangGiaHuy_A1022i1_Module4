@@ -93,5 +93,10 @@ public class employeeService implements IEmployeeService {
         return iEmployeeRepository.findAll();
     }
 
+    @Override
+    public Employee findById(Long id) {
+        return iEmployeeRepository.findById(id).get();
+    }
+
 
 }

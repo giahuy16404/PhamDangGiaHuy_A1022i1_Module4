@@ -22,6 +22,7 @@ public interface IEmployeeService{
     Page<Employee> searchByName(Pageable pageable, String name);
 
     List<Employee> getEmployee();
+    Employee findById (Long id);
 
 
 }

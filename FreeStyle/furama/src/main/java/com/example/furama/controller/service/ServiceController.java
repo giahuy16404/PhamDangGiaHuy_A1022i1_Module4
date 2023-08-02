@@ -29,9 +29,6 @@ public class ServiceController {
         Page<Service> findPage = iService.findPage(pageable);
         model.addAttribute("servicePage", findPage);
         model.addAttribute("valueSearch", valueSearch);
-        model.addAttribute("serviceDto", new ServiceDto());
-        model.addAttribute("serviceType", iService.findServiceType());
-        model.addAttribute("rentType", iService.findRentType());
         return "service/list";
     }
 
@@ -79,10 +76,15 @@ public class ServiceController {
         return "redirect:/service";
     }
 
+    @GetMapping("update/{id}")
+    public String update(@PathVariable Long id,Model model) {
+       model.addAttribute("service",iService.findById(id));
+        model.addAttribute("serviceType", iService.findServiceType());
+        model.addAttribute("rentType", iService.findRentType());
+        return "service/update";
+    }
     @PostMapping("update")
-    public String update(@ModelAttribute ServiceDto serviceDto) {
-        Service service = new Service();
-        BeanUtils.copyProperties(serviceDto, service);
+    public String update(@ModelAttribute Service service) {
         iService.update(service);
         return "redirect:/service";
     }

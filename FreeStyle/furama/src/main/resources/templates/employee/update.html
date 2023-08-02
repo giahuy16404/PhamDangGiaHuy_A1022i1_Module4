@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div th:insert="~{ display/header :: header}">
+</div>
+<div class="container">
+    <h1>Update nhân viên</h1>
+    <br>
+    <form th:object="${employee}" method="post" th:action="@{/employee/update}">
+        <div class="form-group row">
+            <label for="name" class="col-sm-2 col-form-label">Name</label>
+            <div class="col-sm-10">
+                <input type="text" style="display: none" class="form-control" id="id" placeholder="id" th:id="id" th:name="id"
+                       th:value="${employee.id}">
+                <input type="text" class="form-control" id="name" placeholder="Name" th:id="name" th:name="name"
+                       th:value="${employee.name}">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="birthday" class="col-sm-2 col-form-label">birthday</label>
+            <div class="col-sm-10">
+                <input type="date" class="form-control" id="birthday" placeholder="birthday" th:id="birthDay" th:name="birthDay"
+                       th:value="${employee.birthDay}">
+            </div>
+        </div>
+        <br>
+
+        <div class="form-group row">
+            <label for="idCard" class="col-sm-2 col-form-label">CCCD</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="idCard" placeholder="CCCD" th:id="idCard" th:name="idCard"
+                       th:value="${employee.idCard}">
+            </div>
+
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="salary" class="col-sm-2 col-form-label">Lương</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="salary" placeholder="Lương" th:id="salary" th:name="salary"
+                       th:value="${employee.salary}">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="email" class="col-sm-2 col-form-label">Email</label>
+            <div class="col-sm-10">
+                <input type="email" class="form-control" id="email" placeholder="email" th:id="email" th:name="email"
+                       th:value="${employee.email}">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="address" class="col-sm-2 col-form-label">Địa chỉ</label>
+            <div class="col-sm-10">
+                <input type="text" class="form-control" id="address" placeholder="địa chỉ" th:id="address" th:name="address"
+                       th:value="${employee.address}">
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <label for="phone" class="col-sm-2 col-form-label">SDT</label>
+            <div class="col-sm-10">
+                <input type="number" class="form-control" id="phone" placeholder="SDT" th:id="phone" th:name="phone"
+                       th:value="${employee.phone}">
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="position" class="col-sm-2 col-form-label">Vị trí</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="position" th:field="*{position}">
+                    <option th:each="p:${position}" th:text="${p.name}" th:value="${p.id}"></option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="education" class="col-sm-2 col-form-label">Học vấn</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="education" th:field="*{educationDegree}">
+                    <option th:each="e:${education}" th:text="${e.name}" th:value="${e.id}"></option>
+                </select>
+            </div>
+        </div>
+
+        <br>
+        <div class="form-group row">
+            <label for="division" class="col-sm-2 col-form-label">Bộ phận</label>
+            <div class="col-sm-10">
+                <select class="form-control" id="division" th:field="*{division}">
+                    <option th:each="d:${division}" th:text="${d.name}" th:value="${d.id}"></option>
+                </select>
+            </div>
+        </div>
+        <br>
+        <div class="form-group row">
+            <div class="col-sm-10">
+                <button type="submit" class="btn btn-primary">Update</button>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>

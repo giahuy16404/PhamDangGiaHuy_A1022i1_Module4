@@ -17,4 +17,5 @@ public interface ICustomerService {
     boolean update(Customer customer);
     Page<Customer> findByName(Pageable pageable,String name);
     List<Customer> getCustomer();
+    Customer findById(Long id);
 }

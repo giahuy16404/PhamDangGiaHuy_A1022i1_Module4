@@ -63,4 +63,14 @@ public class ServiceImlp implements IService {
     public List<com.example.furama.model.service.Service> getService(String service) {
         return iServiceRepository.findAll();
     }
+
+    @Override
+    public List<com.example.furama.model.service.Service> findByServiceName(String service) {
+        return iServiceRepository.findByServiceName("%" + service + "%");
+    }
+
+    @Override
+    public com.example.furama.model.service.Service findById(Long id) {
+        return iServiceRepository.findById(id).get();
+    }
 }

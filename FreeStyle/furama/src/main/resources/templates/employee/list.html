@@ -11,8 +11,9 @@
 
 <div th:insert="~{ display/header :: header}"></div>
 <h2 style="text-align: center">Employee</h2>
-<form class="d-flex" th:action="@{/employee}" role="search" >
-    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search" style="width: 300px;margin: auto">
+<form class="d-flex" th:action="@{/employee}" role="search">
+    <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search"
+           style="width: 300px;margin: auto">
     <button class="btn btn-outline-success" type="submit">Search</button>
 </form>
 <table class="table table-striped">
@@ -36,34 +37,21 @@
     <form th:action="@{/employee/remove}" method="post">
         <tr th:each="e,status:${employeePage}">
             <th scope="row" th:text="${status.index + 1}" style="font-size: 14px"></th>
-            <td th:text="${e.name}" style="display: none" th:data-bs-id="${e.id}"></td>
-            <td th:text="${e.name}" style="font-size: 14px" th:data-bs-name="${e.name}"></td>
-            <td th:text="${e.salary}" style="font-size: 14px" th:data-bs-name="${e.salary}"></td>
-            <td th:text="${e.idCard}" style="font-size: 14px" th:data-bs-name="${e.idCard}"></td>
-            <td th:text="${e.birthDay}" style="font-size: 14px" th:data-bs-name="${e.birthDay}"></td>
-            <td th:text="${e.phone}" style="font-size: 14px" th:data-bs-name="${e.phone}"></td>
-            <td th:text="${e.email}" style="font-size: 14px" th:data-bs-name="${e.email}"></td>
-            <td th:text="${e.address}" style="font-size: 14px" th:data-bs-name="${e.address}"></td>
-            <td th:text="${e.position.name}" style="font-size: 14px" th:data-bs-name="${e.position.name}"></td>
-            <td th:text="${e.educationDegree.name}" style="font-size: 14px" th:data-bs-name="${e.educationDegree}"></td>
-            <td th:text="${e.division.name}" style="font-size: 14px" th:data-bs-name="${e.name}"></td>
+            <td th:text="${e.name}" style="display: none"></td>
+            <td th:text="${e.name}" style="font-size: 14px"></td>
+            <td th:text="${e.salary}" style="font-size: 14px"></td>
+            <td th:text="${e.idCard}" style="font-size: 14px"></td>
+            <td th:text="${e.birthDay}" style="font-size: 14px"></td>
+            <td th:text="${e.phone}" style="font-size: 14px"></td>
+            <td th:text="${e.email}" style="font-size: 14px"></td>
+            <td th:text="${e.address}" style="font-size: 14px"></td>
+            <td th:text="${e.position.name}" style="font-size: 14px"></td>
+            <td th:text="${e.educationDegree.name}" style="font-size: 14px"></td>
+            <td th:text="${e.division.name}" style="font-size: 14px"></td>
             <td colspan="2">
-                <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#exampleModalUpdate"
-                        th:data-bs-id="${e.id}"
-                        th:data-bs-name="${e.name}"
-                        th:data-bs-salary="${e.salary}"
-                        th:data-bs-idCard="${e.idCard}"
-                        th:data-bs-birthday="${e.birthDay}"
-                        th:data-bs-phone="${e.phone}"
-                        th:data-bs-address="${e.address}"
-                        th:data-bs-email="${e.email}"
-                        th:data-bs-position="${e.position.name}"
-                        th:data-bs-educationDegree="${e.educationDegree.name}"
-                        th:data-bs-division="${e.division.name}"
-                >
-                    Update
-                </button>
+                <a th:href="@{/employee/update/__${e.getId()}__}">
+                    <button type="button" class="btn btn-primary" >Update</button>
+                </a>
                 |
                 <input type="checkbox" th:value="${e.id}" name="idRemove"></td>
         </tr>
@@ -100,129 +88,15 @@
         </div>
     </div>
 </div>
-<!-- Modal Update -->
-<div class="modal fade" id="exampleModalUpdate"
-     tabindex="-1"
-     aria-labelledby="exampleModalLabel"
-     aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <form th:object="${employeeDto}" method="post" th:action="@{/employee/update}">
-                <div class="modal-header">
-                    <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <input type="text" class="form-control" style="display: none" name="idUpdate" th:field="*{id}"
-                           id="idUpdate" placeholder="id">
 
-                    <label for="nameUpdate">Name</label>
-                    <input type="text" class="form-control" name="nameUpdate" th:field="*{name}" id="nameUpdate"
-                           placeholder="Name">
-
-                    <label for="salaryUpdate">Salary</label>
-                    <input type="number" class="form-control" name="salaryUpdate" th:field="*{salary}" id="salaryUpdate"
-                           placeholder="Salary">
-
-                    <label for="cccdUpdate">CCCD</label>
-                    <input type="number" class="form-control" name="cccdUpdate" th:field="*{idCard}" id="cccdUpdate"
-                           placeholder="CCCD">
-
-                    <label for="birthdayUpdate">Birthday</label>
-                    <input type="date" class="form-control" name="birthdayUpdate" th:field="*{birthDay}"
-                           id="birthdayUpdate"
-                           placeholder="Birthday">
-
-                    <label for="phoneUpdate">Phone</label>
-                    <input type="number" class="form-control" name="phoneUpdate" th:field="*{phone}" id="phoneUpdate"
-                           placeholder="Name">
-
-                    <label for="emailUpdate">Email</label>
-                    <input type="text" class="form-control" name="emailUpdate" th:field="*{email}" id="emailUpdate"
-                           placeholder="Email">
-
-                    <label for="addressUpdate">Address</label>
-                    <input type="text" class="form-control" name="addressUpdate" th:field="*{address}"
-                           id="addressUpdate"
-                           placeholder="Address">
-
-                    <label>Position</label>
-                    <select class="form-control" th:field="*{position}">
-                        <option id="positionUpdateSelected" th:value="${position}" selected></option>
-                        <option th:each="p:${position}" th:text="${p.name}" th:value="${p.id}"></option>
-                    </select>
-
-                    <label>Education</label>
-                    <select class="form-control" th:field="*{educationDegree}">
-                        <option id="educationDegreeUpdate" th:value="${education}" selected></option>
-                        <option th:each="p:${education}" th:text="${p.name}" th:value="${p.id}"></option>
-                    </select>
-
-                    <label>Division</label>
-                    <select class="form-control" th:field="*{division}">
-                        <option id="divisionUpdate" th:value="${division}" selected></option>
-                        <option th:each="p:${division}" th:text="${p.name}" th:value="${p.id}"></option>
-                    </select>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Save changes</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
 
 <div id="paginate">
-    <a th:if="${employeePage.hasPrevious()}" th:href="@{/employee(page = ${employeePage.number - 1},valueSearch = ${valueSearch})}">Previous</a>
+    <a th:if="${employeePage.hasPrevious()}"
+       th:href="@{/employee(page = ${employeePage.number - 1},valueSearch = ${valueSearch})}">Previous</a>
     <span th:text="${employeePage.number + 1}"></span>
     /<span th:text="${employeePage.totalPages}"></span>
-    <a th:if="${employeePage.hasNext()}" th:href="@{/employee(page = ${employeePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
+    <a th:if="${employeePage.hasNext()}"
+       th:href="@{/employee(page = ${employeePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
 </div>
 </body>
 </html>
-<script>
-    var editEmployeeModal = document.getElementById("exampleModalUpdate");
-    editEmployeeModal.addEventListener("show.bs.modal", function (event) {
-
-        var button = event.relatedTarget;
-
-        var id = button.getAttribute("data-bs-id");
-        var name = button.getAttribute("data-bs-name");
-        var salary = button.getAttribute("data-bs-salary");
-        var idCard = button.getAttribute("data-bs-idCard");
-        var birthday = button.getAttribute("data-bs-birthday");
-        var phone = button.getAttribute("data-bs-phone");
-        var address = button.getAttribute("data-bs-address");
-        var email = button.getAttribute("data-bs-email");
-        var position = button.getAttribute("data-bs-position");
-        var division = button.getAttribute("data-bs-division");
-        var educationDegree = button.getAttribute("data-bs-educationDegree");
-
-        var modalBodyInputNewEmployeeId = editEmployeeModal.querySelector("#idUpdate");
-        var modalBodyInputNewEmployeeName = editEmployeeModal.querySelector("#nameUpdate");
-        var modalBodyInputNewEmployeeSalary = editEmployeeModal.querySelector("#salaryUpdate");
-        var modalBodyInputNewEmployeeCccd = editEmployeeModal.querySelector("#cccdUpdate");
-        var modalBodyInputNewEmployeeBirthday = editEmployeeModal.querySelector("#birthdayUpdate");
-        var modalBodyInputNewEmployeePhone = editEmployeeModal.querySelector("#phoneUpdate");
-        var modalBodyInputNewEmployeeEmail = editEmployeeModal.querySelector("#emailUpdate");
-        var modalBodyInputNewEmployeeAddress = editEmployeeModal.querySelector("#addressUpdate");
-        var modalBodyInputNewEmployeeEducationDegree = editEmployeeModal.querySelector("#educationDegreeUpdate")
-        var modalBodyInputNewEmployeeDivision = editEmployeeModal.querySelector("#divisionUpdate")
-        var modalBodyInputNewEmployeePositionSelected = editEmployeeModal.querySelector("#positionUpdateSelected");
-
-        modalBodyInputNewEmployeeId.value = id;
-        modalBodyInputNewEmployeeName.value = name;
-        modalBodyInputNewEmployeeSalary.value = salary;
-        modalBodyInputNewEmployeeCccd.value = idCard;
-        modalBodyInputNewEmployeeBirthday.value = birthday;
-        modalBodyInputNewEmployeePhone.value = phone;
-        modalBodyInputNewEmployeeEmail.value = email;
-        modalBodyInputNewEmployeeAddress.value = address;
-        modalBodyInputNewEmployeePositionSelected.innerText = position;
-        modalBodyInputNewEmployeeEducationDegree.innerText = educationDegree;
-        modalBodyInputNewEmployeeDivision.innerText = division;
-
-    });
-</script>
