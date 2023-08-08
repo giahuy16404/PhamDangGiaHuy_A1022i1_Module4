@@ -1,4 +1,4 @@
-package com.example.shop.controller.config;
+package com.example.shop.config;
 
 import com.example.shop.model.account.AppUser;
 import com.example.shop.service.account.UserService;
