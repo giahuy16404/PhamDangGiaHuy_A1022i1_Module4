@@ -39,7 +39,7 @@ public class RestProductController {
     }
 
     @GetMapping("/findById")
-    public ResponseEntity<Product> findById(@RequestParam long id) {
+    public ResponseEntity<Product> findById(@RequestParam Long id) {
         Product product = iProductService.findById(id);
         if (product == null) {
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);

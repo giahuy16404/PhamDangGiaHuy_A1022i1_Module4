@@ -11,15 +11,15 @@ public class UserRole {
 
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
-    private Role role;
+    private AppRole appRole;
     @ManyToOne
     @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
-    private User user;
+    private AppUser appUser;
 
-    public UserRole(Long id, Role role, User user) {
+    public UserRole(Long id, AppRole appRole, AppUser appUser) {
         this.id = id;
-        this.role = role;
-        this.user = user;
+        this.appRole = appRole;
+        this.appUser = appUser;
     }
 
     public UserRole() {
@@ -33,27 +33,27 @@ public class UserRole {
         this.id = id;
     }
 
-    public Role getRole() {
-        return role;
+    public AppRole getRole() {
+        return appRole;
     }
 
-    public void setRole(Role role) {
-        this.role = role;
+    public void setRole(AppRole appRole) {
+        this.appRole = appRole;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getUser() {
+        return appUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     @Override
     public String toString() {
         return "UserRoleKey{" +
-                "role=" + role +
-                ", user=" + user +
+                "role=" + appRole +
+                ", user=" + appUser +
                 '}';
     }
 }

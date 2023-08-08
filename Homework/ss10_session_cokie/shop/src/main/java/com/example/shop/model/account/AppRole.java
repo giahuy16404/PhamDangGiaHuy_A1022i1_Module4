@@ -3,17 +3,17 @@ package com.example.shop.model.account;
 import javax.persistence.*;
 
 @Entity
-public class App_Role {
+public class AppRole {
     @Id
     @Column(name = "role_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String name;
-    public App_Role() {
+    public AppRole() {
     }
 
 
-    public App_Role(long id, String name) {
+    public AppRole(long id, String name) {
         this.id = id;
         this.name = name;
     }

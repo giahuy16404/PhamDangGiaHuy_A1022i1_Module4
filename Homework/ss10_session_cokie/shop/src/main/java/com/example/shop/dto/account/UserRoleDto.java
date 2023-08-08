@@ -1,37 +1,35 @@
 package com.example.shop.dto.account;
 
-import com.example.shop.model.account.Role;
-import com.example.shop.model.account.User;
+import com.example.shop.model.account.AppRole;
+import com.example.shop.model.account.AppUser;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import java.util.List;
 
 public class UserRoleDto implements Validator {
-    private User user;
-    private List<Role> role;
+    private AppUser appUser;
+    private List<AppRole> appRole;
 
-    public UserRoleDto(User user, List<Role> role) {
-        this.user = user;
-        this.role = role;
+    public UserRoleDto(AppUser appUser, List<AppRole> appRole) {
+        this.appUser = appUser;
+        this.appRole = appRole;
     }
 
-    public List<Role> getRole() {
-        return role;
+    public List<AppRole> getRole() {
+        return appRole;
     }
 
-    public void setRole(List<Role> role) {
-        this.role = role;
+    public void setRole(List<AppRole> appRole) {
+        this.appRole = appRole;
     }
 
-    public User getUser() {
-        return user;
+    public AppUser getUser() {
+        return appUser;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUser(AppUser appUser) {
+        this.appUser = appUser;
     }
 
     public UserRoleDto() {

@@ -1,11 +1,8 @@
 package com.example.shop.util;
 
-import com.example.shop.model.account.Role;
-import com.example.shop.model.account.User;
 import com.example.shop.model.account.UserRole;
 import org.springframework.data.domain.Page;
 
-import java.awt.print.Pageable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,5 +36,4 @@ public class MethodUtil {
         }
         return page;
     }
-
 }

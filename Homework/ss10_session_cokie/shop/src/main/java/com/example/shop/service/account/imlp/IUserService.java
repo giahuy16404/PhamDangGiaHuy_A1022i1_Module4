@@ -1,23 +1,20 @@
 package com.example.shop.service.account.imlp;
 
-import com.example.shop.dto.account.UserDto;
-import com.example.shop.dto.account.UserRoleDto;
-import com.example.shop.model.account.User;
-import com.example.shop.model.account.UserRole;
-import com.example.shop.repository.account.IUserRepository;
+import com.example.shop.model.account.AppUser;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-
-import java.util.List;
+import org.springframework.security.core.userdetails.UserDetails;
 
 public interface IUserService {
-    boolean add(User user);
+    boolean add(AppUser appUser);
 
-    boolean edit(User user);
+    boolean edit(AppUser appUser);
 
-    boolean delete(User user);
+    boolean delete(AppUser appUser);
 
-    Page<User> findAll(Pageable pageable);
+    Page<AppUser> findAll(Pageable pageable);
 
-    User findById(long id);
+    AppUser findById(long id);
+    UserDetails getAccountByUsername(String name);
+
 }

@@ -8,10 +8,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import java.util.List;
+
 @Controller
-public class CategoryRepository implements ICategoryService{
+public class CategoryRepository implements ICategoryService {
     @Autowired
-    ICategoryRepository iCategoryRepository;
+    private ICategoryRepository iCategoryRepository;
+
     @Override
     public List<Category> findCategory() {
         return iCategoryRepository.findAll();

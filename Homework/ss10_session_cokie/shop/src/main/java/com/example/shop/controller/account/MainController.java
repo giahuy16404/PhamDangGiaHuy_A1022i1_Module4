@@ -58,7 +58,6 @@ public class MainController {
 
     @RequestMapping(value = "/403", method = RequestMethod.GET)
     public String accessDenied(Model model, Principal principal) {
-
         if (principal != null) {
             User loginedUser = (User) ((Authentication) principal).getPrincipal();
 

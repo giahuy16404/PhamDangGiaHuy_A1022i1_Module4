@@ -26,10 +26,10 @@
             <div id="content-boxOnDay-blog">
                 <div id="content-box">
                     <a th:href="@{/blog/addView/__${list.getIdBlog()}__/__${list.getStatusBlog().getIdStatusBlog()}__}">
-                    <div id="title">
-                        <strong>Title : </strong> <strong th:text="${list.title}"></strong><br>
-                        <strong>Thể loại : </strong> <strong th:text="${list.category.name}"></strong><br>
-                    </div>
+                        <div id="title">
+                            <strong>Title : </strong> <strong th:text="${list.title}"></strong><br>
+                            <strong>Thể loại : </strong> <strong th:text="${list.category.name}"></strong><br>
+                        </div>
                     </a>
                     <div id="description">
                         <span th:text="${list.description}"></span>
@@ -68,13 +68,14 @@
                         </div>
                     </div>
                 </div>
-                <!--                </a>-->
             </div>
         </div>
-        <a th:if="${blogPage.hasPrevious()}" th:href="@{/blog/list(page=${blogPage.number -1},category=${category},valueSearch=${valueSearch})}">Previous</a>
-            <span th:text="${blogPage.number +1}"></span>
-            <span th:text="${blogPage.totalPages}"></span>
-        <a th:if="${blogPage.hasNext()}" th:href="@{/blog/list(page=${blogPage.number +1},category=${category},valueSearch=${valueSearch})}">Next</a>
+        <a th:if="${blogPage.hasPrevious()}"
+           th:href="@{/blog/list(page=${blogPage.number -1},category=${category},valueSearch=${valueSearch})}">Previous</a>
+        <span th:text="${blogPage.number +1}"></span>
+        <span th:text="${blogPage.totalPages}"></span>
+        <a th:if="${blogPage.hasNext()}"
+           th:href="@{/blog/list(page=${blogPage.number +1},category=${category},valueSearch=${valueSearch})}">Next</a>
     </div>
     <div id="main-ads-right"></div>
 </div>

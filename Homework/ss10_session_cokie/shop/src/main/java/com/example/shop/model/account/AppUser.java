@@ -3,7 +3,7 @@ package com.example.shop.model.account;
 import javax.persistence.*;
 
 @Entity
-public class App_User {
+public class AppUser {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
@@ -13,12 +13,12 @@ public class App_User {
     private String username;
     private String password;
 
-    public App_User(long id, String username, String password) {
+    public AppUser(long id, String username, String password) {
         this.id = id;
         this.username = username;
         this.password = password;
     }
-    public App_User() {
+    public AppUser() {
     }
     public long getId() {
         return id;
