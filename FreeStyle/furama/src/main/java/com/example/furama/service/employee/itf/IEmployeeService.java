@@ -17,7 +17,8 @@ public interface IEmployeeService{
     List<EducationDegree> findEducation();
     List<Position> findPosition();
     List<Division> findDivision();
-    Page<Employee> findAll(Pageable pageable);
+    List<Employee> findAll();
+    Page<Employee> findPage(Pageable pageable);
 
     Page<Employee> searchByName(Pageable pageable, String name);
 

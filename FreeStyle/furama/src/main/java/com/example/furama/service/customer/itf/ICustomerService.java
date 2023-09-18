@@ -9,12 +9,13 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 public interface ICustomerService {
-    Page<Customer> findAll(Pageable pageable);
+    Page<Customer> findPage(Pageable pageable);
 
     List<CustomerType> findCustomerType();
-    boolean add(Customer customer);
+    List<Customer> getList();
+    Customer add(Customer customer);
     boolean remove(Long id);
-    boolean update(Customer customer);
+    Customer update(Customer customer);
     Page<Customer> findByName(Pageable pageable,String name);
     List<Customer> getCustomer();
     Customer findById(Long id);

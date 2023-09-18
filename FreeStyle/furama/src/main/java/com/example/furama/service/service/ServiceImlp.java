@@ -33,25 +33,29 @@ public class ServiceImlp implements IService {
     }
 
     @Override
-    public boolean add(com.example.furama.model.service.Service service) {
-        try{
-            iServiceRepository.save(service);
-            return true;
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return false;
+    public List<com.example.furama.model.service.Service> getList() {
+        return iServiceRepository.findAll();
     }
 
     @Override
-    public boolean update(com.example.furama.model.service.Service service) {
+    public com.example.furama.model.service.Service add(com.example.furama.model.service.Service service) {
         try{
-            iServiceRepository.save(service);
-            return true;
+            return  iServiceRepository.save(service);
         }catch (Exception e){
             e.printStackTrace();
         }
-        return false;
+        return null;
+    }
+
+    @Override
+    public com.example.furama.model.service.Service update(com.example.furama.model.service.Service service) {
+        try{
+
+            return iServiceRepository.save(service);
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
 
     @Override
@@ -72,5 +76,17 @@ public class ServiceImlp implements IService {
     @Override
     public com.example.furama.model.service.Service findById(Long id) {
         return iServiceRepository.findById(id).get();
+    }
+    @Override
+    public boolean delete(Long id) {
+        try {
+            iServiceRepository.deleteContractByService(id);
+            iServiceRepository.deleteService(id);
+            return true;
+        }catch (Exception e){
+            System.out.println(e);
+            return false;
+        }
+
     }
 }

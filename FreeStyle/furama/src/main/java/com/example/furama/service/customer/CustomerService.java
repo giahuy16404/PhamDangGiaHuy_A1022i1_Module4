@@ -5,6 +5,7 @@ import com.example.furama.model.customer.CustomerType;
 import com.example.furama.repository.customer.ICustomerRepository;
 import com.example.furama.repository.customer.ICustomerTypeRepository;
 import com.example.furama.service.customer.itf.ICustomerService;
+import com.example.furama.util.FormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -21,8 +22,12 @@ public class CustomerService implements ICustomerService {
     private ICustomerRepository iCustomerRepository;
 
     @Override
-    public Page<Customer> findAll(Pageable pageable) {
-        return iCustomerRepository.findAll(pageable);
+    public Page<Customer> findPage(Pageable pageable) {
+        Page<Customer> listCustomer = iCustomerRepository.findAll(pageable);
+        for (Customer c:listCustomer) {
+            c.setBirthDay(FormatDate.formatDate(c.getBirthDay()));
+        }
+        return listCustomer;
     }
 
     @Override
@@ -31,19 +36,25 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public boolean add(Customer customer) {
+    public List<Customer> getList() {
+        return iCustomerRepository.findAll();
+    }
+
+    @Override
+    public Customer add(Customer customer) {
         try {
-            iCustomerRepository.save(customer);
+           return iCustomerRepository.save(customer);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
     public boolean remove(Long id) {
         try {
-            iCustomerRepository.deleteById(id);
+            iCustomerRepository.deleteCustomer(id);
+            iCustomerRepository.deleteContractByCustomer(id);
             return true;
         } catch (Exception e) {
             e.printStackTrace();
@@ -52,13 +63,13 @@ public class CustomerService implements ICustomerService {
     }
 
     @Override
-    public boolean update(Customer customer) {
+    public Customer update(Customer customer) {
         try {
-            iCustomerRepository.save(customer);
+         return    iCustomerRepository.save(customer);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override

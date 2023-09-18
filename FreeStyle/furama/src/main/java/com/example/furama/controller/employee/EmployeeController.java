@@ -1,8 +1,9 @@
 package com.example.furama.controller.employee;
 
-import com.example.furama.dto.employeeDto.EmployeeDTO;
+import com.example.furama.dto.employeeDto.EmployeeDto;
 import com.example.furama.model.employee.AppUser;
 import com.example.furama.model.employee.Employee;
+import com.example.furama.service.contract.itf.IContractService;
 import com.example.furama.service.employee.itf.IEmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,13 +16,18 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
 @RequestMapping("/employee")
+
 public class EmployeeController {
     @Autowired
     private IEmployeeService iEmployeeService;
+
+    @Autowired
+    private IContractService iContractService;
 
     @GetMapping("")
     public String showList(@RequestParam(defaultValue = "0") int page,
@@ -29,10 +35,10 @@ public class EmployeeController {
                            @RequestParam(defaultValue = "") String valueSearch,
                            Model model
     ) {
-        Pageable pageable = PageRequest.of(page, 3);
+        Pageable pageable = PageRequest.of(page, 4);
         Page<Employee> employeePage;
         if (valueSearch.equals("")) {
-            employeePage = iEmployeeService.findAll(pageable);
+            employeePage = iEmployeeService.findPage(pageable);
         } else {
             employeePage = iEmployeeService.searchByName(pageable, valueSearch);
         }
@@ -52,7 +58,7 @@ public class EmployeeController {
 
     @GetMapping("/add")
     public String add(Model model) {
-        model.addAttribute("employeeDto", new EmployeeDTO());
+        model.addAttribute("employeeDto", new EmployeeDto());
         model.addAttribute("position", iEmployeeService.findPosition());
         model.addAttribute("division", iEmployeeService.findDivision());
         model.addAttribute("education", iEmployeeService.findEducation());
@@ -60,15 +66,15 @@ public class EmployeeController {
     }
 
     @PostMapping("/add")
-    public String add(@ModelAttribute EmployeeDTO employeeDTO,
+    public String add( @ModelAttribute EmployeeDto employeeDto,
                       BindingResult bindingResult,
                       RedirectAttributes redirectAttributes) {
-        new EmployeeDTO().validate(employeeDTO, bindingResult);
+        new EmployeeDto().validate(employeeDto, bindingResult);
         if (bindingResult.hasErrors()) {
             return "employee/add";
         }
         Employee employee = new Employee();
-        BeanUtils.copyProperties(employeeDTO, employee);
+        BeanUtils.copyProperties(employeeDto, employee);
         AppUser appUser = new AppUser();
         appUser.setUserName("Huy");
         appUser.setPassWord("123");
@@ -94,6 +100,7 @@ public class EmployeeController {
 
     @PostMapping("/remove")
     public String remove(@RequestParam List<Long> idRemove) {
+
         for (Long id : idRemove) {
             iEmployeeService.remove(id);
         }

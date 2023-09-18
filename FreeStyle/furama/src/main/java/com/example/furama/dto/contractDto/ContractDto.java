@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 
 public class ContractDto implements Validator {
     private long id;
-    private String starDate;
+    private String startDate;
     private String endDate;
     private double deposit;
     private double totalMoney;
@@ -26,7 +26,7 @@ public class ContractDto implements Validator {
 
     public ContractDto(long id, String starDate, String endDate, double deposit, double totalMoney, Employee employee, Customer customer, Service service) {
         this.id = id;
-        this.starDate = starDate;
+        this.startDate = starDate;
         this.endDate = endDate;
         this.deposit = deposit;
         this.totalMoney = totalMoney;
@@ -44,11 +44,11 @@ public class ContractDto implements Validator {
     }
 
     public String getStarDate() {
-        return starDate;
+        return startDate;
     }
 
     public void setStarDate(String starDate) {
-        this.starDate = starDate;
+        this.startDate = starDate;
     }
 
     public String getEndDate() {

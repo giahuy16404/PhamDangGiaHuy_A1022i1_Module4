@@ -82,10 +82,10 @@
     </div>
 </div>
 <div id="paginate">
-    <a th:if="${customerPage.hasPrevious()}" th:href="@{/customer(page = ${customerPage.number - 1})}"></a>
+    <a th:if="${customerPage.hasPrevious()}" th:href="@{/customer(page = ${customerPage.number - 1})}">Lùi</a>
     <span th:text="${customerPage.number + 1}"></span>
     <span th:text="${customerPage.totalPages}"></span>
-    <a th:if="${customerPage.hasNext()}" th:href="@{/customer(page = ${customerPage.number + 1})}"></a>
+    <a th:if="${customerPage.hasNext()}" th:href="@{/customer(page = ${customerPage.number + 1})}">Next</a>
 </div>
 </body>
 </html>

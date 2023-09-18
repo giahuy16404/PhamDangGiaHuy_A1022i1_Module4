@@ -102,6 +102,7 @@ public class CustomerDto implements Validator {
         this.address = address;
     }
 
+
     @Override
     public boolean supports(Class<?> clazz) {
         return false;
@@ -109,6 +110,21 @@ public class CustomerDto implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-
+        CustomerDto customerDto = (CustomerDto) target;
+        if (customerDto.getName().isEmpty()) {
+            errors.rejectValue("name", null, "tên không được để trống!");
+        } else if (!customerDto.getName().matches("^[A-Z][a-z]*( [A-Z][a-z]*)*$")) {
+            errors.rejectValue("name", null, "tên đúng định dạng!");
+        }
+        if (customerDto.getPhone().isEmpty()) {
+            errors.rejectValue("phone", null, "SDT không đúng định dạng!");
+        } else if (!customerDto.getPhone().matches("(090|091|\\+8490|\\+8491)\\d{7}$")) {
+            errors.rejectValue("phone", null, "SDT không đúng định dạng!");
+        }
+        if (customerDto.getEmail().isEmpty()) {
+            errors.rejectValue("email", null, "Email không đưuọc để trống!");
+        } else if (!customerDto.getEmail().matches("^[a-z0-9]+@gmail\\.com$")) {
+            errors.rejectValue("email", null, "Email không đúng định dạng!");
+        }
     }
 }

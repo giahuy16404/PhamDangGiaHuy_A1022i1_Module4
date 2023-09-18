@@ -11,8 +11,8 @@ import org.springframework.data.repository.query.Param;
 import java.util.List;
 
 public interface IContractService {
-    boolean add(Contract contract);
-    Page<Contract> findAll(Pageable pageable);
+    Contract add(Contract contract);
+    Page<Contract> findPage(Pageable pageable);
     List<AttachService> findAttach();
 
     boolean addContractDetail(ContractDetail contractDetail);

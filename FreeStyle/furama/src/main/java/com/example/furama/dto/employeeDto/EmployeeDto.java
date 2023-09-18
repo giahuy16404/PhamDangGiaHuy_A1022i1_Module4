@@ -7,11 +7,9 @@ import com.example.furama.model.employee.Position;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-public class EmployeeDTO implements Validator {
+public class EmployeeDto implements Validator {
     private long id;
-
     private String name;
-
     private String birthDay;
     private String idCard;
     private double salary;
@@ -27,7 +25,7 @@ public class EmployeeDTO implements Validator {
 
     private AppUser appUser;
 
-    public EmployeeDTO(long id, String name, String birthDay, String idCard,
+    public EmployeeDto(long id, String name, String birthDay, String idCard,
                        double salary, String phone, String email, String address,
                        Position position, EducationDegree educationDegree, Division division, AppUser appUser) {
         this.id = id;
@@ -44,7 +42,7 @@ public class EmployeeDTO implements Validator {
         this.appUser = appUser;
     }
 
-    public EmployeeDTO() {
+    public EmployeeDto() {
     }
 
     public long getId() {
@@ -150,10 +148,9 @@ public class EmployeeDTO implements Validator {
 
     @Override
     public void validate(Object target, Errors errors) {
-        EmployeeDTO employeeDTO = (EmployeeDTO) target;
-
-        if (employeeDTO.getName().isEmpty()){
-            errors.rejectValue("name",null,"Không được để trống");
+        EmployeeDto employeeDTO = (EmployeeDto) target;
+        if (employeeDTO.getName().isEmpty()) {
+            errors.rejectValue("name", null, "Không được để trống");
         }
     }
 }

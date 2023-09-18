@@ -9,11 +9,11 @@ import com.example.furama.repository.employee.IEducationRepository;
 import com.example.furama.repository.employee.IEmployeeRepository;
 import com.example.furama.repository.employee.IPositionRepository;
 import com.example.furama.service.employee.itf.IEmployeeService;
+import com.example.furama.util.FormatDate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -79,8 +79,16 @@ public class employeeService implements IEmployeeService {
     }
 
     @Override
-    public Page<Employee> findAll(Pageable pageable) {
-        return iEmployeeRepository.findAll(pageable);
+    public List<Employee> findAll() {
+        return iEmployeeRepository.findAll();
+    }
+    @Override
+    public Page<Employee> findPage(Pageable pageable) {
+        Page<Employee> employeePage = iEmployeeRepository.findAll(pageable);
+        for (Employee e:employeePage) {
+            e.setBirthDay(FormatDate.formatDate(e.getBirthDay()));
+        }
+        return employeePage ;
     }
 
     @Override

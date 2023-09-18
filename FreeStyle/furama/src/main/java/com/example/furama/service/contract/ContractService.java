@@ -7,6 +7,8 @@ import com.example.furama.repository.contract.IAttachRepository;
 import com.example.furama.repository.contract.IContractDetailRepository;
 import com.example.furama.repository.contract.IContractRepository;
 import com.example.furama.service.contract.itf.IContractService;
+import com.example.furama.util.FormatDate;
+import com.example.furama.util.FormatDateTime;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -24,19 +26,23 @@ public class ContractService implements IContractService {
     private IAttachRepository iAttachRepository;
 
     @Override
-    public boolean add(Contract contract) {
+    public Contract add(Contract contract) {
         try {
             Contract a = iContractRepository.save(contract);
-            return true;
+            return a;
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return false;
+        return null;
     }
 
     @Override
-    public Page<Contract> findAll(Pageable pageable) {
-        return iContractRepository.findAll(pageable);
+    public Page<Contract> findPage(Pageable pageable) {
+        Page<Contract> contract = iContractRepository.findAll(pageable);
+        for (Contract c:contract) {
+            c.setStarDate(FormatDateTime.formatDateTime(c.getStarDate()));
+        }
+        return contract;
     }
 
     @Override

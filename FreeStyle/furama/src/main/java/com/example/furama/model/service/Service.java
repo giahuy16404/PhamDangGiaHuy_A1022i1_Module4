@@ -23,12 +23,13 @@ public class Service {
     private String descriptionConvenience;
     private double poolArea;
     private int numberOfFloors;
+    private String imgLink;
 
     public Service() {
     }
 
     public Service(long id, String name, int area, double cost, int maxPeople,
-                   RentType rentType, ServiceType serviceType, String standardRoom, String descriptionConvenience, double poolArea, int numberOfFloors) {
+                   RentType rentType, ServiceType serviceType, String standardRoom, String descriptionConvenience, double poolArea, int numberOfFloors,String imgLink) {
         this.id = id;
         this.name = name;
         this.area = area;
@@ -40,6 +41,15 @@ public class Service {
         this.descriptionConvenience = descriptionConvenience;
         this.poolArea = poolArea;
         this.numberOfFloors = numberOfFloors;
+        this.imgLink = imgLink;
+    }
+
+    public String getImgLink() {
+        return imgLink;
+    }
+
+    public void setImgLink(String imgLink) {
+        this.imgLink = imgLink;
     }
 
     public long getId() {

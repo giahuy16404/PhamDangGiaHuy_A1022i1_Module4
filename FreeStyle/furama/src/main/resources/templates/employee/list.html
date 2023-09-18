@@ -20,6 +20,7 @@
     <thead>
     <tr>
         <th scope="col">STT</th>
+        <th scope="col">Code</th>
         <th scope="col">Name</th>
         <th scope="col">Salary</th>
         <th scope="col">CCCD</th>
@@ -37,7 +38,7 @@
     <form th:action="@{/employee/remove}" method="post">
         <tr th:each="e,status:${employeePage}">
             <th scope="row" th:text="${status.index + 1}" style="font-size: 14px"></th>
-            <td th:text="${e.name}" style="display: none"></td>
+            <td >KH-<span th:text="${e.id}" style="font-size: 14px"></span></td>
             <td th:text="${e.name}" style="font-size: 14px"></td>
             <td th:text="${e.salary}" style="font-size: 14px"></td>
             <td th:text="${e.idCard}" style="font-size: 14px"></td>
@@ -91,12 +92,11 @@
 
 
 <div id="paginate">
-    <a th:if="${employeePage.hasPrevious()}"
+    <a th:if="${employeePage}"
        th:href="@{/employee(page = ${employeePage.number - 1},valueSearch = ${valueSearch})}">Previous</a>
     <span th:text="${employeePage.number + 1}"></span>
     /<span th:text="${employeePage.totalPages}"></span>
-    <a th:if="${employeePage.hasNext()}"
-       th:href="@{/employee(page = ${employeePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
+    <a th:if="${employeePage}" th:href="@{/employee(page = ${employeePage.number + 1},valueSearch = ${valueSearch})}">Next</a>
 </div>
 </body>
 </html>

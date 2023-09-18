@@ -1,10 +1,50 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>$Title$</title>
+  <title>Title</title>
 </head>
 <body>
-$END$
+<div th:insert="~{header :: header}"></div>
+<h2 style="text-align: center">Detail</h2>
+
+<form class="d-flex" th:action="@{/customer}" role="search">
+  <input class="form-control me-2" type="search" placeholder="Search" name="valueSearch" aria-label="Search"
+         style="width: 300px;margin: auto">
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">Code</th>
+    <th scope="col">Ten du an</th>
+    <th scope="col">ten doanh nghiep</th>
+    <th scope="col">so dien thoai</th>
+    <th scope="col">email</th>
+    <th scope="col">kinh phi yeu cau</th>
+    <th scope="col">thoi gian dang ky</th>
+    <th scope="col">ngay dang ky</th>
+    <th scope="col">chi phi</th>
+
+  </tr>
+  </thead>
+  <tbody>
+  <!--    <form th:action="@{/customer/remove}" method="post">-->
+  <tr >
+    <td style="font-size: 14px" th:text="${duAnDetail.code}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.tenDuAn}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.doanhNghiep.name}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.doanhNghiep.phone}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.doanhNghiep.email}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.kinhPhiYeuCau}"></td>
+    <td > <span style="font-size: 14px" th:text="${duAnDetail.thoiGianDangKy}"></span> thang</td>
+    <td style="font-size: 14px" th:text="${duAnDetail.ngayDangKy}"></td>
+    <td style="font-size: 14px" th:text="${duAnDetail.chiPhi}"></td>
+    <!--            <td style="font-size: 14px" th:text="${c.c}"></td>-->
+      |
+  </tr>
+
+  </tbody>
+</table>
 </body>
 </html>

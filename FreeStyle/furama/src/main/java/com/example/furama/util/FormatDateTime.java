@@ -1,16 +1,14 @@
 package com.example.furama.util;
 
-import javafx.scene.control.DatePicker;
-
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class FormatDate {
-    public static String formatDate(String date){
-        LocalDate parsedDate = LocalDate.parse(date, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
-        return parsedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy"));
+public class FormatDateTime {
+    public static String formatDateTime(String dateTime) {
+        LocalDateTime parsedDateTime = LocalDateTime.parse(dateTime, DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+        return parsedDateTime.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
     }
-
 //    int number1 = 123;
 //    int number2 = 4567;
 //

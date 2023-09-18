@@ -14,6 +14,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,7 +32,7 @@ public class CustomerController {
         Pageable pageable = PageRequest.of(page, 3);
         Page<Customer> customerPage;
         if (valueSearch.equals("")) {
-            customerPage = iCustomerService.findAll(pageable);
+            customerPage = iCustomerService.findPage(pageable);
         } else {
             customerPage = iCustomerService.findByName(pageable, valueSearch);
         }
@@ -47,23 +48,23 @@ public class CustomerController {
         return "customer/add";
     }
 
-    @PostMapping("/add")
-    public String add(@ModelAttribute CustomerDto customerDto,
-                      BindingResult bindingResult, RedirectAttributes redirectAttributes
-    ) {
-        new CustomerDto().validate(customerDto, bindingResult);
-        if (bindingResult.hasErrors()) {
-            return "customer/add";
-        }
-        Customer customer = new Customer();
-        BeanUtils.copyProperties(customerDto, customer);
-        if (iCustomerService.add(customer)) {
-            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới thành công!");
-        } else {
-            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới không thành công!");
-        }
-        return "redirect:/customer";
-    }
+//    @PostMapping("/add")
+//    public String add(@Valid @ModelAttribute CustomerDto customerDto,
+//                      BindingResult bindingResult, RedirectAttributes redirectAttributes
+//    ) {
+//        new CustomerDto().validate(customerDto, bindingResult);
+//        if (bindingResult.hasErrors()) {
+//            return "customer/add";
+//        }
+//        Customer customer = new Customer();
+//        BeanUtils.copyProperties(customerDto, customer);
+//        if (iCustomerService.add(customer)) {
+//            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới thành công!");
+//        } else {
+//            redirectAttributes.addFlashAttribute("successCreate", "Thêm mới không thành công!");
+//        }
+//        return "redirect:/customer";
+//    }
 
     @GetMapping("/update/{id}")
     public String update(@PathVariable Long id, Model model) {

@@ -40,7 +40,7 @@ public class ContractController {
                            @RequestParam(defaultValue = "") String valueSearch,
                            Model model) {
         Pageable pageable = PageRequest.of(page, 5);
-        Page<Contract> contractPage = iContractService.findAll(pageable);
+        Page<Contract> contractPage = iContractService.findPage(pageable);
         model.addAttribute("contractPage", contractPage);
         return "contract/list";
     }
