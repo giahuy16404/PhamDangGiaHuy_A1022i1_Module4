@@ -1,7 +1,6 @@
-package com.example.furama.model.employee;
+package com.example.furama.model.account;
 
 import javax.persistence.*;
-
 @Entity
 public class AppRole {
     @Id
@@ -9,15 +8,15 @@ public class AppRole {
     @Column(name = "role_id")
     private long id;
     private String name;
+    public AppRole() {
+    }
+
 
     public AppRole(long id, String name) {
         this.id = id;
         this.name = name;
-
     }
 
-    public AppRole() {
-    }
 
     public long getId() {
         return id;

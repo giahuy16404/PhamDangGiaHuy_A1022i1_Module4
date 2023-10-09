@@ -1,6 +1,6 @@
 package com.example.furama.dto.employeeDto;
 
-import com.example.furama.model.employee.AppUser;
+import com.example.furama.model.account.AppUser;
 import com.example.furama.model.employee.Division;
 import com.example.furama.model.employee.EducationDegree;
 import com.example.furama.model.employee.Position;

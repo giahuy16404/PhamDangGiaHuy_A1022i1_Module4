@@ -1,5 +1,7 @@
 package com.example.furama.model.employee;
 
+import com.example.furama.model.account.AppUser;
+
 import javax.persistence.*;
 
 @Entity
@@ -32,7 +34,7 @@ public class Employee {
     private Division division;
 
     @ManyToOne
-    @JoinColumn(name = "userName", nullable = false, referencedColumnName = "userName")
+    @JoinColumn(name = "username", nullable = false, referencedColumnName = "username")
     private AppUser appUser;
 
     public Employee() {

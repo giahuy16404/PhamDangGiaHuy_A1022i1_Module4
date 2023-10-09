@@ -1,4 +1,4 @@
-package com.example.furama.model.employee;
+package com.example.furama.model.account;
 
 import javax.persistence.*;
 
@@ -6,16 +6,17 @@ import javax.persistence.*;
 public class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "user_role_id")
-    private long id;
+    @Column(name = "userRole_Id")
+    private Long id;
+
     @ManyToOne
     @JoinColumn(name = "role_id", nullable = false, referencedColumnName = "role_id")
     private AppRole appRole;
     @ManyToOne
-    @JoinColumn(name = "userName", nullable = false, referencedColumnName = "userName")
+    @JoinColumn(name = "user_id", nullable = false, referencedColumnName = "user_id")
     private AppUser appUser;
 
-    public UserRole(long id, AppRole appRole, AppUser appUser) {
+    public UserRole(Long id, AppRole appRole, AppUser appUser) {
         this.id = id;
         this.appRole = appRole;
         this.appUser = appUser;
@@ -24,11 +25,11 @@ public class UserRole {
     public UserRole() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -50,9 +51,8 @@ public class UserRole {
 
     @Override
     public String toString() {
-        return "UserRole{" +
-                "id=" + id +
-                ", role=" + appRole +
+        return "UserRoleKey{" +
+                "role=" + appRole +
                 ", user=" + appUser +
                 '}';
     }
